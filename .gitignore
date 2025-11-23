@@ -1,0 +1,15 @@
+# code editors
+.idea/
+.vscode/
+.DS_Store
+
+# builds
+.xmake/
+build/
+.cache/
+makefile
+build.ninja
+CMakeLists.txt
+compile_commands.json
+compile_flags.txt
+vs*/
