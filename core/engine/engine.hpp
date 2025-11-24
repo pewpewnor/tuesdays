@@ -27,9 +27,15 @@ public:
 
     void pushStartupStep(const std::shared_ptr<engine::StartupStep>& step);
 
+    void extendStartupSteps(const std::vector<std::shared_ptr<engine::StartupStep>>& steps);
+
     void pushRenderStep(const std::shared_ptr<engine::RenderStep>& step);
 
+    void extendRenderSteps(const std::vector<std::shared_ptr<engine::RenderStep>>& steps);
+
     void pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& step);
+
+    void extendShutdownSteps(const std::vector<std::shared_ptr<engine::ShutdownStep>>& steps);
 
     void sendStopSignal();
 
