@@ -12,7 +12,7 @@
 #include <stdexcept>
 #include <string>
 
-#define ASSERT(condition, message)
+#define ASSERT(condition, message) assert((condition) && (message))
 
 #define ASSERT_HARD(condition, message)                            \
     do {                                                           \

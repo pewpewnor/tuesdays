@@ -2,15 +2,15 @@
 
 #include <imgui.h>
 
-class StyleCounter {
+class StylesScoped {
 public:
-    StyleCounter() = default;
-    StyleCounter(const StyleCounter&) = delete;
-    StyleCounter(StyleCounter&&) = delete;
-    StyleCounter& operator=(const StyleCounter&) = delete;
-    StyleCounter& operator=(StyleCounter&&) = delete;
+    StylesScoped() = default;
+    StylesScoped(const StylesScoped&) = delete;
+    StylesScoped(StylesScoped&&) = delete;
+    StylesScoped& operator=(const StylesScoped&) = delete;
+    StylesScoped& operator=(StylesScoped&&) = delete;
 
-    ~StyleCounter();
+    ~StylesScoped();
 
     void pushStyleVar(ImGuiStyleVar styleVar, float value);
 
