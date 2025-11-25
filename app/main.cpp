@@ -24,7 +24,7 @@ int main() {
     std::signal(SIGTERM, handleStopSignal);
     std::signal(SIGINT, handleStopSignal);
 
-#ifndef NDEBUG
+#ifdef DEBUG
     spdlog::set_level(spdlog::level::debug);
 #else
     spdlog::set_level(spdlog::level::info);

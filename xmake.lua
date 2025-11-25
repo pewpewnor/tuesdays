@@ -2,23 +2,25 @@ set_languages("c++23")
 set_warnings("allextra", "pedantic", "error")
 set_toolchains("clang")
 set_runtimes("c++_static")
+set_kind("static")
 
 add_rules("mode.debug", "mode.release")
 if is_mode("debug") then
 	set_policy("build.sanitizer.address", true)
 	set_policy("build.sanitizer.undefined", true)
 	set_policy("build.sanitizer.leak", true)
+    add_defines("DEBUG")
 elseif is_mode("debug_tsan") then
 	set_policy("build.sanitizer.thread", true)
+    add_defines("DEBUG")
 end
 
-add_requires("imgui-sfml 3.0.0")
+add_requires("imgui-sfml")
 add_requires("spdlog")
 
 includes("core")
 
 target("tuesdays-core")
-    set_kind("static")
     add_includedirs("core", { public = true })
     add_deps(
         "tuesdays-core-utils",
@@ -27,6 +29,7 @@ target("tuesdays-core")
         "tuesdays-core-globals",
         "tuesdays-core-lifetimes",
         "tuesdays-core-keys",
+        "tuesdays-core-layers",
         "tuesdays-core-tasks"
     )
 

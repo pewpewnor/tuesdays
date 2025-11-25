@@ -4,6 +4,7 @@
 #include <spdlog/spdlog.h>
 
 #include "globals/engine_state.hpp"
+#include "imgui.h"
 
 SurfaceLifetime::SurfaceLifetime(const std::string& title, int width, int height)
     : title_(title), width_(width), height_(height) {}
@@ -20,7 +21,7 @@ void SurfaceLifetime::onStartup() {
         throw std::runtime_error("failed to initialize imgui-sfml");
     }
     imguiInitialized_ = true;
-    spdlog::debug("Window & ImGui initialized...");
+    spdlog::debug("Window & ImGui initialized");
 
     ImGui::StyleColorsDark();
 }

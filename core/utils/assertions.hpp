@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef NDEBUG
+#ifdef DEBUG
 #include <cassert>
 
 #define ASSERT(condition, message) assert((condition) && (message))
