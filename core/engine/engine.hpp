@@ -9,7 +9,6 @@
 #include <mutex>
 #include <vector>
 
-#include "engine/engine_config.hpp"
 #include "render_step.hpp"
 #include "shutdown_step.hpp"
 #include "startup_step.hpp"
@@ -18,10 +17,8 @@ namespace engine {
 
 class Engine {
 public:
-    engine::EngineConfig engineConfig;
     std::shared_ptr<sf::RenderWindow> window;
-
-    Engine(const engine::EngineConfig& engineConfig);
+    std::atomic<bool> renderOnIdle = false;
 
     void runContinously();
 

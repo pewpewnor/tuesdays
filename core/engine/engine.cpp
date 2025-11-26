@@ -7,7 +7,6 @@
 #include <ranges>
 #include <stdexcept>
 
-#include "engine/engine_config.hpp"
 #include "utils/assertions.hpp"
 #include "utils/scopes/scope_exit.hpp"
 
@@ -16,8 +15,6 @@ namespace {
 constexpr sf::Time fpsToTimePerFrame(int fps) { return sf::milliseconds(1000 / fps); }
 
 }
-
-engine::Engine::Engine(const engine::EngineConfig& engineConfig) : engineConfig(engineConfig) {}
 
 void engine::Engine::runContinously() {
     bool expected = false;
@@ -98,10 +95,10 @@ void engine::Engine::renderFramesContinously() {
         if (refresh) {
             renderFrame();
             elapsed = clock.getElapsedTime();
-            desiredDuration = fpsToTimePerFrame(engineConfig.activeFps);
+            desiredDuration = fpsToTimePerFrame(60);
         } else {
             elapsed = clock.getElapsedTime();
-            desiredDuration = fpsToTimePerFrame(engineConfig.idleFps);
+            desiredDuration = fpsToTimePerFrame(20);
         }
         if (sf::Time sleepTime = desiredDuration - elapsed; sleepTime > sf::Time::Zero) {
             sf::sleep(sleepTime);
@@ -112,7 +109,7 @@ void engine::Engine::renderFramesContinously() {
 
 bool engine::Engine::processEvents() {
     bool hasFocus = window->hasFocus();
-    bool refresh = engineConfig.insistRenderMode;
+    bool refresh = renderOnIdle;
     bool refreshNeedsTrailing = false;
 
     if (triggerTrailingRefresh_) {

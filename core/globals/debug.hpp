@@ -1,6 +1,6 @@
+#ifdef DEBUG
 #pragma once
 
-#ifdef DEBUG
 #include <memory>
 
 namespace g {

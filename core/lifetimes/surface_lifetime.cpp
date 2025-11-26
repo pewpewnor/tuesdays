@@ -4,7 +4,6 @@
 #include <spdlog/spdlog.h>
 
 #include "globals/engine_state.hpp"
-#include "imgui.h"
 
 SurfaceLifetime::SurfaceLifetime(const std::string& title, int width, int height)
     : title_(title), width_(width), height_(height) {}
@@ -22,8 +21,6 @@ void SurfaceLifetime::onStartup() {
     }
     imguiInitialized_ = true;
     spdlog::debug("Window & ImGui initialized");
-
-    ImGui::StyleColorsDark();
 }
 
 void SurfaceLifetime::onShutdown() {

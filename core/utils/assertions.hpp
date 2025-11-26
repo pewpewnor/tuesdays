@@ -1,18 +1,18 @@
 #pragma once
 
-#ifdef DEBUG
 #include <cassert>
 
 #define ASSERT(condition, message) assert((condition) && (message))
+
+#ifdef DEBUG
 #define ASSERT_HARD(condition, message) ASSERT(condition, message)
+
 #define ASSERT_SOFT(condition, message) ASSERT(condition, message)
 #else
 #include <spdlog/spdlog.h>
 
 #include <stdexcept>
 #include <string>
-
-#define ASSERT(condition, message) assert((condition) && (message))
 
 #define ASSERT_HARD(condition, message)                            \
     do {                                                           \
