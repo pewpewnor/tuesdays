@@ -26,3 +26,7 @@ bool CombinedKeyPressDetector::combineKeyPressAndKeyHeld(bool state) {
     }
     return state;
 }
+
+bool CombinedKeyPressDetector::combineKeyHelds() {
+    return keyDetector1_.isBeingHeld() || keyDetector2_.isBeingHeld();
+}

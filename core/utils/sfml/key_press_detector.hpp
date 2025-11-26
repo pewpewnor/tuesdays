@@ -10,46 +10,27 @@ public:
     KeyPressDetector(sf::Keyboard::Key key);
 
     /**
-     *  @brief use this for a single state to be related to multiple keys
-     *  @code showWindow = KeyPressDetector::combineKeyPresses(k1, k2,
-     *  showWindow);
-     */
-    static bool combineKeyPresses(KeyPressDetector& keyDetector1, KeyPressDetector& keyDetector2,
-                                  bool state);
-
-    /**
-     *  @brief use this for a single state to be related to multiple keys
-     *  @code showWindow = KeyPressDetector::combineKeyPressAndKeyHeld(k1,
-     *  k2, showWindow);
-     */
-    static bool combineKeyPressAndKeyHeld(KeyPressDetector& keyDetector1,
-                                          KeyPressDetector& keyDetector2, bool state);
-
-    /**
-     *  @brief use this for a single state to be related to multiple keys
-     *  @code showWindow = KeyPressDetector::combineKeyHelds(k1, k2);
-     */
-    static bool combineKeyHelds(KeyPressDetector& keyDetector1, KeyPressDetector& keyDetector2);
-
-    /**
-     *  @brief a single state should only be related to one key
-     *  @code if (keyDetector.isPressed()) { showWindow = !showWindow; }
-     *  @return true if the key has been pressed.
+     * A single state should only be related to one key.
+     * Returns true if the key has been pressed.
+     * Example:
+     * if (keyDetector.isPressed()) { showWindow = !showWindow; }
      */
     bool hasBeenPressed();
 
     /**
-     *  @brief a single state should only be related to one key
-     *  @code showWindow = keyDetector.isBeingHeld();
-     *  @return true if the key is currently being held down.
+     * A single state should only be related to one key.
+     * Returns true if the key is currently being held down.
+     * Example:
+     * showWindow = keyDetector.isBeingHeld();
      */
     bool isBeingHeld();
 
-    /**
-     *  @brief a single state should only be related to one key
-     *  @code if (keyDetector.hasStoppedBeingHeld()) { showWindow = false; }
-     *  else if (keyDetector.isBeingHeld()) { showWindow = false; }
-     *  @return true if the key has stopped being pressed / held
+    /*
+     * A single state should only be related to one key.
+     * Returns true if the key has stopped being pressed / held.
+     * Example:
+     * if (keyDetector.hasStoppedBeingHeld()) { showWindow = false; }
+     * else if (keyDetector.isBeingHeld()) { showWindow = false; }
      */
     bool hasStoppedBeingPressed();
 

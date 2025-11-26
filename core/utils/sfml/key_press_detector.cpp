@@ -2,10 +2,6 @@
 
 KeyPressDetector::KeyPressDetector(sf::Keyboard::Key key) : key_(key) {}
 
-bool combineKeyHelds(KeyPressDetector& keyDetector1, KeyPressDetector& keyDetector2) {
-    return keyDetector1.isBeingHeld() || keyDetector2.isBeingHeld();
-}
-
 bool KeyPressDetector::hasBeenPressed() { return getStatus() == KeyPressStatus::PressStart; }
 
 bool KeyPressDetector::isBeingHeld() {
