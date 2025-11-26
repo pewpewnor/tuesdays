@@ -24,19 +24,15 @@ public:
 
     void pushStartupStep(const std::shared_ptr<engine::StartupStep>& step);
 
-    void extendStartupSteps(const std::vector<std::shared_ptr<engine::StartupStep>>& steps);
-
     void pushRenderStep(const std::shared_ptr<engine::RenderStep>& step);
 
-    void extendRenderSteps(const std::vector<std::shared_ptr<engine::RenderStep>>& steps);
-
     void pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& step);
-
-    void extendShutdownSteps(const std::vector<std::shared_ptr<engine::ShutdownStep>>& steps);
 
     void sendStopSignal();
 
     void sendRefreshSignal();
+
+    void sendRestartSignal();
 
     void waitUntilStopped();
 
@@ -46,6 +42,7 @@ private:
     std::condition_variable runningCv_;
     std::atomic<bool> stopSignal_ = false;
     std::atomic<bool> refreshSignal_ = false;
+    std::atomic<bool> restartAfterShutdown_ = false;
 
     sf::Clock deltaClock_;
     bool triggerTrailingRefresh_ = true;

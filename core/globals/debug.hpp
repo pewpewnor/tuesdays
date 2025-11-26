@@ -6,6 +6,7 @@
 namespace g {
 
 struct DebugState {
+    unsigned int frameCount = 0;
     bool showImguiDemoWindow = false;
 };
 

@@ -21,9 +21,12 @@ void engine::Engine::runContinously() {
     if (!isRunning_.compare_exchange_strong(expected, true)) {
         throw std::runtime_error("engine is already running");
     }
-    ScopeExit scopeExit([this]() { shutdown(); });
-    startup();
-    renderFramesContinously();
+    do {
+        restartAfterShutdown_ = false;
+        ScopeExit scopeExit([this]() { shutdown(); });
+        startup();
+        renderFramesContinously();
+    } while (restartAfterShutdown_);
 }
 
 void engine::Engine::pushStartupStep(const std::shared_ptr<engine::StartupStep>& step) {
@@ -31,32 +34,14 @@ void engine::Engine::pushStartupStep(const std::shared_ptr<engine::StartupStep>&
     startupSteps_.push_back(step);
 }
 
-void engine::Engine::extendStartupSteps(
-    const std::vector<std::shared_ptr<engine::StartupStep>>& steps) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
-    startupSteps_.insert(std::end(startupSteps_), std::begin(steps), std::end(steps));
-}
-
 void engine::Engine::pushRenderStep(const std::shared_ptr<engine::RenderStep>& step) {
     ASSERT(!isRunning_, "only add step while engine is not running");
     renderSteps_.push_back(step);
 }
 
-void engine::Engine::extendRenderSteps(
-    const std::vector<std::shared_ptr<engine::RenderStep>>& steps) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
-    renderSteps_.insert(std::end(renderSteps_), std::begin(steps), std::end(steps));
-}
-
 void engine::Engine::pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& step) {
     ASSERT(!isRunning_, "only add step while engine is not running");
     shutdownSteps_.push_back(step);
-}
-
-void engine::Engine::extendShutdownSteps(
-    const std::vector<std::shared_ptr<engine::ShutdownStep>>& steps) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
-    shutdownSteps_.insert(std::end(shutdownSteps_), std::begin(steps), std::end(steps));
 }
 
 void engine::Engine::sendStopSignal() {
@@ -67,6 +52,12 @@ void engine::Engine::sendStopSignal() {
 void engine::Engine::sendRefreshSignal() {
     spdlog::debug("Sent refresh signal to engine...");
     refreshSignal_ = true;
+}
+
+void engine::Engine::sendRestartSignal() {
+    spdlog::debug("Sent restart signal to engine...");
+    restartAfterShutdown_ = true;
+    sendStopSignal();
 }
 
 void engine::Engine::waitUntilStopped() {

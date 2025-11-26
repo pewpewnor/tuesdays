@@ -14,5 +14,6 @@ public:
 private:
     CombinedKeyPressDetector f1Andf2Key_{KeyPressDetector{sf::Keyboard::Key::F1},
                                          KeyPressDetector{sf::Keyboard::Key::F2}};
+    KeyPressDetector f5Key_{sf::Keyboard::Key::F5};
 };
 #endif
