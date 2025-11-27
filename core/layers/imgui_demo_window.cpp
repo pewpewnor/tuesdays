@@ -3,7 +3,7 @@
 
 #include "globals/debug.hpp"
 
-bool ImguiDemoWindow::shouldRender() { return g::debug->showImguiDemoWindow; }
+bool ImguiDemoWindow::shouldRender() { return debug::state->showImguiDemoWindow; }
 
-void ImguiDemoWindow::onRender() { ImGui::ShowDemoWindow(&g::debug->showImguiDemoWindow); }
+void ImguiDemoWindow::onRender() { ImGui::ShowDemoWindow(&debug::state->showImguiDemoWindow); }
 #endif

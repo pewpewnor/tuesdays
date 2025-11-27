@@ -27,6 +27,11 @@ void StylesScoped::pushStyleColor(ImGuiCol column, const ImVec4& color) {
     colorCount_++;
 }
 
+void StylesScoped::setHoverAndActiveColor(const ImVec4& color) {
+    pushStyleColor(ImGuiCol_ButtonHovered, color);
+    pushStyleColor(ImGuiCol_ButtonActive, color);
+}
+
 void StylesScoped::reset() {
     clear();
     varCount_ = 0;

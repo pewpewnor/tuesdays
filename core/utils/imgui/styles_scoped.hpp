@@ -22,6 +22,8 @@ public:
 
     void pushStyleColor(ImGuiCol column, const ImVec4& color);
 
+    void setHoverAndActiveColor(const ImVec4& color);
+
     void reset();
 
 private:

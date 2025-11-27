@@ -5,8 +5,8 @@
 #include "globals/engine_state.hpp"
 
 void DebugKeyHandler::onRender() {
-    g::debug->showImguiDemoWindow =
-        f1Andf2Key_.combineKeyPressAndKeyHeld(g::debug->showImguiDemoWindow);
+    debug::state->showImguiDemoWindow =
+        f1Andf2Key_.combineKeyPressAndKeyHeld(debug::state->showImguiDemoWindow);
 
     if (f5Key_.hasBeenPressed()) {
         g::engine->sendRestartSignal();
