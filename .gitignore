@@ -6,6 +6,7 @@
 # builds
 .xmake/
 build/
+output/
 .cache/
 makefile
 build.ninja

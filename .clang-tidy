@@ -16,6 +16,7 @@ Checks: >
     -cppcoreguidelines-avoid-non-const-global-variables,
     -cppcoreguidelines-pro-type-vararg,
     -cppcoreguidelines-non-private-member-variables-in-classes,
+    -cppcoreguidelines-avoid-do-while,
     -hicpp-static-assert,
     -hicpp-vararg,
     -hicpp-explicit-conversions,
