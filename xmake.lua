@@ -19,6 +19,7 @@ else
 end
 
 add_requires("imgui-sfml")
+add_requires("lunasvg")
 add_requires("spdlog")
 add_requireconfs("*", { configs = { shared = not is_mode("release") } })
 

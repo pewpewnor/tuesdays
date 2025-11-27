@@ -2,10 +2,10 @@
 
 #include <memory>
 
-namespace g {
+namespace acm {
 
 struct AcmState {};
 
-inline std::unique_ptr<g::AcmState> acm;
+inline std::unique_ptr<acm::AcmState> state;
 
 }

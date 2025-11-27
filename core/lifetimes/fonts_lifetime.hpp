@@ -10,14 +10,21 @@
 
 class FontsLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:
+    std::string sansRegularFileName = "IBMPlexSans-Regular.ttf";
+    std::string sansBoldFileName = "IBMPlexSans-Bold.ttf";
+    std::string monoRegularFileName = "GeistMono-Regular.ttf";
+    std::string monoBoldFileName = "GeistMono-Bold.ttf";
+
     void onStartup() override;
 
     void onShutdown() override;
 
 private:
-    static void loadSansFonts(const std::filesystem::path& fontsPath);
-
-    static void loadMonoFonts(const std::filesystem::path& fontsPath);
+    static std::filesystem::path fontsPath;
 
     static Result<ImFont*> loadFont(const std::filesystem::path& fontFilePath, float fontSize);
+
+    void loadSansFonts();
+
+    void loadMonoFonts();
 };

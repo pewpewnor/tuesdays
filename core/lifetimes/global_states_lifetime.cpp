@@ -4,21 +4,24 @@
 
 #include "globals/acm.hpp"
 #include "globals/debug.hpp"
+#include "globals/universal.hpp"
 
 void GlobalStatesLifetime::onStartup() {
     spdlog::debug("Initializing global states...");
 #ifdef DEBUG
-    g::debug = std::make_unique<g::DebugState>();
+    debug::state = std::make_unique<debug::DebugState>();
 #endif
-    g::acm = std::make_unique<g::AcmState>();
+    univ::state = std::make_unique<univ::UniversalState>();
+    acm::state = std::make_unique<acm::AcmState>();
     spdlog::debug("Global states initialized");
 }
 
 void GlobalStatesLifetime::onShutdown() {
     spdlog::debug("Destroying global states...");
-    g::acm.reset();
+    acm::state.reset();
+    univ::state.reset();
 #ifdef DEBUG
-    g::debug.reset();
+    debug::state.reset();
 #endif
     spdlog::debug("Global states destroyed");
 }

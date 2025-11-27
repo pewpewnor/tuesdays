@@ -13,13 +13,25 @@ public:
     }
 
     consteval WindowFlagsBuilder addStatic() {
-        return this->add(ImGuiWindowFlags_NoDecoration)
-            .add(ImGuiWindowFlags_NoResize)
+        return this->add(ImGuiWindowFlags_NoResize)
             .add(ImGuiWindowFlags_NoMove)
-            .add(ImGuiWindowFlags_NoBringToFrontOnFocus)
-            .add(ImGuiWindowFlags_NoFocusOnAppearing)
             .add(ImGuiWindowFlags_NoCollapse)
             .add(ImGuiWindowFlags_NoSavedSettings);
+    }
+
+    consteval WindowFlagsBuilder addPlain() { return this->addStatic().addNoDecoration(); }
+
+    consteval WindowFlagsBuilder addNoDecoration() {
+        return this->add(ImGuiWindowFlags_NoDecoration);
+    }
+
+    consteval WindowFlagsBuilder addNoBackground() {
+        return this->add(ImGuiWindowFlags_NoBackground);
+    }
+
+    // Window will be behind other windows on spawn & can't be on top of other windows
+    consteval WindowFlagsBuilder addNoBringToFrontOnFocus() {
+        return this->add(ImGuiWindowFlags_NoBringToFrontOnFocus);
     }
 
     consteval ImGuiWindowFlags build() { return flags_; }

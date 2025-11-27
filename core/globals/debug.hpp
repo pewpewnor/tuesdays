@@ -3,14 +3,14 @@
 
 #include <memory>
 
-namespace g {
+namespace debug {
 
 struct DebugState {
     unsigned int frameCount = 0;
     bool showImguiDemoWindow = false;
 };
 
-inline std::unique_ptr<g::DebugState> debug;
+inline std::unique_ptr<debug::DebugState> state;
 
 }
 #endif

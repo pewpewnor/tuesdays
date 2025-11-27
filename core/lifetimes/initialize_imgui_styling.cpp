@@ -9,4 +9,6 @@ void InitializeImguiStyling::onStartup() {
     ImGui::StyleColorsDark();
 
     ImGui::GetIO().FontDefault = g::fonts->sansRegular;
+
+    ImGui::GetStyle().WindowBorderSize = 0;
 }

@@ -5,14 +5,11 @@
 
 #include "globals/engine_state.hpp"
 
-SurfaceLifetime::SurfaceLifetime(const std::string& title, int width, int height)
-    : title_(title), width_(width), height_(height) {}
-
 void SurfaceLifetime::onStartup() {
     spdlog::debug("Creating window & initializing ImGui...");
     g::engine->window = std::make_shared<sf::RenderWindow>(
-        sf::VideoMode({static_cast<unsigned int>(width_), static_cast<unsigned int>(height_)}),
-        title_);
+        sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}),
+        "Tuesdays");
     windowInitialized_ = true;
 
     g::engine->window->setVerticalSyncEnabled(true);
