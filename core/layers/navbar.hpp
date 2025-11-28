@@ -2,12 +2,14 @@
 
 #include <imgui.h>
 
-#include "engine/render_step.hpp"
+#include "engine/template_steps/render_window_step.hpp"
 
-class Navbar : public engine::RenderStep {
+class Navbar : public engine::RenderWindowStep {
 public:
     ImVec2 windowPos;
     ImVec2 windowSize;
 
-    void onRender() override;
+    bool beginWindow() override;
+
+    void renderWindowContent() override;
 };

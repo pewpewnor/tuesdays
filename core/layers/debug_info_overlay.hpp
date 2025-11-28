@@ -1,12 +1,13 @@
 #ifdef DEBUG
 #pragma once
-
 #include <imgui.h>
 
-#include "engine/render_step.hpp"
+#include "engine/template_steps/render_window_step.hpp"
 
-class DebugInfoOverlay : public engine::RenderStep {
+class DebugInfoOverlay : public engine::RenderWindowStep {
 public:
-    void onRender() override;
+    bool beginWindow() override;
+
+    void renderWindowContent() override;
 };
 #endif

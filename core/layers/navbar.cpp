@@ -3,43 +3,42 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 
-#include "components/image_buttons.hpp"
+#include "components/components.hpp"
 #include "globals/textures.hpp"
 #include "globals/universal.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-void Navbar::onRender() {
+bool Navbar::beginWindow() {
     ImGui::SetNextWindowPos({0, 0});
     ImGui::SetNextWindowSize({0, ImGui::GetMainViewport()->WorkSize.y}, ImGuiCond_Always);
-    ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addPlain().build();
-    {
-        StylesScoped styles;
-        styles.pushStyleVar(ImGuiStyleVar_WindowPadding, {14, 14});
-        styles.pushStyleColor(ImGuiCol_WindowBg, colorHex("#332820"));
+    ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
-        ImGui::Begin("Navbar", nullptr, windowFlags);
-    }
+    StylesScoped windowStyle;
+    windowStyle.pushStyleVar(ImGuiStyleVar_WindowPadding, {12, 12});
+    windowStyle.pushStyleColor(ImGuiCol_WindowBg, colorHex("#332820"));
 
+    return ImGui::Begin("Navbar", nullptr, windowFlags);
+}
+
+void Navbar::renderWindowContent() {
     {
-        StylesScoped styles;
-        styles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
+        StylesScoped appIconsStyle;
+        appIconsStyle.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
 
         if (components::navbarAppImageButton(
-                "AcmAppIcon", univ::state->currentApp == univ::CurrentApp::Acm,
+                "Navbar_AcmAppIcon", univ::state->currentApp == univ::CurrentApp::Acm,
                 g::textures->lightningBoltIconBlack, g::textures->lightningBoltIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Acm;
         }
     }
     if (components::navbarAppImageButton(
-            "IsAppIcon", univ::state->currentApp == univ::CurrentApp::Is,
-            g::textures->radarIconBlack, g::textures->radarIconWhite)) {
+            "Navbar_IsAppIcon", univ::state->currentApp == univ::CurrentApp::Is,
+            g::textures->signalTowerIconBlack, g::textures->signalTowerIconWhite)) {
         univ::state->currentApp = univ::CurrentApp::Is;
     }
 
     windowPos = ImGui::GetWindowPos();
     windowSize = ImGui::GetWindowSize();
-
-    ImGui::End();
 }

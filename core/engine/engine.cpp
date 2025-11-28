@@ -3,7 +3,7 @@
 #include <imgui-SFML.h>
 #include <spdlog/spdlog.h>
 
-#include <SFML/System.hpp>
+#include <SFML/System/Sleep.hpp>
 #include <ranges>
 #include <stdexcept>
 
@@ -170,7 +170,7 @@ void engine::Engine::renderFrame() {
         }
     }
 
-    window->clear();
+    window->clear(sf::Color::Black);
     ImGui::SFML::Render(*window);
     window->display();
 }
