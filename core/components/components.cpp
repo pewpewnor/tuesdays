@@ -2,7 +2,6 @@
 
 #include <imgui-SFML.h>
 
-#include "imgui.h"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/helpers.hpp"
 #include "utils/imgui/styles_scoped.hpp"
@@ -19,7 +18,9 @@ bool components::navbarAppImageButton(const char* id, bool isActive, const sf::T
     styles.pushStyleVar(ImGuiStyleVar_FrameRounding, 8);
     styles.pushStyleVar(ImGuiStyleVar_FramePadding, {padding, padding});
     styles.pushStyleColor(ImGuiCol_Button, isActive ? COLOR_ORANGE : COLOR_TRANSPARENT);
-    styles.setHoverAndActiveColor(isActive ? colorHex("#c5682b") : colorHex("#5b382e"));
+    ImVec4 hoverActiveColor = isActive ? colorHex("#c5682b") : colorHex("#5b382e");
+    styles.pushStyleColor(ImGuiCol_ButtonHovered, hoverActiveColor);
+    styles.pushStyleColor(ImGuiCol_ButtonActive, hoverActiveColor);
 
     return ImGui::ImageButton(id, (isActive || isHovered) ? on : off, {size, size});
 }

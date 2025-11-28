@@ -1,11 +1,10 @@
 #include "navbar.hpp"
 
 #include <imgui-SFML.h>
-#include <imgui.h>
 
 #include "components/components.hpp"
 #include "globals/textures.hpp"
-#include "globals/universal.hpp"
+#include "universal/states/universal_state.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
@@ -32,13 +31,10 @@ void Navbar::renderWindowContent() {
                 g::textures->lightningBoltIconBlack, g::textures->lightningBoltIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Acm;
         }
+        if (components::navbarAppImageButton(
+                "Navbar_IsAppIcon", univ::state->currentApp == univ::CurrentApp::Is,
+                g::textures->signalTowerIconBlack, g::textures->signalTowerIconWhite)) {
+            univ::state->currentApp = univ::CurrentApp::Is;
+        }
     }
-    if (components::navbarAppImageButton(
-            "Navbar_IsAppIcon", univ::state->currentApp == univ::CurrentApp::Is,
-            g::textures->signalTowerIconBlack, g::textures->signalTowerIconWhite)) {
-        univ::state->currentApp = univ::CurrentApp::Is;
-    }
-
-    windowPos = ImGui::GetWindowPos();
-    windowSize = ImGui::GetWindowSize();
 }

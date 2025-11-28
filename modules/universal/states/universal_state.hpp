@@ -2,12 +2,12 @@
 
 #include <memory>
 
+#include "current_app.hpp"
+
 namespace univ {
 
-enum class CurrentApp { Acm, Is, Dbm };
-
 struct UniversalState {
-    CurrentApp currentApp = CurrentApp::Acm;
+    univ::CurrentApp currentApp = univ::CurrentApp::Acm;
 };
 
 inline std::unique_ptr<univ::UniversalState> state;

@@ -5,8 +5,8 @@
 #include <memory>
 
 #include "engine/template_steps/render_window_step.hpp"
-#include "layers/topbar.hpp"
-#include "navbar.hpp"
+#include "universal/navbar.hpp"
+#include "universal/topbar.hpp"
 
 class AcmSidebar : public engine::RenderWindowStep {
 public:

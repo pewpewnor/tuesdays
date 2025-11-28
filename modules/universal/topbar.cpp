@@ -1,4 +1,4 @@
-#include "layers/topbar.hpp"
+#include "topbar.hpp"
 
 #include <imgui.h>
 
@@ -10,7 +10,7 @@ Topbar::Topbar(const std::shared_ptr<Navbar>& navbar) : navbar_(navbar) {}
 
 bool Topbar::beginWindow() {
     ImGui::SetNextWindowPos({navbar_->windowPos.x + navbar_->windowSize.x, 0});
-    ImGui::SetNextWindowSize({ImGui::GetMainViewport()->WorkSize.x - navbar_->windowSize.x, 42});
+    ImGui::SetNextWindowSize({ImGui::GetMainViewport()->WorkSize.x - navbar_->windowSize.x, 34});
 
     ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addNoInputs().addStatic().build();
 
@@ -20,7 +20,4 @@ bool Topbar::beginWindow() {
     return ImGui::Begin("Topbar", nullptr, windowFlag);
 }
 
-void Topbar::renderWindowContent() {
-    windowPos = ImGui::GetWindowPos();
-    windowSize = ImGui::GetWindowSize();
-}
+void Topbar::renderWindowContent() {}

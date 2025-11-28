@@ -6,35 +6,17 @@ target("tuesdays-core-utils")
 target("tuesdays-core-engine")
     add_files("engine/**.cpp")
     add_includedirs(".")
-    add_deps("tuesdays-core-utils")
     add_packages("imgui-sfml", "spdlog", { public = true })
-
-target("tuesdays-core-lifetimes")
-    add_files("lifetimes/**.cpp")
-    add_includedirs(".")
-    add_deps("tuesdays-core-engine")
-    add_packages("imgui-sfml", "lunasvg", "spdlog", { public = true })
-
-target("tuesdays-core-tasks")
-    -- add_files("tasks/**.cpp")
-    add_includedirs(".")
-    add_deps("tuesdays-core-utils")
-    add_packages("imgui", "spdlog", { public = true })
-
-target("tuesdays-core-keys")
-    add_files("keys/**.cpp")
-    add_includedirs(".")
-    add_deps("tuesdays-core-utils")
-    add_packages("sfml", "spdlog", { public = true })
 
 target("tuesdays-core-components")
     add_files("components/**.cpp")
     add_includedirs(".")
-    add_deps("tuesdays-core-utils")
-    add_packages("imgui", { public = true })
+    add_packages("imgui-sfml", { public = true })
 
-target("tuesdays-core-layers")
-    add_files("layers/**.cpp")
-    add_includedirs(".")
-    add_deps("tuesdays-core-utils")
-    add_packages("imgui", "spdlog", { public = true })
+target("tuesdays-core")
+    add_includedirs(".", { public = true })
+    add_deps(
+        "tuesdays-core-utils",
+        "tuesdays-core-engine",
+        "tuesdays-core-components"
+    )

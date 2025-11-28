@@ -4,22 +4,22 @@
 
 #include <memory>
 
+#include "acm/acm_body.hpp"
+#include "acm/acm_menubar.hpp"
+#include "acm/acm_sidebar.hpp"
+#include "debug/debug_info_overlay.hpp"
+#include "debug/debug_key_handler.hpp"
+#include "debug/imgui_demo_window.hpp"
 #include "engine/engine.hpp"
 #include "globals/engine_state.hpp"
-#include "keys/debug_key_handler.hpp"
-#include "keys/global_key_handler.hpp"
-#include "layers/acm_menubar.hpp"
-#include "layers/acm_sidebar.hpp"
-#include "layers/debug_info_overlay.hpp"
-#include "layers/imgui_demo_window.hpp"
-#include "layers/navbar.hpp"
-#include "layers/topbar.hpp"
-#include "lifetimes/default_imgui_styling.hpp"
-#include "lifetimes/fonts_lifetime.hpp"
+#include "lifetimes/asset_loaders/fonts_lifetime.hpp"
+#include "lifetimes/asset_loaders/textures_lifetime.hpp"
 #include "lifetimes/global_states_lifetime.hpp"
+#include "lifetimes/initializers/default_imgui_styling.hpp"
 #include "lifetimes/surface_lifetime.hpp"
 #include "lifetimes/tasks_lifetime.hpp"
-#include "lifetimes/textures_lifetime.hpp"
+#include "universal/navbar.hpp"
+#include "universal/topbar.hpp"
 #include "utils/assertions.hpp"
 
 Application::Application() {
@@ -73,8 +73,6 @@ void Application::pushKeyHandlerSteps() {
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<DebugKeyHandler>());
 #endif
-
-    g::engine->pushRenderStep(std::make_shared<GlobalKeyHandler>());
 }
 
 void Application::pushRenderSteps() {
@@ -82,11 +80,13 @@ void Application::pushRenderSteps() {
     auto topbar = std::make_shared<Topbar>(navbar);
     auto acmMenubar = std::make_shared<AcmMenubar>(topbar);
     auto acmSidebar = std::make_shared<AcmSidebar>(navbar, topbar);
+    auto acmBody = std::make_shared<AcmBody>(topbar, acmSidebar);
 
     g::engine->pushRenderStep(navbar);
     g::engine->pushRenderStep(topbar);
     g::engine->pushRenderStep(acmMenubar);
     g::engine->pushRenderStep(acmSidebar);
+    g::engine->pushRenderStep(acmBody);
 
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<ImguiDemoWindow>());

@@ -6,9 +6,6 @@
 
 class Navbar : public engine::RenderWindowStep {
 public:
-    ImVec2 windowPos;
-    ImVec2 windowSize;
-
     bool beginWindow() override;
 
     void renderWindowContent() override;

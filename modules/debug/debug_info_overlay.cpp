@@ -1,7 +1,7 @@
 #ifdef DEBUG
 #include "debug_info_overlay.hpp"
 
-#include "globals/debug.hpp"
+#include "states/debug_state.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
 bool DebugInfoOverlay::beginWindow() {

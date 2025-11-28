@@ -2,9 +2,9 @@
 
 #include <spdlog/spdlog.h>
 
-#include "globals/acm.hpp"
-#include "globals/debug.hpp"
-#include "globals/universal.hpp"
+#include "acm/states/acm_state.hpp"
+#include "debug/states/debug_state.hpp"
+#include "universal/states/universal_state.hpp"
 
 void GlobalStatesLifetime::onStartup() {
     spdlog::debug("Initializing global states...");

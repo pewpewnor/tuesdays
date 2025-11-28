@@ -1,8 +1,8 @@
 #ifdef DEBUG
 #include "debug_key_handler.hpp"
 
-#include "globals/debug.hpp"
 #include "globals/engine_state.hpp"
+#include "states/debug_state.hpp"
 
 void DebugKeyHandler::onRender() {
     debug::state->showImguiDemoWindow =

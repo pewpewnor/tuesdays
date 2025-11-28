@@ -1,10 +1,10 @@
-#include "layers/acm_menubar.hpp"
+#include "acm_menubar.hpp"
 
 #include <imgui.h>
 
 #include "components/components.hpp"
 #include "globals/fonts.hpp"
-#include "globals/universal.hpp"
+#include "universal/states/universal_state.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/styles_scoped.hpp"
@@ -15,14 +15,14 @@ AcmMenubar::AcmMenubar(const std::shared_ptr<Topbar>& topbar) : topbar_(topbar) 
 bool AcmMenubar::shouldRender() { return univ::state->currentApp == univ::CurrentApp::Acm; }
 
 bool AcmMenubar::beginWindow() {
-    ImGui::SetNextWindowPos({topbar_->windowPos.x, topbar_->windowPos.y + 8});
+    ImGui::SetNextWindowPos({topbar_->windowPos.x, topbar_->windowPos.y + 4});
     ImGui::SetNextWindowSize({0, topbar_->windowSize.y - 16});
 
     ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addMenuBar().addStatic().build();
 
     StylesScoped windowStyles;
-    windowStyles.pushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(0, 0));  // remove bottom margin
-    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(24, 4));
+    windowStyles.pushStyleVar(ImGuiStyleVar_WindowMinSize, {0, 0});  // remove bottom margin
+    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {24, 4});
     windowStyles.pushStyleColor(ImGuiCol_MenuBarBg, COLOR_CHARCOAL);
 
     return ImGui::Begin("AcmMenubar", nullptr, windowFlag);
@@ -34,7 +34,7 @@ void AcmMenubar::renderWindowContent() {
     StylesScoped menuBarStyle;
     menuBarStyle.pushStyleVar(ImGuiStyleVar_PopupRounding, 4);
     menuBarStyle.pushStyleVar(ImGuiStyleVar_PopupBorderSize, 1);
-    menuBarStyle.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(10, 8));
+    menuBarStyle.pushStyleVar(ImGuiStyleVar_ItemSpacing, {10, 4});
     menuBarStyle.pushStyleColor(ImGuiCol_Border, COLOR_MUTED);
 
     if (ImGui::BeginMenuBar()) {
@@ -51,7 +51,7 @@ void AcmMenubar::renderWindowContent() {
         ImGui::Dummy(ImVec2(16, 0));
 
         StylesScoped menuItemsStyle;
-        menuItemsStyle.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(18, 22));
+        menuItemsStyle.pushStyleVar(ImGuiStyleVar_WindowPadding, {18, 22});
         menuItemsStyle.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 16);
         menuItemsStyle.pushStyleColor(ImGuiCol_PopupBg, COLOR_GRAY);
         menuItemsStyle.pushStyleColor(ImGuiCol_Text, COLOR_WHITE);
@@ -59,30 +59,27 @@ void AcmMenubar::renderWindowContent() {
         menuItemsStyle.pushStyleColor(ImGuiCol_HeaderActive, COLOR_MELON);
         menuItemsStyle.pushStyleColor(ImGuiCol_Header, COLOR_MELON);
 
-        if (components::beginMenubarMenu("File")) {
+        if (components::beginMenubarMenu("File##AcmMenubar_File")) {
             renderFileMenu();
             ImGui::EndMenu();
         }
 
-        ImGui::Dummy(ImVec2(4, 0));
+        ImGui::Dummy({4, 0});
 
-        if (components::beginMenubarMenu("Edit")) {
+        if (components::beginMenubarMenu("Edit##AcmMenubar_Edit")) {
             renderEditMenu();
             ImGui::EndMenu();
         }
 
-        ImGui::Dummy(ImVec2(4, 0));
+        ImGui::Dummy({4, 0});
 
-        if (components::beginMenubarMenu("View")) {
+        if (components::beginMenubarMenu("View##AcmMenubar_View")) {
             renderViewMenu();
             ImGui::EndMenu();
         }
 
         ImGui::EndMenuBar();
     }
-
-    windowPos = ImGui::GetWindowPos();
-    windowSize = ImGui::GetWindowSize();
 }
 
 void AcmMenubar::renderFileMenu() {

@@ -2,8 +2,7 @@
 
 #include <imgui.h>
 
-#include "globals/universal.hpp"
-#include "navbar.hpp"
+#include "universal/states/universal_state.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
@@ -30,13 +29,9 @@ void AcmSidebar::renderWindowContent() {
     ImGui::TextUnformatted("Customize your settings in the settings.json file");
     ImGui::TextUnformatted(
         "Adipisci quisquam labore velit porro neque adipisci dolor. Sit dolorem porro "
-        "aliquam. "
-        "Quiquia quisquam est quisquam. Eius consectetur eius ut ut quisquam eius. Neque "
         "neque ");
     ImGui::TextUnformatted(
         "dolorem dolorem neque. Consectetur etincidunt dolor dolore labore quisquam. "
-        "Dolore "
-        "eius est dolor ipsum. Dolorem labore voluptatem eius quaerat aliquam. Numquam non "
         "est "
         "tempora sed.");
 }
