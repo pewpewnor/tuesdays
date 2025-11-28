@@ -13,13 +13,26 @@ public:
     }
 
     consteval WindowFlagsBuilder addStatic() {
-        return this->add(ImGuiWindowFlags_NoResize)
-            .add(ImGuiWindowFlags_NoMove)
-            .add(ImGuiWindowFlags_NoCollapse)
-            .add(ImGuiWindowFlags_NoSavedSettings);
+        return this->addNoResize()
+            .addNoMove()
+            .addNoCollapse()
+            .addNoDecoration()
+            .addNoSavedSettings();
     }
 
-    consteval WindowFlagsBuilder addPlain() { return this->addStatic().addNoDecoration(); }
+    consteval WindowFlagsBuilder addMenuBar() { return this->add(ImGuiWindowFlags_MenuBar); }
+
+    consteval WindowFlagsBuilder addAlwaysAutoResize() {
+        return this->add(ImGuiWindowFlags_AlwaysAutoResize);
+    }
+
+    consteval WindowFlagsBuilder addNoResize() { return this->add(ImGuiWindowFlags_NoResize); }
+
+    consteval WindowFlagsBuilder addNoMove() { return this->add(ImGuiWindowFlags_NoMove); }
+
+    consteval WindowFlagsBuilder addNoCollapse() { return this->add(ImGuiWindowFlags_NoCollapse); }
+
+    consteval WindowFlagsBuilder addNoInputs() { return this->add(ImGuiWindowFlags_NoInputs); }
 
     consteval WindowFlagsBuilder addNoDecoration() {
         return this->add(ImGuiWindowFlags_NoDecoration);
@@ -29,9 +42,17 @@ public:
         return this->add(ImGuiWindowFlags_NoBackground);
     }
 
-    // Window will be behind other windows on spawn & can't be on top of other windows
+    // window will be behind other windows on spawn & can't be on top of other windows
     consteval WindowFlagsBuilder addNoBringToFrontOnFocus() {
         return this->add(ImGuiWindowFlags_NoBringToFrontOnFocus);
+    }
+
+    consteval WindowFlagsBuilder addNoFocusOnAppearing() {
+        return this->add(ImGuiWindowFlags_NoFocusOnAppearing);
+    }
+
+    consteval WindowFlagsBuilder addNoSavedSettings() {
+        return this->add(ImGuiWindowFlags_NoSavedSettings);
     }
 
     consteval ImGuiWindowFlags build() { return flags_; }

@@ -4,7 +4,7 @@
 
 #include "key_press_detector.hpp"
 
-// Use this for a single state to be related to multiple keys
+// use this for a single state to be related to multiple keys
 class CombinedKeyPressDetector {
 public:
     CombinedKeyPressDetector(const KeyPressDetector& keyDetector1,

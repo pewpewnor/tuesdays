@@ -136,8 +136,8 @@ bool engine::Engine::pollEvents(bool hasFocus, bool alreadyRendering) {
             break;
         }
         /*
-           do not process FocusLost event so ImGui doesn't know about it, thus we can react to
-           things like hover over items even when focus is lost
+         * do not process FocusLost event so ImGui doesn't know about it, thus we can react to
+         * things like hover over items even when focus is lost
          */
         if (event->is<sf::Event::FocusLost>()) {
             refresh = true;

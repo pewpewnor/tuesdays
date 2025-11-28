@@ -2,33 +2,33 @@
 
 #include <SFML/Window/Keyboard.hpp>
 
-/**
- *  @brief do not create multiple instances for the same key
+/*
+ *  do not create multiple instances for the same key
  */
 class KeyPressDetector {
 public:
     KeyPressDetector(sf::Keyboard::Key key);
 
-    /**
-     * A single state should only be related to one key.
-     * Returns true if the key has been pressed.
-     * Example:
+    /*
+     * a single state should only be related to one key.
+     * returns true if the key has been pressed.
+     * example:
      * if (keyDetector.isPressed()) { showWindow = !showWindow; }
      */
     bool hasBeenPressed();
 
-    /**
-     * A single state should only be related to one key.
-     * Returns true if the key is currently being held down.
-     * Example:
+    /*
+     * a single state should only be related to one key.
+     * returns true if the key is currently being held down.
+     * example:
      * showWindow = keyDetector.isBeingHeld();
      */
     bool isBeingHeld();
 
     /*
-     * A single state should only be related to one key.
-     * Returns true if the key has stopped being pressed / held.
-     * Example:
+     * a single state should only be related to one key.
+     * returns true if the key has stopped being pressed / held.
+     * example:
      * if (keyDetector.hasStoppedBeingHeld()) { showWindow = false; }
      * else if (keyDetector.isBeingHeld()) { showWindow = false; }
      */
