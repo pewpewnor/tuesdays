@@ -18,5 +18,7 @@ public:
 private:
     static void pushLifetimeSteps();
 
+    static void pushKeyHandlerSteps();
+
     static void pushRenderSteps();
 };

@@ -1,4 +1,4 @@
-#include "image_buttons.hpp"
+#include "components.hpp"
 
 #include <imgui-SFML.h>
 
@@ -10,7 +10,7 @@
 bool components::navbarAppImageButton(const char* id, bool isActive, const sf::Texture& on,
                                       const sf::Texture& off) {
     constexpr float size = 28;
-    constexpr float padding = 8;
+    constexpr float padding = 10;
     constexpr float fullSideSize = size + (padding * 2);
 
     bool isHovered = nextWidgetIsHovered(fullSideSize, fullSideSize);
@@ -18,8 +18,25 @@ bool components::navbarAppImageButton(const char* id, bool isActive, const sf::T
     StylesScoped styles;
     styles.pushStyleVar(ImGuiStyleVar_FrameRounding, 8);
     styles.pushStyleVar(ImGuiStyleVar_FramePadding, {padding, padding});
-    styles.pushStyleColor(ImGuiCol_Button, isActive ? colorHex("#d56f2c") : COLOR_TRANSPARENT);
+    styles.pushStyleColor(ImGuiCol_Button, isActive ? COLOR_ORANGE : COLOR_TRANSPARENT);
     styles.setHoverAndActiveColor(isActive ? colorHex("#c5682b") : colorHex("#5b382e"));
 
     return ImGui::ImageButton(id, (isActive || isHovered) ? on : off, {size, size});
+}
+
+bool components::beginMenubarMenu(const char* id) {
+    ImGuiID storageId = ImGui::GetID(id);
+    bool* wasHovered = ImGui::GetStateStorage()->GetBoolRef(storageId, false);
+    bool isOpen = ImGui::IsPopupOpen(id);
+
+    StylesScoped menuStyle;
+    if (*wasHovered || isOpen) {
+        menuStyle.pushStyleColor(ImGuiCol_Text, COLOR_WHITE);
+    } else {
+        menuStyle.pushStyleColor(ImGuiCol_Text, COLOR_MUTED);
+    }
+
+    bool result = ImGui::BeginMenu(id);
+    *wasHovered = ImGui::IsItemHovered(ImGuiHoveredFlags_RectOnly);
+    return result;
 }

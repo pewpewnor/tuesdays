@@ -7,12 +7,16 @@
 #include "engine/engine.hpp"
 #include "globals/engine_state.hpp"
 #include "keys/debug_key_handler.hpp"
-#include "layers/acm_window.hpp"
+#include "keys/global_key_handler.hpp"
+#include "layers/acm_menubar.hpp"
+#include "layers/acm_sidebar.hpp"
 #include "layers/debug_info_overlay.hpp"
 #include "layers/imgui_demo_window.hpp"
+#include "layers/navbar.hpp"
+#include "layers/topbar.hpp"
+#include "lifetimes/default_imgui_styling.hpp"
 #include "lifetimes/fonts_lifetime.hpp"
 #include "lifetimes/global_states_lifetime.hpp"
-#include "lifetimes/initialize_imgui_styling.hpp"
 #include "lifetimes/surface_lifetime.hpp"
 #include "lifetimes/tasks_lifetime.hpp"
 #include "lifetimes/textures_lifetime.hpp"
@@ -22,6 +26,7 @@ Application::Application() {
     g::engine = std::make_unique<engine::Engine>();
 
     pushLifetimeSteps();
+    pushKeyHandlerSteps();
     pushRenderSteps();
 }
 
@@ -41,10 +46,6 @@ void Application::requestStop() {
 }
 
 void Application::pushLifetimeSteps() {
-    auto surfaceLifetime = std::make_shared<SurfaceLifetime>();
-    g::engine->pushStartupStep(surfaceLifetime);
-    g::engine->pushShutdownStep(surfaceLifetime);
-
     auto globalStatesLifetime = std::make_shared<GlobalStatesLifetime>();
     g::engine->pushStartupStep(globalStatesLifetime);
     g::engine->pushShutdownStep(globalStatesLifetime);
@@ -53,26 +54,39 @@ void Application::pushLifetimeSteps() {
     g::engine->pushStartupStep(tasksLifetime);
     g::engine->pushShutdownStep(tasksLifetime);
 
-    auto fontsLifetime = std::make_shared<FontsLifetime>();
-    g::engine->pushStartupStep(fontsLifetime);
-    g::engine->pushShutdownStep(fontsLifetime);
-
     auto texturesLifetime = std::make_shared<TexturesLifetime>();
     g::engine->pushStartupStep(texturesLifetime);
     g::engine->pushShutdownStep(texturesLifetime);
 
-    g::engine->pushStartupStep(std::make_shared<InitializeImguiStyling>());
+    auto surfaceLifetime = std::make_shared<SurfaceLifetime>();
+    g::engine->pushStartupStep(surfaceLifetime);
+    g::engine->pushShutdownStep(surfaceLifetime);
+
+    auto fontsLifetime = std::make_shared<FontsLifetime>();
+    g::engine->pushStartupStep(fontsLifetime);
+    g::engine->pushShutdownStep(fontsLifetime);
+
+    g::engine->pushStartupStep(std::make_shared<DefaultImguiStyling>());
 }
 
-void Application::pushRenderSteps() {
+void Application::pushKeyHandlerSteps() {
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<DebugKeyHandler>());
 #endif
 
+    g::engine->pushRenderStep(std::make_shared<GlobalKeyHandler>());
+}
+
+void Application::pushRenderSteps() {
     auto navbar = std::make_shared<Navbar>();
+    auto topbar = std::make_shared<Topbar>(navbar);
+    auto acmMenubar = std::make_shared<AcmMenubar>(topbar);
+    auto acmSidebar = std::make_shared<AcmSidebar>(navbar, topbar);
 
     g::engine->pushRenderStep(navbar);
-    g::engine->pushRenderStep(std::make_shared<AcmWindow>(navbar));
+    g::engine->pushRenderStep(topbar);
+    g::engine->pushRenderStep(acmMenubar);
+    g::engine->pushRenderStep(acmSidebar);
 
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<ImguiDemoWindow>());

@@ -10,8 +10,8 @@
 
 class FontsLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:
-    std::string sansRegularFileName = "IBMPlexSans-Regular.ttf";
-    std::string sansBoldFileName = "IBMPlexSans-Bold.ttf";
+    std::string sansRegularFileName = "Geist-Regular.ttf";
+    std::string sansBoldFileName = "Geist-Bold.ttf";
     std::string monoRegularFileName = "GeistMono-Regular.ttf";
     std::string monoBoldFileName = "GeistMono-Bold.ttf";
 

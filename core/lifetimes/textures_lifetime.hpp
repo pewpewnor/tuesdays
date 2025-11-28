@@ -1,8 +1,10 @@
 #pragma once
 
 #include <imgui-SFML.h>
+#include <imgui.h>
 
 #include <filesystem>
+#include <optional>
 
 #include "engine/shutdown_step.hpp"
 #include "engine/startup_step.hpp"
@@ -18,7 +20,8 @@ private:
 
     static void loadTexture(sf::Texture& texture, std::string_view fileName);
 
-    static void loadTextureFromSvg(sf::Texture& texture, std::string_view fileName);
+    static void loadTextureFromSvg(sf::Texture& texture, std::string_view fileName,
+                                   const std::optional<ImVec4>& recolor = {});
 
     static bool smoothenTexture(sf::Texture& texture);
 };

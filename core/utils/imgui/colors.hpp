@@ -40,4 +40,12 @@ consteval ImVec4 colorHex(std::string_view hex, float opacity) {
 
 consteval ImVec4 colorHex(std::string_view hex) { return colorHex(hex, 1); }
 
-constexpr ImVec4 COLOR_TRANSPARENT{0, 0, 0, 0};
+constexpr ImVec4 COLOR_TRANSPARENT{colorHex("#000000", 0)};
+constexpr ImVec4 COLOR_WHITE{colorHex("#ffffff")};
+constexpr ImVec4 COLOR_MELON{colorHex("#f77156")};
+constexpr ImVec4 COLOR_ORANGE{colorHex("#d56f2c")};
+constexpr ImVec4 COLOR_MUTED{colorHex("#85919a")};
+constexpr ImVec4 COLOR_NEUTRAL_800{colorHex("#262626")};
+constexpr ImVec4 COLOR_GRAY{colorHex("#1f1f1f")};
+constexpr ImVec4 COLOR_CHARCOAL{colorHex("#323125")};
+constexpr ImVec4 COLOR_BLACK{colorHex("#000000")};
