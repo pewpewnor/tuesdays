@@ -16,7 +16,7 @@ bool Navbar::beginWindow() {
 
     StylesScoped windowStyle;
     windowStyle.pushStyleVar(ImGuiStyleVar_WindowPadding, {12, 12});
-    windowStyle.pushStyleColor(ImGuiCol_WindowBg, colorHex("#332820"));
+    windowStyle.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_1);
 
     return ImGui::Begin("Navbar", nullptr, windowFlags);
 }
@@ -28,12 +28,12 @@ void Navbar::renderWindowContent() {
 
         if (components::navbarAppImageButton(
                 "Navbar_AcmAppIcon", univ::state->currentApp == univ::CurrentApp::Acm,
-                g::textures->lightningBoltIconBlack, g::textures->lightningBoltIconWhite)) {
+                g::textures->lightningBoltIconWhite, g::textures->lightningBoltIconBlack)) {
             univ::state->currentApp = univ::CurrentApp::Acm;
         }
         if (components::navbarAppImageButton(
                 "Navbar_IsAppIcon", univ::state->currentApp == univ::CurrentApp::Is,
-                g::textures->signalTowerIconBlack, g::textures->signalTowerIconWhite)) {
+                g::textures->signalTowerIconWhite, g::textures->signalTowerIconBlack)) {
             univ::state->currentApp = univ::CurrentApp::Is;
         }
     }

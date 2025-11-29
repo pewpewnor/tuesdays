@@ -15,7 +15,7 @@ bool Topbar::beginWindow() {
     ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addNoInputs().addStatic().build();
 
     StylesScoped windowStyles;
-    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_CHARCOAL);
+    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_1);
 
     return ImGui::Begin("Topbar", nullptr, windowFlag);
 }

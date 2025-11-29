@@ -25,7 +25,7 @@ bool AcmBody::beginWindow() {
 
     StylesScoped windowStyles;
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {8, 8});
-    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NEUTRAL_900);
+    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_3);
 
     return ImGui::Begin("AcmBody", nullptr, windowFlags);
 }

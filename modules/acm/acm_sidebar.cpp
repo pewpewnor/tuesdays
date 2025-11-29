@@ -20,7 +20,7 @@ bool AcmSidebar::beginWindow() {
         WindowFlagsBuilder().addNoMove().addNoCollapse().addNoDecoration().build();
 
     StylesScoped windowStyle;
-    windowStyle.pushStyleColor(ImGuiCol_WindowBg, COLOR_NEUTRAL_800);
+    windowStyle.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_2);
 
     return ImGui::Begin("AcmSidebar", nullptr, windowFlags);
 }

@@ -23,7 +23,7 @@ bool AcmMenubar::beginWindow() {
     StylesScoped windowStyles;
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowMinSize, {0, 0});  // remove bottom margin
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {24, 4});
-    windowStyles.pushStyleColor(ImGuiCol_MenuBarBg, COLOR_CHARCOAL);
+    windowStyles.pushStyleColor(ImGuiCol_MenuBarBg, COLOR_NIGHT_1);
 
     return ImGui::Begin("AcmMenubar", nullptr, windowFlag);
 }
@@ -33,15 +33,13 @@ void AcmMenubar::renderWindowContent() {
 
     StylesScoped menuBarStyle;
     menuBarStyle.pushStyleVar(ImGuiStyleVar_PopupRounding, 4);
-    menuBarStyle.pushStyleVar(ImGuiStyleVar_PopupBorderSize, 1);
-    menuBarStyle.pushStyleVar(ImGuiStyleVar_ItemSpacing, {10, 4});
-    menuBarStyle.pushStyleColor(ImGuiCol_Border, COLOR_MUTED);
+    menuBarStyle.pushStyleVar(ImGuiStyleVar_ItemSpacing, {10, 4});  // menu padding
 
     if (ImGui::BeginMenuBar()) {
         ImGui::AlignTextToFramePadding();
         {
             StylesScoped appTitleStyle;
-            appTitleStyle.pushStyleColor(ImGuiCol_Text, COLOR_WHITE);
+            appTitleStyle.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_FG);
             {
                 FontScoped font(g::fonts->sansBold);
                 ImGui::TextUnformatted("API-CLIENT");
@@ -53,11 +51,11 @@ void AcmMenubar::renderWindowContent() {
         StylesScoped menuItemsStyle;
         menuItemsStyle.pushStyleVar(ImGuiStyleVar_WindowPadding, {18, 22});
         menuItemsStyle.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 16);
-        menuItemsStyle.pushStyleColor(ImGuiCol_PopupBg, COLOR_GRAY);
-        menuItemsStyle.pushStyleColor(ImGuiCol_Text, COLOR_WHITE);
-        menuItemsStyle.pushStyleColor(ImGuiCol_HeaderHovered, COLOR_MELON);
-        menuItemsStyle.pushStyleColor(ImGuiCol_HeaderActive, COLOR_MELON);
-        menuItemsStyle.pushStyleColor(ImGuiCol_Header, COLOR_MELON);
+        menuItemsStyle.pushStyleColor(ImGuiCol_PopupBg, COLOR_NIGHT_4);
+        menuItemsStyle.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
+        menuItemsStyle.pushStyleColor(ImGuiCol_HeaderHovered, COLOR_CHOCOLATE);
+        menuItemsStyle.pushStyleColor(ImGuiCol_HeaderActive, COLOR_CHOCOLATE);
+        menuItemsStyle.pushStyleColor(ImGuiCol_Header, COLOR_TRANSPARENT);
 
         if (components::beginMenubarMenu("File##AcmMenubar_File")) {
             renderFileMenu();
