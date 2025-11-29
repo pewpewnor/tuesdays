@@ -2,7 +2,7 @@ target("tuesdays-modules-lifetimes")
     add_files("lifetimes/**.cpp")
     add_includedirs(".")
     add_deps("tuesdays-core")
-    add_packages("imgui-sfml", "lunasvg", "spdlog", { public = true })
+    add_packages("imgui-sfml", "spdlog", { public = true })
 
 target("tuesdays-modules-tasks")
     -- add_files("tasks/**.cpp")

@@ -11,7 +11,6 @@ if is_mode("debug") then
 	set_policy("build.sanitizer.leak", true)
 	add_defines("DEBUG")
 elseif is_mode("debug_tsan") then
-	set_mode("debug")
 	set_policy("build.sanitizer.thread", true)
 	add_defines("DEBUG")
 else
@@ -19,7 +18,8 @@ else
 end
 
 add_requires("imgui-sfml")
-add_requires("lunasvg")
+add_requires("openssl3")
+add_requires("cpp-httplib")
 add_requires("nlohmann_json")
 add_requires("spdlog")
 add_requireconfs("*", { configs = { shared = not is_mode("release") } })
