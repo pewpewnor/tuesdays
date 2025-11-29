@@ -2,9 +2,9 @@
 
 #include <imgui.h>
 
-#include "engine/template_steps/render_window_step.hpp"
+#include "commons/render_window_step.hpp"
 
-class Navbar : public engine::RenderWindowStep {
+class Navbar : public RenderWindowStep {
 public:
     bool beginWindow() override;
 

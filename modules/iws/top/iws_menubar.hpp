@@ -2,11 +2,10 @@
 
 #include <memory>
 
-#include "engine/template_steps/render_window_step.hpp"
 #include "universal/topbar.hpp"
 #include "utils/imgui/bring_window_to_front_once.hpp"
 
-class IwsMenubar : public engine::RenderWindowStep {
+class IwsMenubar : public RenderWindowStep {
 public:
     IwsMenubar(const std::shared_ptr<Topbar>& topbar);
 

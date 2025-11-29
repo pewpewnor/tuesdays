@@ -11,6 +11,7 @@ class Textures {
 public:
     sf::Texture lightningBoltIconWhite;
     sf::Texture signalTowerIconWhite;
+    sf::Texture plusIconMuted;
 };
 
 inline std::unique_ptr<g::Textures> textures;

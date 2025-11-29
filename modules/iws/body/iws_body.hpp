@@ -1,10 +1,9 @@
 #pragma once
 
-#include "engine/template_steps/render_window_step.hpp"
-#include "iws_sidebar.hpp"
+#include "iws/sidebar/iws_sidebar.hpp"
 #include "universal/topbar.hpp"
 
-class IwsBody : public engine::RenderWindowStep {
+class IwsBody : public RenderWindowStep {
 public:
     IwsBody(const std::shared_ptr<Topbar>& topbar, const std::shared_ptr<IwsSidebar>& acmSidebar);
 

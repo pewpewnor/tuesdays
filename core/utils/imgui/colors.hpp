@@ -8,7 +8,7 @@
 
 namespace {
 
-consteval int hexDigit(char c) {
+consteval unsigned int hexDigit(char c) {
     if (c >= '0' && c <= '9') {
         return c - '0';
     }
@@ -21,9 +21,9 @@ consteval int hexDigit(char c) {
 }
 
 consteval unsigned int hexPair(char a, char b) {
-    int hi = hexDigit(a);
-    int lo = hexDigit(b);
-    return (static_cast<unsigned int>(hi) << 4U) | static_cast<unsigned int>(lo);
+    unsigned int hi = hexDigit(a);
+    unsigned int lo = hexDigit(b);
+    return (hi << 4U) | lo;
 }
 
 }

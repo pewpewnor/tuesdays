@@ -3,8 +3,6 @@
 #include "engine/render_step.hpp"
 #include "imgui.h"
 
-namespace engine {
-
 class RenderWindowStep : public virtual engine::RenderStep {
 public:
     ImVec2 windowPos;
@@ -23,5 +21,3 @@ public:
 
     void onRender() override;
 };
-
-}

@@ -26,11 +26,12 @@ add_requireconfs("*", { configs = { shared = not is_mode("release") } })
 
 includes("core")
 includes("modules")
+includes("lifetimes")
 
 target("tuesdays-app")
     set_kind("binary")
     add_files("app/**.cpp")
-    add_deps("tuesdays-modules", "tuesdays-core")
+    add_deps("tuesdays-lifetimes", "tuesdays-modules", "tuesdays-core")
     add_packages("spdlog")
 
     after_build(function(target)

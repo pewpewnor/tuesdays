@@ -2,8 +2,7 @@
 
 #include <imgui.h>
 
-#include "iws_sidebar.hpp"
-#include "universal/states/universal_state.hpp"
+#include "universal/states/current_app.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
@@ -12,7 +11,7 @@ IwsBody::IwsBody(const std::shared_ptr<Topbar>& topbar,
                  const std::shared_ptr<IwsSidebar>& acmSidebar)
     : topbar_(topbar), acmSidebar_(acmSidebar) {}
 
-bool IwsBody::shouldRender() { return univ::state->currentApp == univ::CurrentApp::Iws; }
+bool IwsBody::shouldRender() { return univ::currentAppIsIws(); }
 
 bool IwsBody::beginWindow() {
     ImVec2 windowPos{acmSidebar_->windowPos.x + acmSidebar_->windowSize.x,

@@ -2,7 +2,7 @@
 
 #include <imgui.h>
 
-void engine::RenderWindowStep::onRender() {
+void RenderWindowStep::onRender() {
     if (beginWindow()) {
         renderWindowContent();
     }

@@ -2,9 +2,9 @@
 
 #include <imgui.h>
 
-#include "components/components.hpp"
+#include "commons/components.hpp"
 #include "globals/fonts.hpp"
-#include "universal/states/universal_state.hpp"
+#include "universal/states/current_app.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/styles_scoped.hpp"
@@ -12,7 +12,7 @@
 
 IwsMenubar::IwsMenubar(const std::shared_ptr<Topbar>& topbar) : topbar_(topbar) {}
 
-bool IwsMenubar::shouldRender() { return univ::state->currentApp == univ::CurrentApp::Iws; }
+bool IwsMenubar::shouldRender() { return univ::currentAppIsIws(); }
 
 bool IwsMenubar::beginWindow() {
     ImGui::SetNextWindowPos({topbar_->windowPos.x, topbar_->windowPos.y + 4});
@@ -22,7 +22,7 @@ bool IwsMenubar::beginWindow() {
 
     StylesScoped windowStyles;
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowMinSize, {0, 0});  // remove bottom margin
-    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {24, 4});
+    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {16, 4});
     windowStyles.pushStyleColor(ImGuiCol_MenuBarBg, COLOR_NIGHT_1);
 
     return ImGui::Begin("IwsMenubar", nullptr, windowFlag);
@@ -40,10 +40,8 @@ void IwsMenubar::renderWindowContent() {
         {
             StylesScoped appTitleStyle;
             appTitleStyle.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_FG);
-            {
-                FontScoped font(g::fonts->sansBold);
-                ImGui::TextUnformatted("WEB-SERVER");
-            }
+            FontScoped font(g::fonts->sansBold);
+            ImGui::TextUnformatted("WEB-SERVER");
         }
 
         ImGui::Dummy(ImVec2(12, 0));

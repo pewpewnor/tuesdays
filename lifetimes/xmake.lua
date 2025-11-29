@@ -1,0 +1,5 @@
+target("tuesdays-lifetimes")
+    add_files("**.cpp")
+    add_includedirs(".", { public = true })
+    add_deps("tuesdays-modules", "tuesdays-core")
+    add_packages("imgui-sfml", "spdlog", { public = true })

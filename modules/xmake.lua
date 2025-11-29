@@ -1,18 +1,5 @@
-target("tuesdays-modules-lifetimes")
-    add_files("lifetimes/**.cpp")
-    add_includedirs(".")
-    add_deps("tuesdays-core")
-    add_packages("imgui-sfml", "spdlog", { public = true })
-
-target("tuesdays-modules-tasks")
-    -- add_files("tasks/**.cpp")
-    add_includedirs(".")
-    add_deps("tuesdays-core")
-    add_packages("imgui", "spdlog", { public = true })
-
-target("tuesdays-modules-debug")
-    add_files("debug/**.cpp")
-    add_includedirs(".")
+target("tuesdays-modules-commons")
+    add_files("commons/**.cpp")
     add_deps("tuesdays-core")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
@@ -22,11 +9,11 @@ target("tuesdays-modules-universal")
     add_deps("tuesdays-core")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
---[[ target("tuesdays-modules-acm")
-    add_files("acm/**.cpp")
+target("tuesdays-modules-debug")
+    add_files("debug/**.cpp")
     add_includedirs(".")
     add_deps("tuesdays-core")
-    add_packages("imgui-sfml", "spdlog", { public = true }) ]]
+    add_packages("imgui-sfml", "spdlog", { public = true })
 
 target("tuesdays-modules-iws")
     add_files("iws/**.cpp")
@@ -37,10 +24,8 @@ target("tuesdays-modules-iws")
 target("tuesdays-modules")
     add_includedirs(".", { public = true })
     add_deps(
-        "tuesdays-modules-lifetimes",
-        "tuesdays-modules-tasks",
+        "tuesdays-modules-commons",
         "tuesdays-modules-debug",
         "tuesdays-modules-universal",
-        -- "tuesdays-modules-acm",
         "tuesdays-modules-iws"
     )

@@ -2,10 +2,11 @@
 
 #include <imgui-SFML.h>
 
+#include "imgui.h"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 
-bool components::navbarAppImageButton(const char* id, bool isActive, const sf::Texture& icon) {
+bool components::navbarAppImageButton(const char* label, bool isActive, const sf::Texture& icon) {
     constexpr float size = 28;
     constexpr float padding = 10;
 
@@ -19,13 +20,13 @@ bool components::navbarAppImageButton(const char* id, bool isActive, const sf::T
     styles.pushStyleColor(ImGuiCol_ButtonActive, hoverActiveColor);
     styles.pushStyleColor(ImGuiCol_Border, isActive ? COLOR_TRANSPARENT : COLOR_DARK_GREY);
 
-    return ImGui::ImageButton(id, icon, {size, size});
+    return ImGui::ImageButton(label, icon, {size, size});
 }
 
-bool components::beginMenubarMenu(const char* id) {
-    ImGuiID storageId = ImGui::GetID(id);
+bool components::beginMenubarMenu(const char* label) {
+    ImGuiID storageId = ImGui::GetID(label);
     bool* wasHovered = ImGui::GetStateStorage()->GetBoolRef(storageId, false);
-    bool isOpen = ImGui::IsPopupOpen(id);
+    bool isOpen = ImGui::IsPopupOpen(label);
 
     StylesScoped menuStyle;
     if (*wasHovered || isOpen) {
@@ -34,7 +35,7 @@ bool components::beginMenubarMenu(const char* id) {
         menuStyle.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
     }
 
-    bool result = ImGui::BeginMenu(id);
+    bool result = ImGui::BeginMenu(label);
     *wasHovered = ImGui::IsItemHovered(ImGuiHoveredFlags_RectOnly);
     return result;
 }
