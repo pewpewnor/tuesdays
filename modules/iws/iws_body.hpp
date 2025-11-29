@@ -1,16 +1,12 @@
 #pragma once
 
-#include <imgui.h>
-
-#include <memory>
-
 #include "engine/template_steps/render_window_step.hpp"
-#include "universal/navbar.hpp"
+#include "iws_sidebar.hpp"
 #include "universal/topbar.hpp"
 
-class AcmSidebar : public engine::RenderWindowStep {
+class IwsBody : public engine::RenderWindowStep {
 public:
-    AcmSidebar(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& topbar);
+    IwsBody(const std::shared_ptr<Topbar>& topbar, const std::shared_ptr<IwsSidebar>& acmSidebar);
 
     bool shouldRender() override;
 
@@ -19,6 +15,6 @@ public:
     void renderWindowContent() override;
 
 private:
-    std::shared_ptr<Navbar> navbar_;
     std::shared_ptr<Topbar> topbar_;
+    std::shared_ptr<IwsSidebar> acmSidebar_;
 };

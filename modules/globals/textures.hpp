@@ -9,10 +9,8 @@ namespace g {
 
 class Textures {
 public:
-    sf::Texture lightningBoltIconBlack;
     sf::Texture lightningBoltIconWhite;
     sf::Texture signalTowerIconWhite;
-    sf::Texture signalTowerIconBlack;
 };
 
 inline std::unique_ptr<g::Textures> textures;

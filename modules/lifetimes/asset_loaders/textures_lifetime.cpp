@@ -18,9 +18,7 @@ void TexturesLifetime::onStartup() {
     g::textures = std::make_unique<g::Textures>();
     spdlog::debug("Loading all textures...");
 
-    loadTexture(g::textures->lightningBoltIconBlack, "lightning-bolt-icon-black.png");
     loadTexture(g::textures->lightningBoltIconWhite, "lightning-bolt-icon-white.png");
-    loadTexture(g::textures->signalTowerIconBlack, "signal-tower-icon-black.png");
     loadTexture(g::textures->signalTowerIconWhite, "signal-tower-icon-white.png");
 
     spdlog::debug("Loaded all textures");

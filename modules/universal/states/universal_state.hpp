@@ -7,7 +7,7 @@
 namespace univ {
 
 struct UniversalState {
-    univ::CurrentApp currentApp = univ::CurrentApp::Acm;
+    univ::CurrentApp currentApp = univ::CurrentApp::Iws;
 };
 
 inline std::unique_ptr<univ::UniversalState> state;

@@ -4,8 +4,7 @@
 
 namespace components {
 
-bool navbarAppImageButton(const char* id, bool isActive, const sf::Texture& light,
-                          const sf::Texture& dark);
+bool navbarAppImageButton(const char* id, bool isActive, const sf::Texture& icon);
 
 bool beginMenubarMenu(const char* id);
 

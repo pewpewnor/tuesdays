@@ -6,9 +6,9 @@
 #include "universal/topbar.hpp"
 #include "utils/imgui/bring_window_to_front_once.hpp"
 
-class AcmMenubar : public engine::RenderWindowStep {
+class IwsMenubar : public engine::RenderWindowStep {
 public:
-    AcmMenubar(const std::shared_ptr<Topbar>& topbar);
+    IwsMenubar(const std::shared_ptr<Topbar>& topbar);
 
     bool shouldRender() override;
 

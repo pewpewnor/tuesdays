@@ -2,6 +2,6 @@
 
 namespace univ {
 
-enum class CurrentApp { Acm, Is, Dbm };
+enum class CurrentApp { Acm, Iws, Dbm };
 
 }
