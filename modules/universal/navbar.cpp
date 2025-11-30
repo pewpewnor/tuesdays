@@ -4,6 +4,7 @@
 
 #include "commons/components.hpp"
 #include "globals/textures.hpp"
+#include "universal/states/current_app.hpp"
 #include "universal/states/universal_state.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
@@ -26,13 +27,11 @@ void Navbar::renderWindowContent() {
         StylesScoped appIconsStyle;
         appIconsStyle.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
 
-        if (components::navbarAppImageButton("Navbar_AcmAppIcon",
-                                             univ::state->currentApp == univ::CurrentApp::Acm,
+        if (components::navbarAppImageButton("Navbar_AcmAppIcon", univ::currentAppIsAcm(),
                                              g::textures->lightningBoltIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Acm;
         }
-        if (components::navbarAppImageButton("Navbar_IsAppIcon",
-                                             univ::state->currentApp == univ::CurrentApp::Iws,
+        if (components::navbarAppImageButton("Navbar_IsAppIcon", univ::currentAppIsIws(),
                                              g::textures->signalTowerIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Iws;
         }

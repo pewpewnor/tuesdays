@@ -1,6 +1,7 @@
 #ifdef DEBUG
 #pragma once
-#include "commons/render_window_step.hpp"
+
+#include "commons/steps/render_window_step.hpp"
 
 class DebugInfoOverlay : public RenderWindowStep {
 public:

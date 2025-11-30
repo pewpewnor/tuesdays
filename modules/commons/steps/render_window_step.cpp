@@ -1,7 +1,5 @@
 #include "render_window_step.hpp"
 
-#include <imgui.h>
-
 void RenderWindowStep::onRender() {
     if (beginWindow()) {
         renderWindowContent();

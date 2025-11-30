@@ -33,6 +33,8 @@ target("tuesdays-app")
     add_files("app/**.cpp")
     add_deps("tuesdays-lifetimes", "tuesdays-modules", "tuesdays-core")
     add_packages("spdlog")
+    add_packages("openssl3") -- TODO: remove
+    add_packages("cpp-httplib") -- TODO: remove
 
     after_build(function(target)
         os.cp(path.join(os.projectdir(), "assets"), target:targetdir())

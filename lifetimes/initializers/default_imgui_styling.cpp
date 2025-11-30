@@ -4,9 +4,12 @@
 #include <imgui.h>
 
 #include "globals/fonts.hpp"
+#include "spdlog/spdlog.h"
 #include "utils/imgui/colors.hpp"
 
 void DefaultImguiStyling::onStartup() {
+    spdlog::debug("Initializing default ImGui styles...");
+
     ImGui::StyleColorsDark();
 
     ImGui::GetIO().FontDefault = g::fonts->sansRegular;
