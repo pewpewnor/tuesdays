@@ -75,8 +75,8 @@ void Application::pushKeyHandlerSteps() {
 
 void Application::pushRenderSteps() {
     auto navbar = std::make_shared<Navbar>();
-    auto topbar = std::make_shared<Topbar>(navbar);
     g::engine->pushRenderStep(navbar);
+    auto topbar = std::make_shared<Topbar>(navbar);
     g::engine->pushRenderStep(topbar);
 
     g::engine->pushRenderStep(std::make_shared<Iws>(navbar, topbar));

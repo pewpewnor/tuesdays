@@ -2,11 +2,11 @@
 
 #include <imgui-SFML.h>
 
+#include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "globals/textures.hpp"
 #include "imgui.h"
 #include "spdlog/spdlog.h"
-#include "universal/states/current_app.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -15,8 +15,6 @@
 
 IwsServersFilter::IwsServersFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar)
     : iwsSidebar_(iwsSidebar) {}
-
-bool IwsServersFilter::shouldRender() { return univ::currentAppIsIws(); }
 
 bool IwsServersFilter::beginWindow() {
     ImGui::SetNextWindowPos(iwsSidebar_->windowPos);
@@ -33,8 +31,8 @@ bool IwsServersFilter::beginWindow() {
 void IwsServersFilter::renderWindowContent() {
     ImGui::AlignTextToFramePadding();
     {
-        StylesScoped contentStyle;
-        contentStyle.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
+        StylesScoped contentStyles;
+        contentStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
         FontScoped font(g::fonts->sansBold);
         ImGui::TextUnformatted("SERVERS");
     }
@@ -47,26 +45,8 @@ void IwsServersFilter::renderWindowContent() {
                            {plusButtonSize, plusButtonSize})) {
         ImGui::OpenPopup("IwsModalCreateServer");
         spdlog::debug("clicked");
+        g::engine->sendRefreshSignal(5);
     };
 
-    if (ImGui::BeginPopupModal("IwsModalCreateServer", nullptr,
-                               ImGuiWindowFlags_AlwaysAutoResize)) {
-        ImGui::Text("All those beautiful files will be deleted.\nThis operation cannot be undone!");
-        ImGui::Separator();
-
-        static bool dontAskMeNextTime = false;
-        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
-        ImGui::Checkbox("Don't ask me next time", &dontAskMeNextTime);
-        ImGui::PopStyleVar();
-
-        if (ImGui::Button("OK", ImVec2(120, 0))) {
-            ImGui::CloseCurrentPopup();
-        }
-        ImGui::SetItemDefaultFocus();
-        ImGui::SameLine();
-        if (ImGui::Button("Cancel", ImVec2(120, 0))) {
-            ImGui::CloseCurrentPopup();
-        }
-        ImGui::EndPopup();
-    }
+    createServerModal_.render();
 }

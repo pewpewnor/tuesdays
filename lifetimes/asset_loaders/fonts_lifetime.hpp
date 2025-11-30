@@ -20,6 +20,8 @@ public:
     void onShutdown() override;
 
 private:
+    static constexpr float MEDIUM_FONT_SIZE = 20;
+    static constexpr float LARGE_FONT_SIZE = 32;
     static std::filesystem::path fontsPath;
 
     static Result<ImFont*> loadFont(const std::filesystem::path& fontFilePath, float fontSize);

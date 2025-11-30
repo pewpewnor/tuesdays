@@ -30,7 +30,7 @@ public:
 
     void sendStopSignal();
 
-    void sendRefreshSignal();
+    void sendRefreshSignal(int n = 1);
 
     void sendRestartSignal();
 
@@ -41,7 +41,7 @@ private:
     std::mutex runningMutex_;
     std::condition_variable runningCv_;
     std::atomic<bool> stopSignal_ = false;
-    std::atomic<bool> refreshSignal_ = false;
+    std::atomic<unsigned int> refreshSignal_ = 0;
     std::atomic<bool> restartAfterShutdown_ = false;
 
     sf::Clock deltaClock_;
@@ -57,7 +57,7 @@ private:
 
     bool processEvents();
 
-    bool pollEvents(bool hasFocus, bool alreadyRendering);
+    bool pollEvents(bool alreadyRendering);
 
     void renderFrame();
 

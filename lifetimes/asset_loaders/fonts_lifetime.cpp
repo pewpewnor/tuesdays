@@ -8,6 +8,8 @@
 #include "spdlog/spdlog.h"
 #include "utils/assertions.hpp"
 
+namespace {}
+
 std::filesystem::path FontsLifetime::fontsPath = std::filesystem::path("assets") / "fonts";
 
 void FontsLifetime::onStartup() {
@@ -43,9 +45,8 @@ Result<ImFont*> FontsLifetime::loadFont(const std::filesystem::path& fontFilePat
 
 void FontsLifetime::loadSansFonts() {
     std::filesystem::path regularPath = fontsPath / sansRegularFileName;
-    float fontSize = 20;
 
-    if (Result<ImFont*> result = loadFont(regularPath, fontSize)) {
+    if (Result<ImFont*> result = loadFont(regularPath, MEDIUM_FONT_SIZE)) {
         g::fonts->sansRegular = result.value();
     } else {
         spdlog::error("Failed to load sans font regular: {}", result.error());
@@ -54,7 +55,7 @@ void FontsLifetime::loadSansFonts() {
     }
 
     std::filesystem::path boldPath = fontsPath / sansBoldFileName;
-    if (Result<ImFont*> result = loadFont(boldPath, fontSize)) {
+    if (Result<ImFont*> result = loadFont(boldPath, MEDIUM_FONT_SIZE)) {
         g::fonts->sansBold = result.value();
     } else {
         spdlog::error("Failed to load sans font bold: {}", result.error());
@@ -65,13 +66,19 @@ void FontsLifetime::loadSansFonts() {
             g::fonts->sansBold = ImGui::GetIO().FontDefault;
         }
     }
+    if (Result<ImFont*> result = loadFont(boldPath, LARGE_FONT_SIZE)) {
+        g::fonts->sansBoldLarge = result.value();
+    } else {
+        spdlog::error("Failed to load sans font bold: {}", result.error());
+        ASSERT(false, "must successfully load sans font bold");
+        g::fonts->sansBoldLarge = g::fonts->sansBold;
+    }
 }
 
 void FontsLifetime::loadMonoFonts() {
     std::filesystem::path regularPath = fontsPath / monoRegularFileName;
-    float fontSize = 20;
 
-    if (Result<ImFont*> result = loadFont(regularPath, fontSize)) {
+    if (Result<ImFont*> result = loadFont(regularPath, MEDIUM_FONT_SIZE)) {
         g::fonts->monoRegular = result.value();
     } else {
         spdlog::error("Failed to load mono font regular: {}", result.error());
@@ -80,7 +87,7 @@ void FontsLifetime::loadMonoFonts() {
     }
 
     std::filesystem::path boldPath = fontsPath / monoBoldFileName;
-    if (Result<ImFont*> result = loadFont(boldPath, fontSize)) {
+    if (Result<ImFont*> result = loadFont(boldPath, MEDIUM_FONT_SIZE)) {
         g::fonts->monoBold = result.value();
     } else {
         spdlog::error("Failed to load mono font bold: {}", result.error());

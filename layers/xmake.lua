@@ -1,31 +1,31 @@
-target("tuesdays-modules-commons")
+target("tuesdays-layers-commons")
     add_files("commons/**.cpp")
     add_deps("tuesdays-core")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
-target("tuesdays-modules-universal")
+target("tuesdays-layers-universal")
     add_files("universal/**.cpp")
     add_includedirs(".")
-    add_deps("tuesdays-modules-commons", "tuesdays-core")
+    add_deps("tuesdays-layers-commons", "tuesdays-core")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
-target("tuesdays-modules-debug")
+target("tuesdays-layers-debug")
     add_files("debug/**.cpp")
     add_includedirs(".")
-    add_deps("tuesdays-modules-commons", "tuesdays-core")
+    add_deps("tuesdays-layers-commons", "tuesdays-core")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
-target("tuesdays-modules-iws")
+target("tuesdays-layers-iws")
     add_files("iws/**.cpp")
     add_includedirs(".")
-    add_deps("tuesdays-modules-universal", "tuesdays-modules-commons", "tuesdays-core")
+    add_deps("tuesdays-layers-universal", "tuesdays-layers-commons", "tuesdays-core")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
-target("tuesdays-modules")
+target("tuesdays-layers")
     add_includedirs(".", { public = true })
     add_deps(
-        "tuesdays-modules-commons",
-        "tuesdays-modules-universal",
-        "tuesdays-modules-debug",
-        "tuesdays-modules-iws"
+        "tuesdays-layers-commons",
+        "tuesdays-layers-universal",
+        "tuesdays-layers-debug",
+        "tuesdays-layers-iws"
     )

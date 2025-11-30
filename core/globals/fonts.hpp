@@ -10,6 +10,7 @@ class Fonts {
 public:
     ImFont* sansRegular = nullptr;
     ImFont* sansBold = nullptr;
+    ImFont* sansBoldLarge = nullptr;
     ImFont* monoRegular = nullptr;
     ImFont* monoBold = nullptr;
 };

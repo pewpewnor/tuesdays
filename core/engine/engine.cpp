@@ -49,9 +49,10 @@ void engine::Engine::sendStopSignal() {
     stopSignal_ = true;
 }
 
-void engine::Engine::sendRefreshSignal() {
-    spdlog::debug("Sent refresh signal to engine...");
-    refreshSignal_ = true;
+void engine::Engine::sendRefreshSignal(int n) {
+    ASSERT(n > 0, "number of refresh signal to be sent must be positive");
+    spdlog::debug("Sent {} refresh signal to engine...", n);
+    refreshSignal_ += n;
 }
 
 void engine::Engine::sendRestartSignal() {
@@ -67,7 +68,7 @@ void engine::Engine::waitUntilStopped() {
 
 void engine::Engine::startup() {
     triggerTrailingRefresh_ = true;
-    refreshSignal_ = true;
+    refreshSignal_ = 1;
     spdlog::debug("Engine executing startup steps...");
     for (const std::shared_ptr<engine::StartupStep>& startupStep : startupSteps_) {
         startupStep->onStartup();
@@ -108,7 +109,7 @@ bool engine::Engine::processEvents() {
         triggerTrailingRefresh_ = false;
     }
 
-    if (pollEvents(hasFocus, refresh)) {
+    if (pollEvents(refresh)) {
         refresh = true;
         refreshNeedsTrailing = true;
     }
@@ -116,8 +117,8 @@ bool engine::Engine::processEvents() {
         if (hasFocus && ImGui::GetIO().WantTextInput) {
             refresh = true;
         } else {
-            bool expected = true;
-            if (refreshSignal_.compare_exchange_strong(expected, false)) {
+            unsigned int expected = refreshSignal_;
+            if (expected > 0 && refreshSignal_.compare_exchange_strong(expected, expected - 1)) {
                 refresh = true;
                 refreshNeedsTrailing = true;
             }
@@ -128,7 +129,7 @@ bool engine::Engine::processEvents() {
     return refresh;
 }
 
-bool engine::Engine::pollEvents(bool hasFocus, bool alreadyRendering) {
+bool engine::Engine::pollEvents(bool alreadyRendering) {
     bool refresh = false;
     while (const auto event = window->pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
@@ -145,7 +146,7 @@ bool engine::Engine::pollEvents(bool hasFocus, bool alreadyRendering) {
         }
         ImGui::SFML::ProcessEvent(*window, *event);
         if (!alreadyRendering && !refresh &&
-            (hasFocus || event->is<sf::Event::FocusGained>() || event->is<sf::Event::Resized>() ||
+            (event->is<sf::Event::FocusGained>() || event->is<sf::Event::Resized>() ||
              event->is<sf::Event::MouseButtonPressed>() ||
              event->is<sf::Event::MouseButtonReleased>() || event->is<sf::Event::MouseEntered>() ||
              event->is<sf::Event::MouseLeft>() || event->is<sf::Event::MouseMoved>() ||
