@@ -15,17 +15,17 @@ bool Navbar::beginWindow() {
     ImGui::SetNextWindowSize({0, ImGui::GetMainViewport()->WorkSize.y}, ImGuiCond_Always);
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
-    StylesScoped windowStyle;
-    windowStyle.pushStyleVar(ImGuiStyleVar_WindowPadding, {12, 12});
-    windowStyle.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_1);
+    StylesScoped windowStyles;
+    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {12, 12});
+    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_1);
 
     return ImGui::Begin("Navbar", nullptr, windowFlags);
 }
 
 void Navbar::renderWindowContent() {
     {
-        StylesScoped appIconsStyle;
-        appIconsStyle.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
+        StylesScoped appIconsStyles;
+        appIconsStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
 
         if (components::navbarAppImageButton("Navbar_AcmAppIcon", univ::currentAppIsAcm(),
                                              g::textures->lightningBoltIconWhite)) {

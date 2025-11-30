@@ -7,8 +7,6 @@ class IwsBody : public RenderWindowStep {
 public:
     IwsBody(const std::shared_ptr<Topbar>& topbar, const std::shared_ptr<IwsSidebar>& acmSidebar);
 
-    bool shouldRender() override;
-
     bool beginWindow() override;
 
     void renderWindowContent() override;

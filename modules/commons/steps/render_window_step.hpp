@@ -18,7 +18,7 @@ public:
 
     virtual bool beginWindow() = 0;
 
-    virtual void renderWindowContent() = 0;
+    virtual void renderWindowContent();
 
     void onRender() override;
 };

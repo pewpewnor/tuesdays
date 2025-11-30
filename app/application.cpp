@@ -13,11 +13,7 @@
 #include "global_states_lifetime.hpp"
 #include "globals/engine_state.hpp"
 #include "initializers/default_imgui_styling.hpp"
-#include "iws/body/iws_body.hpp"
-#include "iws/modals/iws_modal_create_server.hpp"
-#include "iws/sidebar/iws_servers_filter.hpp"
-#include "iws/sidebar/iws_sidebar.hpp"
-#include "iws/top/iws_menubar.hpp"
+#include "iws/iws.hpp"
 #include "surface_lifetime.hpp"
 #include "tasks_lifetime.hpp"
 #include "universal/navbar.hpp"
@@ -83,17 +79,7 @@ void Application::pushRenderSteps() {
     g::engine->pushRenderStep(navbar);
     g::engine->pushRenderStep(topbar);
 
-    auto iwsMenubar = std::make_shared<IwsMenubar>(topbar);
-    g::engine->pushRenderStep(iwsMenubar);
-
-    auto iwsSidebar = std::make_shared<IwsSidebar>(navbar, topbar);
-    auto iwsServersFilter = std::make_shared<IwsServersFilter>(iwsSidebar);
-    g::engine->pushRenderStep(iwsSidebar);
-    g::engine->pushRenderStep(iwsServersFilter);
-    g::engine->pushRenderStep(std::make_shared<IwsModalCreateServer>());
-
-    auto iwsBody = std::make_shared<IwsBody>(topbar, iwsSidebar);
-    g::engine->pushRenderStep(iwsBody);
+    g::engine->pushRenderStep(std::make_shared<Iws>(navbar, topbar));
 
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<ImguiDemoWindow>());
