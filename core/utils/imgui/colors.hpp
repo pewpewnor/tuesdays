@@ -56,5 +56,5 @@ constexpr ImVec4 COLOR_GREEN_TEAL{colorHex("#12c281")};
 constexpr ImVec4 COLOR_ORANGE{colorHex("#ff6728")};
 constexpr ImVec4 COLOR_CHOCOLATE{colorHex("#4e210f")};
 
-constexpr ImVec4 COLOR_TEXT_MUTED{colorHex("#8d9aa3")};
-constexpr ImVec4 COLOR_TEXT_FG{colorHex("#f0e9e4")};
+constexpr ImVec4 COLOR_FG_MUTED{colorHex("#8d9aa3")};
+constexpr ImVec4 COLOR_FG_LIGHT{colorHex("#f0e9e4")};

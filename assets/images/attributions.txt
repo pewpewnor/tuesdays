@@ -1,0 +1,5 @@
+lightning-bolt-icon-white.png:
+	https://www.svgrepo.com/svg/506411/bolt
+
+signal-tower-icon-white.png:
+	https://www.svgrepo.com/svg/471901/signal-02

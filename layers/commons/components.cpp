@@ -35,9 +35,9 @@ bool components::Menu::begin() {
 
     StylesScoped menuStyles;
     if (*wasHovered || isOpen) {
-        menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_FG);
+        menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_LIGHT);
     } else {
-        menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
+        menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_MUTED);
     }
 
     bool result = ImGui::BeginMenu(label);

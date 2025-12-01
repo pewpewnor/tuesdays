@@ -33,7 +33,7 @@ void IwsMenubar::renderWindowContent() {
         ImGui::AlignTextToFramePadding();
         {
             StylesScoped appTitleStyles;
-            appTitleStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_FG);
+            appTitleStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_LIGHT);
             FontScoped font(g::fonts->sansBold.get());
             ImGui::TextUnformatted("WEB-SERVER");
         }
@@ -44,7 +44,7 @@ void IwsMenubar::renderWindowContent() {
         menuItemsStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {18, 22});
         menuItemsStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 16);
         menuItemsStyles.pushStyleColor(ImGuiCol_PopupBg, COLOR_NIGHT_4);
-        menuItemsStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
+        menuItemsStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_MUTED);
         menuItemsStyles.pushStyleColor(ImGuiCol_HeaderHovered, COLOR_CHOCOLATE);
         menuItemsStyles.pushStyleColor(ImGuiCol_HeaderActive, COLOR_CHOCOLATE);
         menuItemsStyles.pushStyleColor(ImGuiCol_Header, COLOR_TRANSPARENT);

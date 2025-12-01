@@ -32,20 +32,20 @@ void IwsServersFilter::renderWindowContent() {
     ImGui::AlignTextToFramePadding();
     {
         StylesScoped contentStyles;
-        contentStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
+        contentStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_MUTED);
         FontScoped font(g::fonts->sansBold.get());
         ImGui::TextUnformatted("SERVERS");
     }
 
     ImGui::SameLine();
 
-    constexpr float plusButtonSize = 20;
+    constexpr float plusButtonSize = 18;
     putNexItemAtTheEndOfWindow(plusButtonSize);
     if (ImGui::ImageButton("IwsServersFilter_PlusServer", g::textures->plusIconMuted,
                            {plusButtonSize, plusButtonSize})) {
         ImGui::OpenPopup("IwsModalCreateServer");
         spdlog::debug("clicked");
-        g::engine->sendRefreshSignal(5);
+        g::engine->sendRefreshSignal(10);
     };
 
     createServerModal_.render();
