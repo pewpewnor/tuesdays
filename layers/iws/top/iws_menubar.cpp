@@ -34,7 +34,7 @@ void IwsMenubar::renderWindowContent() {
         {
             StylesScoped appTitleStyles;
             appTitleStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_FG);
-            FontScoped font(g::fonts->sansBold);
+            FontScoped font(g::fonts->sansBold.get());
             ImGui::TextUnformatted("WEB-SERVER");
         }
 

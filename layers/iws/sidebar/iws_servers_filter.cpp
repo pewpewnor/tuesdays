@@ -33,7 +33,7 @@ void IwsServersFilter::renderWindowContent() {
     {
         StylesScoped contentStyles;
         contentStyles.pushStyleColor(ImGuiCol_Text, COLOR_TEXT_MUTED);
-        FontScoped font(g::fonts->sansBold);
+        FontScoped font(g::fonts->sansBold.get());
         ImGui::TextUnformatted("SERVERS");
     }
 

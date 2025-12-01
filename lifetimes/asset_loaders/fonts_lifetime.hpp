@@ -24,7 +24,10 @@ private:
     static constexpr float LARGE_FONT_SIZE = 32;
     static std::filesystem::path fontsPath;
 
-    static Result<ImFont*> loadFont(const std::filesystem::path& fontFilePath, float fontSize);
+    static std::shared_ptr<ImFont> getDefaultFont();
+
+    static Result<std::shared_ptr<ImFont>> loadFont(const std::filesystem::path& fontFilePath,
+                                                    float fontSize);
 
     void loadSansFonts();
 

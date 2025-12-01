@@ -8,11 +8,11 @@ namespace g {
 
 class Fonts {
 public:
-    ImFont* sansRegular = nullptr;
-    ImFont* sansBold = nullptr;
-    ImFont* sansBoldLarge = nullptr;
-    ImFont* monoRegular = nullptr;
-    ImFont* monoBold = nullptr;
+    std::shared_ptr<ImFont> sansRegular;
+    std::shared_ptr<ImFont> sansBold;
+    std::shared_ptr<ImFont> sansBoldLarge;
+    std::shared_ptr<ImFont> monoRegular;
+    std::shared_ptr<ImFont> monoBold;
 };
 
 inline std::unique_ptr<g::Fonts> fonts;

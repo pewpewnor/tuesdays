@@ -12,7 +12,7 @@ void DefaultImguiStyling::onStartup() {
 
     ImGui::StyleColorsDark();
 
-    ImGui::GetIO().FontDefault = g::fonts->sansRegular;
+    ImGui::GetIO().FontDefault = g::fonts->sansRegular.get();
 
     ImGui::GetStyle().WindowBorderSize = 0;
     ImGui::GetStyle().WindowPadding = {0, 0};
