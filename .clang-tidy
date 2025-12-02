@@ -12,7 +12,6 @@ Checks: >
     -bugprone-easily-swappable-parameters,
     -cppcoreguidelines-avoid-magic-numbers,
     -cppcoreguidelines-use-default-member-init,
-    -cppcoreguidelines-avoid-const-or-ref-data-members,
     -cppcoreguidelines-avoid-non-const-global-variables,
     -cppcoreguidelines-pro-type-vararg,
     -cppcoreguidelines-non-private-member-variables-in-classes,

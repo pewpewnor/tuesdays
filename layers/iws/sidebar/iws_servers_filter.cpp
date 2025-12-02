@@ -1,12 +1,10 @@
 #include "iws_servers_filter.hpp"
 
-#include <imgui-SFML.h>
+#include <imgui.h>
 
+#include "commons/components.hpp"
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
-#include "globals/textures.hpp"
-#include "imgui.h"
-#include "spdlog/spdlog.h"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -39,12 +37,10 @@ void IwsServersFilter::renderWindowContent() {
 
     ImGui::SameLine();
 
-    constexpr float plusButtonSize = 18;
+    constexpr float plusButtonSize = 16;
     putNexItemAtTheEndOfWindow(plusButtonSize);
-    if (ImGui::ImageButton("IwsServersFilter_PlusServer", g::textures->plusIconMuted,
-                           {plusButtonSize, plusButtonSize})) {
+    if (components::plusIconButton("IwsServersFilter_PlusServer", 16)) {
         ImGui::OpenPopup("IwsModalCreateServer");
-        spdlog::debug("clicked");
         g::engine->sendRefreshSignal(10);
     };
 

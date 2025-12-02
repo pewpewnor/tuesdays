@@ -9,6 +9,10 @@ namespace components {
 
 bool navbarAppImageButton(const std::string& label, bool isActive, const sf::Texture& icon);
 
+bool crossIconButton(const std::string& label, float size = 12);
+
+bool plusIconButton(const std::string& label, float size = 12);
+
 class Menu : public virtual WindowPart {
 public:
     Menu(const std::string& label);
@@ -19,7 +23,7 @@ public:
     ~Menu() override = default;
 
 private:
-    const std::string label_;
+    std::string label_;
 
     bool begin() override;
 

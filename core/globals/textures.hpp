@@ -7,11 +7,13 @@
 
 namespace g {
 
-class Textures {
-public:
+struct Textures {
     sf::Texture lightningBoltIconWhite;
     sf::Texture signalTowerIconWhite;
+    sf::Texture plusIconWhite;
     sf::Texture plusIconMuted;
+    sf::Texture crossIconWhite;
+    sf::Texture crossIconMuted;
 };
 
 inline std::unique_ptr<g::Textures> textures;

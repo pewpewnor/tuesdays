@@ -6,11 +6,10 @@
 
 namespace g {
 
-class Fonts {
-public:
+struct Fonts {
     std::shared_ptr<ImFont> sansRegular;
+    std::shared_ptr<ImFont> sansMedium;
     std::shared_ptr<ImFont> sansBold;
-    std::shared_ptr<ImFont> sansBoldLarge;
     std::shared_ptr<ImFont> monoRegular;
     std::shared_ptr<ImFont> monoBold;
 };

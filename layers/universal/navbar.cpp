@@ -27,11 +27,13 @@ void Navbar::renderWindowContent() {
         StylesScoped appIconsStyles;
         appIconsStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
 
-        if (components::navbarAppImageButton("Navbar_AcmAppIcon", univ::currentAppIsAcm(),
+        if (components::navbarAppImageButton("Navbar_AcmAppIcon",
+                                             univ::state->currentApp == univ::CurrentApp::Acm,
                                              g::textures->lightningBoltIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Acm;
         }
-        if (components::navbarAppImageButton("Navbar_IsAppIcon", univ::currentAppIsIws(),
+        if (components::navbarAppImageButton("Navbar_IsAppIcon",
+                                             univ::state->currentApp == univ::CurrentApp::Iws,
                                              g::textures->signalTowerIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Iws;
         }

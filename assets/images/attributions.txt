@@ -3,3 +3,9 @@ lightning-bolt-icon-white.png:
 
 signal-tower-icon-white.png:
 	https://www.svgrepo.com/svg/471901/signal-02
+
+plus-icon-*.png:
+	https://www.svgrepo.com/svg/509386/plus (thickness +50%)
+	
+cross-icon-*.png:
+	https://www.svgrepo.com/svg/447973/cross (thickness +50%)

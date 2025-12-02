@@ -5,8 +5,8 @@
 
 class SurfaceLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:
-    int width = 1280;
-    int height = 720;
+    static constexpr int WIDTH = 1280;
+    static constexpr int HEIGHT = 720;
 
     void onStartup() override;
 

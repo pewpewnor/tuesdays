@@ -41,7 +41,7 @@ consteval ImVec4 colorHex(std::string_view hex) { return colorHex(hex, 1); }
 
 constexpr ImVec4 COLOR_TRANSPARENT{colorHex("#000000", 0)};
 constexpr ImVec4 COLOR_BLACK{colorHex("#000000")};
-constexpr ImVec4 COLOR_BLACK_OVERLAY{colorHex("#000000", 0.5)};
+constexpr ImVec4 COLOR_BLACK_OVERLAY{colorHex("#000000", 0.3)};
 constexpr ImVec4 COLOR_WHITE{colorHex("#ffffff")};
 
 constexpr ImVec4 COLOR_NIGHT_1{colorHex("#010304")};

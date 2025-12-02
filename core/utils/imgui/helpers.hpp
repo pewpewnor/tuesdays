@@ -1,5 +1,7 @@
 #pragma once
 
-bool nextWidgetIsHovered(float widgetWidth, float widgetHeight);
+bool nextItemIsHovered(float widgetWidth, float widgetHeight);
+
+void setNextItemWidthAsLongAsPossible();
 
 void putNexItemAtTheEndOfWindow(float itemWidth, float gap = 0);

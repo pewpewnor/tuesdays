@@ -2,9 +2,24 @@
 
 #include <imgui-SFML.h>
 
-#include "imgui.h"
+#include "SFML/Graphics/Texture.hpp"
+#include "globals/textures.hpp"
 #include "utils/imgui/colors.hpp"
+#include "utils/imgui/helpers.hpp"
 #include "utils/imgui/styles_scoped.hpp"
+
+namespace {
+
+bool actionIconButton(const std::string& label, float size, const sf::Texture& notHovered,
+                      const sf::Texture& hovered) {
+    bool isHovered = nextItemIsHovered(size + 8, size + 8);
+    StylesScoped plusButtonStyles;
+    plusButtonStyles.pushStyleVar(ImGuiStyleVar_FrameRounding, 16);
+
+    return ImGui::ImageButton(label.c_str(), isHovered ? hovered : notHovered, {size, size});
+}
+
+}
 
 bool components::navbarAppImageButton(const std::string& label, bool isActive,
                                       const sf::Texture& icon) {
@@ -19,9 +34,17 @@ bool components::navbarAppImageButton(const std::string& label, bool isActive,
     ImVec4 hoverActiveColor = isActive ? COLOR_AZURE : COLOR_CHOCOLATE;
     styles.pushStyleColor(ImGuiCol_ButtonHovered, hoverActiveColor);
     styles.pushStyleColor(ImGuiCol_ButtonActive, hoverActiveColor);
-    styles.pushStyleColor(ImGuiCol_Border, isActive ? COLOR_TRANSPARENT : COLOR_DARK_GREY);
+    styles.pushStyleColor(ImGuiCol_Border, isActive ? COLOR_AZURE_SHADOW : COLOR_DARK_GREY);
 
     return ImGui::ImageButton(label.c_str(), icon, {size, size});
+}
+
+bool components::crossIconButton(const std::string& label, float size) {
+    return actionIconButton(label, size, g::textures->crossIconMuted, g::textures->crossIconWhite);
+}
+
+bool components::plusIconButton(const std::string& label, float size) {
+    return actionIconButton(label, size, g::textures->plusIconMuted, g::textures->plusIconWhite);
 }
 
 components::Menu::Menu(const std::string& label) : label_(label) {}
@@ -34,9 +57,7 @@ bool components::Menu::begin() {
     bool isOpen = ImGui::IsPopupOpen(label);
 
     StylesScoped menuStyles;
-    if (*wasHovered || isOpen) {
-        menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_LIGHT);
-    } else {
+    if (!*wasHovered && !isOpen) {
         menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_MUTED);
     }
 

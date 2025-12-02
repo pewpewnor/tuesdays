@@ -17,7 +17,10 @@ void TexturesLifetime::onStartup() {
 
     loadTexture(g::textures->lightningBoltIconWhite, "lightning-bolt-icon-white.png");
     loadTexture(g::textures->signalTowerIconWhite, "signal-tower-icon-white.png");
+    loadTexture(g::textures->plusIconWhite, "plus-icon-white.png");
     loadTexture(g::textures->plusIconMuted, "plus-icon-muted.png");
+    loadTexture(g::textures->crossIconWhite, "cross-icon-white.png");
+    loadTexture(g::textures->crossIconMuted, "cross-icon-muted.png");
 
     spdlog::debug("Loaded all textures");
 }

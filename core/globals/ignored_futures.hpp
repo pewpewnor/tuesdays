@@ -7,8 +7,7 @@
 
 namespace g {
 
-class IgnoredFutures {
-public:
+struct IgnoredFutures {
     std::vector<std::shared_future<void>> futures;
     std::mutex mutex;
 };

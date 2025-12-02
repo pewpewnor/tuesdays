@@ -6,7 +6,7 @@
 #include "iws/sidebar/iws_servers_filter.hpp"
 #include "iws/sidebar/iws_sidebar.hpp"
 #include "iws/top/iws_menubar.hpp"
-#include "universal/states/current_app.hpp"
+#include "universal/states/universal_state.hpp"
 
 Iws::Iws(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& topbar) {
     auto iwsMenubar = std::make_shared<IwsMenubar>(topbar);
@@ -21,4 +21,4 @@ Iws::Iws(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& t
     renderSteps.push_back(iwsBody);
 }
 
-bool Iws::shouldRender() { return univ::currentAppIsIws(); }
+bool Iws::shouldRender() { return univ::state->currentApp == univ::CurrentApp::Iws; }

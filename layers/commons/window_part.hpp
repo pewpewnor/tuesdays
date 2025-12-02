@@ -12,6 +12,8 @@ public:
     void render();
 
 protected:
+    virtual bool shouldRender() { return true; };
+
     virtual bool begin() = 0;
 
     virtual void renderContent() = 0;

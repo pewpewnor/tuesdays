@@ -2,10 +2,16 @@
 
 #include <imgui.h>
 
-bool nextWidgetIsHovered(float widgetWidth, float widgetHeight) {
+#include <limits>
+
+bool nextItemIsHovered(float widgetWidth, float widgetHeight) {
     ImVec2 nextWidgetPos = ImGui::GetCursorScreenPos();
     return ImGui::IsMouseHoveringRect(
         nextWidgetPos, {nextWidgetPos.x + widgetWidth, nextWidgetPos.y + widgetHeight});
+}
+
+void setNextItemWidthAsLongAsPossible() {
+    ImGui::SetNextItemWidth(-std::numeric_limits<float>::min());
 }
 
 void putNexItemAtTheEndOfWindow(float itemWidth, float gap) {

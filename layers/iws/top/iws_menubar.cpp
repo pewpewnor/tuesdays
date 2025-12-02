@@ -33,7 +33,6 @@ void IwsMenubar::renderWindowContent() {
         ImGui::AlignTextToFramePadding();
         {
             StylesScoped appTitleStyles;
-            appTitleStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_LIGHT);
             FontScoped font(g::fonts->sansBold.get());
             ImGui::TextUnformatted("WEB-SERVER");
         }
