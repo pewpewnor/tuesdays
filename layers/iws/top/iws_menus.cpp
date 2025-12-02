@@ -4,7 +4,7 @@
 
 IwsMenuFile::IwsMenuFile() : components::Menu("File##IwsMenubar_File") {}
 
-void IwsMenuFile::renderContent() {
+void IwsMenuFile::displayContent() {
     if (ImGui::MenuItem("New Collections")) {
     }
     if (ImGui::MenuItem("New Request")) {
@@ -18,7 +18,7 @@ void IwsMenuFile::renderContent() {
 
 IwsMenuEdit::IwsMenuEdit() : components::Menu("Edit##IwsMenubar_Edit") {}
 
-void IwsMenuView::renderContent() {
+void IwsMenuView::displayContent() {
     if (ImGui::MenuItem("Undo")) {
     }
     if (ImGui::MenuItem("Redo")) {
@@ -34,7 +34,7 @@ void IwsMenuView::renderContent() {
 
 IwsMenuView::IwsMenuView() : components::Menu("View##IwsMenubar_View") {}
 
-void IwsMenuEdit::renderContent() {
+void IwsMenuEdit::displayContent() {
     if (ImGui::MenuItem("Toggle Sidebar")) {
     }
     if (ImGui::MenuItem("Toggle Console")) {

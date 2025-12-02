@@ -5,7 +5,9 @@
 #include <array>
 
 #include "commons/components.hpp"
+#include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
+#include "iws/states/iws_state.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -13,7 +15,7 @@
 #include "utils/imgui/window_flags_builder.hpp"
 
 bool IwsModalCreateServer::begin() {
-    ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addStatic().build();
+    ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addAlwaysAutoResize().addStatic().build();
 
     StylesScoped modalStyles;
     modalStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(18, 18));
@@ -28,9 +30,9 @@ bool IwsModalCreateServer::begin() {
     return ImGui::BeginPopupModal("IwsModalCreateServer", nullptr, modalFlags);
 }
 
-void IwsModalCreateServer::renderContent() {
+void IwsModalCreateServer::displayContent() {
     StylesScoped contentStyles;
-    contentStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 12));
+    contentStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 12));
 
     {
         FontScoped font(g::fonts->sansBold.get());
@@ -42,14 +44,15 @@ void IwsModalCreateServer::renderContent() {
     constexpr float crossButtonSize = 14;
     putNexItemAtTheEndOfWindow(crossButtonSize);
     if (components::crossIconButton("IwsModalCreateServer_Cross", crossButtonSize)) {
+        resetAll();
         ImGui::CloseCurrentPopup();
     };
 
     ImGui::Separator();
 
     {
-        StylesScoped inputServerNameStyles;
-        inputServerNameStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 8);
+        StylesScoped serverNameInputStyles;
+        serverNameInputStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 8);
 
         {
             FontScoped font(g::fonts->sansMedium.get());
@@ -57,30 +60,60 @@ void IwsModalCreateServer::renderContent() {
         }
 
         setNextItemWidthAsLongAsPossible();
-        std::array<char, 255> buffer{'\0'};
-        ImGui::InputText("##IwsModalCreateServer_ServerName", buffer.data(), buffer.size());
+        ImGui::InputText("##IwsModalCreateServer_ServerName", serverNameBuffer_.data(),
+                         serverNameBuffer_.size());
+
+        if (violatedServerNameRequired_) {
+            ImGui::TextColored(COLOR_ORANGE, "name is required");
+        }
     }
 
-    ImGui::Dummy(ImVec2(120, 0));
+    ImGui::Dummy(ImVec2(0, 8));
+
+    ImGui::Dummy(ImVec2(132, 0));
 
     ImGui::SameLine();
 
-    StylesScoped cancelButtonStyles;
+    {
+        StylesScoped cancelButtonStyles;
+        cancelButtonStyles.pushStyleVar(ImGuiStyleVar_FrameBorderSize, 1);
+        cancelButtonStyles.pushStyleVar(ImGuiStyleVar_FrameRounding, 4);
+        cancelButtonStyles.pushStyleColor(ImGuiCol_Border, COLOR_FG_MUTED);
 
-    if (ImGui::Button("Cancel", ImVec2(80, 30))) {
-        ImGui::CloseCurrentPopup();
+        if (ImGui::Button("Cancel", ImVec2(96, 36))) {
+            resetAll();
+            ImGui::CloseCurrentPopup();
+        }
     }
 
     ImGui::SameLine();
 
     StylesScoped okButtonStyles;
+    okButtonStyles.pushStyleVar(ImGuiStyleVar_FrameRounding, 4);
     okButtonStyles.pushStyleColor(ImGuiCol_Button, COLOR_AZURE_SHADOW);
     okButtonStyles.pushStyleColor(ImGuiCol_ButtonHovered, COLOR_AZURE);
     okButtonStyles.pushStyleColor(ImGuiCol_ButtonActive, COLOR_AZURE);
 
-    if (ImGui::Button("OK", ImVec2(80, 30))) {
-        ImGui::CloseCurrentPopup();
+    if (ImGui::Button("OK", ImVec2(96, 36))) {
+        std::string serverName(serverNameBuffer_.data());
+
+        if (serverName.length() < 1) {
+            resetValidations();
+            violatedServerNameRequired_ = true;
+            g::engine->sendRefreshSignal();
+        } else {
+            resetAll();
+            iws::state->serverGroups.emplace_back(serverName);
+            ImGui::CloseCurrentPopup();
+        }
     }
 }
 
 void IwsModalCreateServer::end() { ImGui::EndPopup(); }
+
+void IwsModalCreateServer::resetAll() {
+    serverNameBuffer_[0] = '\0';
+    resetValidations();
+}
+
+void IwsModalCreateServer::resetValidations() { violatedServerNameRequired_ = false; }

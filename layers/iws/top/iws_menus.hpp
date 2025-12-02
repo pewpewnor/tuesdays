@@ -7,7 +7,7 @@ public:
     IwsMenuFile();
 
 private:
-    void renderContent() override;
+    void displayContent() override;
 };
 
 class IwsMenuEdit : public components::Menu {
@@ -15,7 +15,7 @@ public:
     IwsMenuEdit();
 
 private:
-    void renderContent() override;
+    void displayContent() override;
 };
 
 class IwsMenuView : public components::Menu {
@@ -23,5 +23,5 @@ public:
     IwsMenuView();
 
 private:
-    void renderContent() override;
+    void displayContent() override;
 };

@@ -12,7 +12,7 @@ bool DebugInfoOverlay::beginWindow() {
 }
 
 void DebugInfoOverlay::renderWindowContent() {
-    ImGui::Text("Frame Count = %u | FPS = %d", ++debug::state->frameCount,
+    ImGui::Text("Frame Count = %u | FPS = %d ", ++debug::state->frameCount,
                 static_cast<int>(ImGui::GetIO().Framerate));
 }
 #endif
