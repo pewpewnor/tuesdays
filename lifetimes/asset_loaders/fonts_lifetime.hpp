@@ -2,7 +2,8 @@
 
 #include <imgui.h>
 
-#include <filesystem>
+#include <memory>
+#include <string_view>
 
 #include "engine/steps/shutdown_step.hpp"
 #include "engine/steps/startup_step.hpp"
@@ -10,29 +11,21 @@
 
 class FontsLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:
-    std::string sansRegularFileName = "Geist-Regular.ttf";
-    std::string sansMediumFileName = "Geist-SemiBold.ttf";
-    std::string sansBoldFileName = "Geist-Bold.ttf";
-    std::string monoRegularFileName = "GeistMono-Regular.ttf";
-    std::string monoBoldFileName = "GeistMono-Bold.ttf";
-
     void onStartup() override;
-
     void onShutdown() override;
 
 private:
-    static constexpr float REGULAR_FONT_SIZE = 20;
-    static constexpr float MEDIUM_FONT_SIZE = 24;
-    static std::filesystem::path fontsPath;
+    static constexpr float REGULAR_FONT_SIZE = 20.0F;
+    static constexpr float MEDIUM_FONT_SIZE = 24.0F;
 
     static std::shared_ptr<ImFont> getDefaultFont();
 
-    static Result<std::shared_ptr<ImFont>> loadFont(const std::filesystem::path& fontFilePath,
-                                                    float fontSize);
+    static Result<std::shared_ptr<ImFont>> loadFontFromMemory(const void* data, int dataSize,
+                                                              float fontSizePixels);
 
     static void logFontLoadError(std::string_view fontName, const std::string& errorMsg);
 
-    void loadSansFonts();
+    static void loadSansFonts();
 
-    void loadMonoFonts();
+    static void loadMonoFonts();
 };

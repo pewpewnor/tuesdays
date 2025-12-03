@@ -3,8 +3,6 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 
-#include <filesystem>
-
 #include "engine/steps/shutdown_step.hpp"
 #include "engine/steps/startup_step.hpp"
 
@@ -15,9 +13,8 @@ public:
     void onShutdown() override;
 
 private:
-    static std::filesystem::path imagesPath;
-
-    static void loadTexture(sf::Texture& texture, std::string_view fileName);
+    static void loadTextureFromMemory(sf::Texture& texture, const void* data, size_t size,
+                                      std::string_view debugName);
 
     static bool smoothenTexture(sf::Texture& texture);
 };
