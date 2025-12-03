@@ -48,9 +48,9 @@ void IwsMenubar::renderWindowContent() {
         menuItemsStyles.pushStyleColor(ImGuiCol_HeaderActive, COLOR_CHOCOLATE);
         menuItemsStyles.pushStyleColor(ImGuiCol_Header, COLOR_TRANSPARENT);
 
-        fileMenu_.render();
-        editMenu_.render();
-        viewMenu_.render();
+        fileMenu_.display();
+        editMenu_.display();
+        viewMenu_.display();
 
         ImGui::EndMenuBar();
     }

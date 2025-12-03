@@ -2,7 +2,7 @@
 
 #include <imgui-SFML.h>
 
-#include "commons/components.hpp"
+#include "components/image_buttons.hpp"
 #include "globals/textures.hpp"
 #include "universal/states/current_app.hpp"
 #include "universal/states/universal_state.hpp"

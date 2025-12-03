@@ -4,7 +4,7 @@
 #include "universal/navbar.hpp"
 #include "universal/topbar.hpp"
 
-class Iws : public RenderGroup {
+class Iws : public commons::RenderGroup {
 public:
     Iws(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& topbar);
 

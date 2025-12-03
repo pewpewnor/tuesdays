@@ -2,7 +2,7 @@
 
 #include <imgui.h>
 
-#include "commons/components.hpp"
+#include "components/image_buttons.hpp"
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "utils/imgui/colors.hpp"
@@ -44,5 +44,5 @@ void IwsServersFilter::renderWindowContent() {
         g::engine->sendRefreshSignal(10);
     };
 
-    createServerModal_.render();
+    createServerModal_.display();
 }

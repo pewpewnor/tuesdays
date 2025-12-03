@@ -4,6 +4,8 @@
 
 #include "engine/render_step.hpp"
 
+namespace commons {
+
 class RenderWindowStep : public virtual engine::RenderStep {
 public:
     ImVec2 windowPos;
@@ -16,9 +18,12 @@ public:
     RenderWindowStep& operator=(RenderWindowStep&&) = delete;
     ~RenderWindowStep() override = default;
 
+private:
     virtual bool beginWindow() = 0;
 
     virtual void renderWindowContent();
 
     void onRender() override;
 };
+
+}

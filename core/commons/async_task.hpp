@@ -15,6 +15,8 @@
 #include "utils/results.hpp"
 #include "utils/scopes/scope_fail.hpp"
 
+namespace commons {
+
 template <typename TResult>
 using TaskFunction = std::function<TResult()>;
 template <typename TResult>
@@ -133,3 +135,5 @@ private:
         ASSERT(this->isAvailable(), "task must be free after ignore");
     }
 };
+
+}

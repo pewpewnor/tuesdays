@@ -7,7 +7,7 @@
 #include "iws/modals/iws_modal_create_server.hpp"
 #include "iws/sidebar/iws_sidebar.hpp"
 
-class IwsServersFilter : public RenderWindowStep {
+class IwsServersFilter : public commons::RenderWindowStep {
 public:
     IwsServersFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar);
 

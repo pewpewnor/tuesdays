@@ -2,9 +2,9 @@
 
 #include <array>
 
-#include "commons/window_part.hpp"
+#include "commons/display_part.hpp"
 
-class IwsModalCreateServer : public WindowPart {
+class IwsModalCreateServer : public commons::DisplayPart {
 private:
     bool violatedServerNameRequired_ = false;
     std::array<char, 255> serverNameBuffer_{'\0'};
@@ -13,7 +13,7 @@ private:
 
     void displayContent() override;
 
-    void end() override;
+    void endOfDisplay() override;
 
     void resetAll();
 

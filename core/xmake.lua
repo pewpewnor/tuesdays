@@ -9,6 +9,12 @@ target("tuesdays-core-engine")
     add_deps("tuesdays-core-utils")
     add_packages("imgui-sfml", "spdlog", { public = true })
 
+target("tuesdays-layers-commons")
+    add_files("commons/**.cpp")
+    add_includedirs(".")
+    add_deps("tuesdays-core-engine")
+    add_packages("imgui-sfml", "spdlog", { public = true })
+
 target("tuesdays-core")
     add_includedirs(".", { public = true })
-    add_deps("tuesdays-core-utils", "tuesdays-core-engine")
+    add_deps("tuesdays-layers-commons", "tuesdays-core-utils", "tuesdays-core-engine")

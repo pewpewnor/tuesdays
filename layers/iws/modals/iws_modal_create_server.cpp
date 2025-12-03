@@ -4,7 +4,7 @@
 
 #include <array>
 
-#include "commons/components.hpp"
+#include "components/image_buttons.hpp"
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "iws/states/iws_state.hpp"
@@ -109,7 +109,7 @@ void IwsModalCreateServer::displayContent() {
     }
 }
 
-void IwsModalCreateServer::end() { ImGui::EndPopup(); }
+void IwsModalCreateServer::endOfDisplay() { ImGui::EndPopup(); }
 
 void IwsModalCreateServer::resetAll() {
     serverNameBuffer_[0] = '\0';

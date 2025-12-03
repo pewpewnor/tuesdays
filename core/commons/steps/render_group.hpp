@@ -5,6 +5,8 @@
 
 #include "engine/render_step.hpp"
 
+namespace commons {
+
 class RenderGroup : public virtual engine::RenderStep {
 public:
     RenderGroup() = default;
@@ -19,3 +21,5 @@ public:
 protected:
     std::vector<std::shared_ptr<engine::RenderStep>> renderSteps;
 };
+
+}

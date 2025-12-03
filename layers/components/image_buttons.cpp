@@ -1,4 +1,4 @@
-#include "components.hpp"
+#include "image_buttons.hpp"
 
 #include <imgui-SFML.h>
 
@@ -46,24 +46,3 @@ bool components::crossIconButton(const std::string& label, float size) {
 bool components::plusIconButton(const std::string& label, float size) {
     return actionIconButton(label, size, g::textures->plusIconMuted, g::textures->plusIconWhite);
 }
-
-components::Menu::Menu(const std::string& label) : label_(label) {}
-
-bool components::Menu::begin() {
-    const char* label = label_.c_str();
-
-    ImGuiID storageId = ImGui::GetID(label);
-    bool* wasHovered = ImGui::GetStateStorage()->GetBoolRef(storageId, false);
-    bool isOpen = ImGui::IsPopupOpen(label);
-
-    StylesScoped menuStyles;
-    if (!*wasHovered && !isOpen) {
-        menuStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_MUTED);
-    }
-
-    bool result = ImGui::BeginMenu(label);
-    *wasHovered = ImGui::IsItemHovered(ImGuiHoveredFlags_RectOnly);
-    return result;
-}
-
-void components::Menu::end() { ImGui::EndMenu(); }
