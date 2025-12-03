@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/shutdown_step.hpp"
-#include "engine/startup_step.hpp"
+#include "engine/steps/shutdown_step.hpp"
+#include "engine/steps/startup_step.hpp"
 
 class SurfaceLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:

@@ -3,7 +3,7 @@
 
 #include <SFML/Window/Keyboard.hpp>
 
-#include "engine/render_step.hpp"
+#include "engine/steps/render_step.hpp"
 #include "utils/sfml/combined_key_press_detector.hpp"
 #include "utils/sfml/key_press_detector.hpp"
 

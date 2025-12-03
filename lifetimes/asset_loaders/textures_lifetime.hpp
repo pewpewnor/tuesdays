@@ -5,8 +5,8 @@
 
 #include <filesystem>
 
-#include "engine/shutdown_step.hpp"
-#include "engine/startup_step.hpp"
+#include "engine/steps/shutdown_step.hpp"
+#include "engine/steps/startup_step.hpp"
 
 class TexturesLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:

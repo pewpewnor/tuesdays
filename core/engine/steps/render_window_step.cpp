@@ -1,8 +1,8 @@
 #include "render_window_step.hpp"
 
-void commons::RenderWindowStep::renderWindowContent() {}
+void engine::RenderWindowStep::renderWindowContent() {}
 
-void commons::RenderWindowStep::onRender() {
+void engine::RenderWindowStep::onRender() {
     if (beginWindow()) {
         renderWindowContent();
     }

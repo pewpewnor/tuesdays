@@ -4,7 +4,6 @@
 #include <spdlog/spdlog.h>
 
 #include <SFML/System/Sleep.hpp>
-#include <ranges>
 #include <stdexcept>
 
 #include "utils/assertions.hpp"
@@ -31,17 +30,17 @@ void engine::Engine::runContinously() {
 
 void engine::Engine::pushStartupStep(const std::shared_ptr<engine::StartupStep>& step) {
     ASSERT(!isRunning_, "only add step while engine is not running");
-    startupSteps_.push_back(step);
+    startupSteps.push_back(step);
 }
 
 void engine::Engine::pushRenderStep(const std::shared_ptr<engine::RenderStep>& step) {
     ASSERT(!isRunning_, "only add step while engine is not running");
-    renderSteps_.push_back(step);
+    renderSteps.push_back(step);
 }
 
 void engine::Engine::pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& step) {
     ASSERT(!isRunning_, "only add step while engine is not running");
-    shutdownSteps_.push_back(step);
+    shutdownSteps.push_back(step);
 }
 
 void engine::Engine::sendStopSignal() {
@@ -70,9 +69,7 @@ void engine::Engine::startup() {
     triggerTrailingRefresh_ = true;
     refreshSignal_ = 1;
     spdlog::debug("Engine executing startup steps...");
-    for (const std::shared_ptr<engine::StartupStep>& startupStep : startupSteps_) {
-        startupStep->onStartup();
-    }
+    onStartup();
 }
 
 void engine::Engine::renderFramesContinously() {
@@ -165,11 +162,7 @@ bool engine::Engine::pollEvents(bool alreadyRendering) {
 void engine::Engine::renderFrame() {
     ImGui::SFML::Update(*window, deltaClock_.restart());
 
-    for (const std::shared_ptr<engine::RenderStep>& renderStep : renderSteps_) {
-        if (renderStep->shouldRender()) {
-            renderStep->onRender();
-        }
-    }
+    onRender();
 
     window->clear(sf::Color::Black);
     ImGui::SFML::Render(*window);
@@ -179,10 +172,7 @@ void engine::Engine::renderFrame() {
 void engine::Engine::shutdown() {
     ScopeExit scopeExit([this]() { stopRunningState(); });
     spdlog::debug("Engine executing shutdown steps...");
-    for (const std::shared_ptr<engine::ShutdownStep>& shutdownStep :
-         std::ranges::reverse_view(shutdownSteps_)) {
-        shutdownStep->onShutdown();
-    }
+    onShutdown();
 }
 
 void engine::Engine::stopRunningState() {

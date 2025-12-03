@@ -7,15 +7,12 @@
 #include <atomic>
 #include <condition_variable>
 #include <mutex>
-#include <vector>
 
-#include "render_step.hpp"
-#include "shutdown_step.hpp"
-#include "startup_step.hpp"
+#include "engine/steps/group_step.hpp"
 
 namespace engine {
 
-class Engine {
+class Engine : private GroupStep {
 public:
     std::shared_ptr<sf::RenderWindow> window;
     std::atomic<bool> renderOnIdle = false;
@@ -43,13 +40,8 @@ private:
     std::atomic<bool> stopSignal_ = false;
     std::atomic<unsigned int> refreshSignal_ = 0;
     std::atomic<bool> restartAfterShutdown_ = false;
-
     sf::Clock deltaClock_;
     bool triggerTrailingRefresh_ = true;
-
-    std::vector<std::shared_ptr<engine::StartupStep>> startupSteps_;
-    std::vector<std::shared_ptr<engine::RenderStep>> renderSteps_;
-    std::vector<std::shared_ptr<engine::ShutdownStep>> shutdownSteps_;
 
     void startup();
 

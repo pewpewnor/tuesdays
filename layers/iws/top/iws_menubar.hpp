@@ -5,7 +5,7 @@
 #include "iws/top/iws_menus.hpp"
 #include "universal/topbar.hpp"
 
-class IwsMenubar : public commons::RenderWindowStep {
+class IwsMenubar : public engine::RenderWindowStep {
 public:
     IwsMenubar(const std::shared_ptr<Topbar>& topbar);
 

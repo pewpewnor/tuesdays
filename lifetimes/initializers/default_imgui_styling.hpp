@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/startup_step.hpp"
+#include "engine/steps/startup_step.hpp"
 
 class DefaultImguiStyling : public engine::StartupStep {
 public:

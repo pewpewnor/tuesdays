@@ -3,7 +3,7 @@
 #include "iws/sidebar/iws_sidebar.hpp"
 #include "universal/topbar.hpp"
 
-class IwsBody : public commons::RenderWindowStep {
+class IwsBody : public engine::RenderWindowStep {
 public:
     IwsBody(const std::shared_ptr<Topbar>& topbar, const std::shared_ptr<IwsSidebar>& acmSidebar);
 
