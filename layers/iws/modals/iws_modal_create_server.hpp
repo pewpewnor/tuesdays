@@ -9,7 +9,7 @@ public:
     void resetAll();
 
 private:
-    std::array<char, 255> serverNameBuffer_;
+    std::array<char, 256> serverNameBuffer_;
     bool violatedServerNameRequired_;
 
     bool begin() override;

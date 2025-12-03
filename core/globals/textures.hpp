@@ -14,6 +14,7 @@ struct Textures {
     sf::Texture plusIconMuted;
     sf::Texture crossIconWhite;
     sf::Texture crossIconMuted;
+    sf::Texture listIconMuted;
 };
 
 inline std::unique_ptr<g::Textures> textures;

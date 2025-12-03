@@ -9,7 +9,7 @@ void SurfaceLifetime::onStartup() {
     spdlog::debug("Creating window & initializing ImGui...");
     g::engine->window = std::make_shared<sf::RenderWindow>(
         sf::VideoMode({static_cast<unsigned int>(WIDTH), static_cast<unsigned int>(HEIGHT)}),
-        "Anglerfish");
+        "Tuesdays");
     windowInitialized_ = true;
     g::engine->window->clear(sf::Color::Black);  // TODO: remove and add loading screen onStartup
     g::engine->window->setVerticalSyncEnabled(true);

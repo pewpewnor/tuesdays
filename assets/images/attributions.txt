@@ -9,3 +9,6 @@ plus-icon-*.png:
 	
 cross-icon-*.png:
 	https://www.svgrepo.com/svg/447973/cross (thickness +50%)
+	
+list-icon-muted.png:
+	https://www.svgrepo.com/svg/532192/list?edit=true (thickness +100%)

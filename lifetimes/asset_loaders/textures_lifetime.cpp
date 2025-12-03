@@ -21,6 +21,7 @@ void TexturesLifetime::onStartup() {
     loadTexture(g::textures->plusIconMuted, "plus-icon-muted.png");
     loadTexture(g::textures->crossIconWhite, "cross-icon-white.png");
     loadTexture(g::textures->crossIconMuted, "cross-icon-muted.png");
+    loadTexture(g::textures->listIconMuted, "list-icon-muted.png");
 
     spdlog::debug("Loaded all textures");
 }
