@@ -25,7 +25,7 @@ Application::Application() {
 
     pushLifetimeSteps();
     pushKeyHandlerSteps();
-    pushRenderSteps();
+    pushUiSteps();
 }
 
 Application::~Application() { g::engine.reset(); }
@@ -73,13 +73,14 @@ void Application::pushKeyHandlerSteps() {
 #endif
 }
 
-void Application::pushRenderSteps() {
+void Application::pushUiSteps() {
     auto navbar = std::make_shared<Navbar>();
     g::engine->pushRenderStep(navbar);
     auto topbar = std::make_shared<Topbar>(navbar);
     g::engine->pushRenderStep(topbar);
 
-    g::engine->pushRenderStep(std::make_shared<Iws>(navbar, topbar));
+    auto iws = std::make_shared<Iws>(navbar, topbar);
+    g::engine->pushGroupStep(iws);
 
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<ImguiDemoWindow>());

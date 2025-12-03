@@ -15,6 +15,7 @@ Iws::Iws(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& t
     auto iwsSidebar = std::make_shared<IwsSidebar>(navbar, topbar);
     renderSteps.push_back(iwsSidebar);
     auto iwsServersFilter = std::make_shared<IwsServersFilter>(iwsSidebar);
+    startupSteps.push_back(iwsServersFilter);
     renderSteps.push_back(iwsServersFilter);
 
     auto iwsBody = std::make_shared<IwsBody>(topbar, iwsSidebar);

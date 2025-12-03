@@ -20,5 +20,5 @@ private:
 
     static void pushKeyHandlerSteps();
 
-    static void pushRenderSteps();
+    static void pushUiSteps();
 };

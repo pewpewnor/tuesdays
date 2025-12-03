@@ -14,6 +14,11 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
+void IwsModalCreateServer::resetAll() {
+    serverNameBuffer_[0] = '\0';
+    resetValidations();
+}
+
 bool IwsModalCreateServer::begin() {
     ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addAlwaysAutoResize().addStatic().build();
 
@@ -110,10 +115,5 @@ void IwsModalCreateServer::displayContent() {
 }
 
 void IwsModalCreateServer::endOfDisplay() { ImGui::EndPopup(); }
-
-void IwsModalCreateServer::resetAll() {
-    serverNameBuffer_[0] = '\0';
-    resetValidations();
-}
 
 void IwsModalCreateServer::resetValidations() { violatedServerNameRequired_ = false; }

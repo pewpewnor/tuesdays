@@ -19,11 +19,13 @@ public:
 
     void runContinously();
 
-    void pushStartupStep(const std::shared_ptr<engine::StartupStep>& step);
+    void pushStartupStep(const std::shared_ptr<engine::StartupStep>& startupStep);
 
-    void pushRenderStep(const std::shared_ptr<engine::RenderStep>& step);
+    void pushRenderStep(const std::shared_ptr<engine::RenderStep>& renderStep);
 
-    void pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& step);
+    void pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& shutdownStep);
+
+    void pushGroupStep(const std::shared_ptr<engine::GroupStep>& groupStep);
 
     void sendStopSignal();
 

@@ -5,17 +5,18 @@
 #include "commons/display_part.hpp"
 
 class IwsModalCreateServer : public commons::DisplayPart {
+public:
+    void resetAll();
+
 private:
-    bool violatedServerNameRequired_ = false;
-    std::array<char, 255> serverNameBuffer_{'\0'};
+    std::array<char, 255> serverNameBuffer_;
+    bool violatedServerNameRequired_;
 
     bool begin() override;
 
     void displayContent() override;
 
     void endOfDisplay() override;
-
-    void resetAll();
 
     void resetValidations();
 };

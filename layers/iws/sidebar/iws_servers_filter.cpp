@@ -14,6 +14,8 @@
 IwsServersFilter::IwsServersFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar)
     : iwsSidebar_(iwsSidebar) {}
 
+void IwsServersFilter::onStartup() { createServerModal_.resetAll(); }
+
 bool IwsServersFilter::beginWindow() {
     ImGui::SetNextWindowPos(iwsSidebar_->windowPos);
     ImGui::SetNextWindowSize({iwsSidebar_->windowSize.x, 0});

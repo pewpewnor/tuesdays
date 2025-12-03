@@ -6,6 +6,7 @@
 #include <SFML/System/Sleep.hpp>
 #include <stdexcept>
 
+#include "engine/steps/group_step.hpp"
 #include "utils/assertions.hpp"
 #include "utils/scopes/scope_exit.hpp"
 
@@ -28,19 +29,26 @@ void engine::Engine::runContinously() {
     } while (restartAfterShutdown_);
 }
 
-void engine::Engine::pushStartupStep(const std::shared_ptr<engine::StartupStep>& step) {
+void engine::Engine::pushStartupStep(const std::shared_ptr<engine::StartupStep>& startupStep) {
     ASSERT(!isRunning_, "only add step while engine is not running");
-    startupSteps.push_back(step);
+    startupSteps.push_back(startupStep);
 }
 
-void engine::Engine::pushRenderStep(const std::shared_ptr<engine::RenderStep>& step) {
+void engine::Engine::pushRenderStep(const std::shared_ptr<engine::RenderStep>& renderStep) {
     ASSERT(!isRunning_, "only add step while engine is not running");
-    renderSteps.push_back(step);
+    renderSteps.push_back(renderStep);
 }
 
-void engine::Engine::pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& step) {
+void engine::Engine::pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& shutdownStep) {
     ASSERT(!isRunning_, "only add step while engine is not running");
-    shutdownSteps.push_back(step);
+    shutdownSteps.push_back(shutdownStep);
+}
+
+void engine::Engine::pushGroupStep(const std::shared_ptr<engine::GroupStep>& groupStep) {
+    ASSERT(!isRunning_, "only add step while engine is not running");
+    startupSteps.push_back(groupStep);
+    renderSteps.push_back(groupStep);
+    shutdownSteps.push_back(groupStep);
 }
 
 void engine::Engine::sendStopSignal() {
