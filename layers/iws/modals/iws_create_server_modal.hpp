@@ -4,13 +4,10 @@
 
 #include "commons/display_part.hpp"
 
-class IwsModalCreateServer : public commons::DisplayPart {
-public:
-    void resetAll();
-
+class IwsCreateServerModal : public commons::DisplayPart {
 private:
-    std::array<char, 256> serverNameBuffer_;
-    bool violatedServerNameRequired_;
+    std::array<char, 257> serverNameBuffer_ = {'\0'};
+    bool violatedServerNameRequired_ = false;
 
     bool begin() override;
 
@@ -19,4 +16,6 @@ private:
     void endOfDisplay() override;
 
     void resetValidations();
+
+    static void closePopup();
 };

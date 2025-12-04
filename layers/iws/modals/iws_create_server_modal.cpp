@@ -1,8 +1,6 @@
-#include "iws_modal_create_server.hpp"
+#include "iws_create_server_modal.hpp"
 
 #include <imgui.h>
-
-#include <array>
 
 #include "components/image_buttons.hpp"
 #include "globals/engine_state.hpp"
@@ -14,12 +12,7 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-void IwsModalCreateServer::resetAll() {
-    serverNameBuffer_[0] = '\0';
-    resetValidations();
-}
-
-bool IwsModalCreateServer::begin() {
+bool IwsCreateServerModal::begin() {
     ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addAlwaysAutoResize().addStatic().build();
 
     StylesScoped modalStyles;
@@ -35,7 +28,7 @@ bool IwsModalCreateServer::begin() {
     return ImGui::BeginPopupModal("IwsModalCreateServer", nullptr, modalFlags);
 }
 
-void IwsModalCreateServer::displayContent() {
+void IwsCreateServerModal::displayContent() {
     StylesScoped contentStyles;
     contentStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 12));
 
@@ -49,8 +42,8 @@ void IwsModalCreateServer::displayContent() {
     constexpr float crossButtonSize = 14;
     putNexItemAtTheEndOfWindow(crossButtonSize);
     if (components::crossIconButton("IwsModalCreateServer_Cross", crossButtonSize)) {
-        resetAll();
-        ImGui::CloseCurrentPopup();
+        closePopup();
+        return;
     };
 
     ImGui::Separator();
@@ -86,8 +79,8 @@ void IwsModalCreateServer::displayContent() {
         cancelButtonStyles.pushStyleColor(ImGuiCol_Border, COLOR_FG_MUTED);
 
         if (ImGui::Button("Cancel", ImVec2(96, 36))) {
-            resetAll();
-            ImGui::CloseCurrentPopup();
+            closePopup();
+            return;
         }
     }
 
@@ -107,13 +100,18 @@ void IwsModalCreateServer::displayContent() {
             violatedServerNameRequired_ = true;
             g::engine->sendRefreshSignal();
         } else {
-            resetAll();
             iws::state->serverGroups.emplace_back(serverName);
-            ImGui::CloseCurrentPopup();
+            closePopup();
+            return;
         }
     }
 }
 
-void IwsModalCreateServer::endOfDisplay() { ImGui::EndPopup(); }
+void IwsCreateServerModal::endOfDisplay() { ImGui::EndPopup(); }
 
-void IwsModalCreateServer::resetValidations() { violatedServerNameRequired_ = false; }
+void IwsCreateServerModal::resetValidations() { violatedServerNameRequired_ = false; }
+
+void IwsCreateServerModal::closePopup() {
+    iws::state->showCreateSeverModal = false;
+    ImGui::CloseCurrentPopup();
+}

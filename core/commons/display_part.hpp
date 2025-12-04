@@ -14,8 +14,6 @@ public:
     void display();
 
 private:
-    virtual bool shouldDisplay() { return true; };
-
     virtual bool begin() = 0;
 
     virtual void displayContent() = 0;

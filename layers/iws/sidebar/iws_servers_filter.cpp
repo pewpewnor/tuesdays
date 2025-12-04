@@ -7,6 +7,9 @@
 #include "globals/fonts.hpp"
 #include "globals/textures.hpp"
 #include "imgui.h"
+#include "iws/modals/iws_create_server_modal.hpp"
+#include "iws/states/iws_state.hpp"
+#include "utils/assertions.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -15,8 +18,6 @@
 
 IwsServersFilter::IwsServersFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar)
     : iwsSidebar_(iwsSidebar) {}
-
-void IwsServersFilter::onStartup() { createServerModal_.resetAll(); }
 
 bool IwsServersFilter::beginWindow() {
     ImGui::SetNextWindowPos(iwsSidebar_->windowPos);
@@ -52,9 +53,17 @@ void IwsServersFilter::renderWindowContent() {
     constexpr float plusButtonSize = 16;
     putNexItemAtTheEndOfWindow(plusButtonSize);
     if (components::plusIconButton("IwsServersFilter_PlusServer", 16)) {
+        ASSERT(!iws::state->showCreateSeverModal, "button cannot be pressed again");
+        iws::state->showCreateSeverModal = true;
+        createServerModal_ = std::make_unique<IwsCreateServerModal>();
         ImGui::OpenPopup("IwsModalCreateServer");
         g::engine->sendRefreshSignal(10);
     };
 
-    createServerModal_.display();
+    if (iws::state->showCreateSeverModal) {
+        ASSERT(createServerModal_, "modal show state and existance must be in sync");
+        createServerModal_->display();
+    } else {
+        createServerModal_.reset();
+    }
 }

@@ -9,6 +9,7 @@
 namespace iws {
 
 struct IwsState {
+    bool showCreateSeverModal;
     std::filesystem::path workspacePath;
     std::vector<iws::ServerGroup> serverGroups;
 };
