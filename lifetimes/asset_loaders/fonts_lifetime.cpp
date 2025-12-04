@@ -17,7 +17,7 @@
 void FontsLifetime::onStartup() {
     g::fonts = std::make_unique<g::Fonts>();
 
-    spdlog::debug("Loading all fonts...");
+    spdlog::debug("Loading all fonts ...");
     loadSansFonts();
     loadMonoFonts();
 

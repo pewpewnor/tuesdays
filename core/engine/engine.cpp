@@ -52,18 +52,18 @@ void engine::Engine::pushGroupStep(const std::shared_ptr<engine::GroupStep>& gro
 }
 
 void engine::Engine::sendStopSignal() {
-    spdlog::debug("Sent stop signal to engine...");
+    spdlog::debug("Sent stop signal to engine ...");
     stopSignal_ = true;
 }
 
 void engine::Engine::sendRefreshSignal(int n) {
     ASSERT(n > 0, "number of refresh signal to be sent must be positive");
-    spdlog::debug("Sent {} refresh signal to engine...", n);
+    spdlog::debug("Sent {} refresh signal to engine ...", n);
     refreshSignal_ += n;
 }
 
 void engine::Engine::sendRestartSignal() {
-    spdlog::debug("Sent restart signal to engine...");
+    spdlog::debug("Sent restart signal to engine ...");
     restartAfterShutdown_ = true;
     sendStopSignal();
 }
@@ -76,7 +76,7 @@ void engine::Engine::waitUntilStopped() {
 void engine::Engine::startup() {
     triggerTrailingRefresh_ = true;
     refreshSignal_ = 1;
-    spdlog::debug("Engine executing startup steps...");
+    spdlog::debug("Engine executing startup steps ...");
     onStartup();
 }
 
@@ -179,7 +179,7 @@ void engine::Engine::renderFrame() {
 
 void engine::Engine::shutdown() {
     ScopeExit scopeExit([this]() { stopRunningState(); });
-    spdlog::debug("Engine executing shutdown steps...");
+    spdlog::debug("Engine executing shutdown steps ...");
     onShutdown();
 }
 

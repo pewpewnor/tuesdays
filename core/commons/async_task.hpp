@@ -60,7 +60,7 @@ public:
 
     void ignoreCurrentTask() {
         ignore();
-        spdlog::debug("<{}> This task has been ignored...", getTaskId());
+        spdlog::debug("<{}> This task has been ignored ...", getTaskId());
     }
 
 protected:

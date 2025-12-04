@@ -6,7 +6,7 @@
 #include "globals/engine_state.hpp"
 
 void SurfaceLifetime::onStartup() {
-    spdlog::debug("Creating window & initializing ImGui...");
+    spdlog::debug("Creating window & initializing ImGui ...");
     g::engine->window = std::make_shared<sf::RenderWindow>(
         sf::VideoMode({static_cast<unsigned int>(WIDTH), static_cast<unsigned int>(HEIGHT)}),
         "Tuesdays");
@@ -22,7 +22,7 @@ void SurfaceLifetime::onStartup() {
 }
 
 void SurfaceLifetime::onShutdown() {
-    spdlog::debug("Closing window & shutting down ImGui...");
+    spdlog::debug("Closing window & shutting down ImGui ...");
     if (windowInitialized_) {
         g::engine->window->close();
         windowInitialized_ = false;

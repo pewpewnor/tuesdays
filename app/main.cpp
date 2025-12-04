@@ -31,7 +31,7 @@ int main() {
 #endif
 
     try {
-        spdlog::info("Setting up application...");
+        spdlog::info("Setting up application ...");
         Application app;
         Application::start();
     } catch (const std::exception& error) {

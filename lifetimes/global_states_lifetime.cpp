@@ -8,7 +8,7 @@
 #include "universal/states/universal_state.hpp"
 
 void GlobalStatesLifetime::onStartup() {
-    spdlog::debug("Initializing global states...");
+    spdlog::debug("Initializing global states ...");
 #ifdef DEBUG
     debug::state = std::make_unique<debug::DebugState>();
 #endif
@@ -19,7 +19,7 @@ void GlobalStatesLifetime::onStartup() {
 }
 
 void GlobalStatesLifetime::onShutdown() {
-    spdlog::debug("Destroying global states...");
+    spdlog::debug("Destroying global states ...");
     acm::state.reset();
     iws::state.reset();
     univ::state.reset();

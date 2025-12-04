@@ -7,7 +7,8 @@ void TasksLifetime::onStartup() { g::ignoredFutures = std::make_unique<g::Ignore
 
 void TasksLifetime::onShutdown() {
     std::lock_guard<std::mutex> lock(g::ignoredFutures->mutex);
-    spdlog::debug("Waiting for {} ignored futures to finish...", g::ignoredFutures->futures.size());
+    spdlog::debug("Waiting for {} ignored futures to finish ...",
+                  g::ignoredFutures->futures.size());
     for (const std::shared_future<void>& future : g::ignoredFutures->futures) {
         future.wait_for(std::chrono::minutes(1));
     }

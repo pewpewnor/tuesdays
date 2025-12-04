@@ -32,7 +32,7 @@ Application::~Application() { g::engine.reset(); }
 
 void Application::start() {
     ASSERT(g::engine, "only execute application with engine existing");
-    spdlog::info("Running application...");
+    spdlog::info("Running application ...");
     g::engine->runContinously();
     spdlog::info("Application stopped");
 }

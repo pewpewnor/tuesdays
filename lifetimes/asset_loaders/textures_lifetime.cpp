@@ -14,7 +14,7 @@
 
 void TexturesLifetime::onStartup() {
     g::textures = std::make_unique<g::Textures>();
-    spdlog::debug("Loading all textures...");
+    spdlog::debug("Loading all textures ...");
 
     {
         static constexpr auto DATA = std::to_array<unsigned char>({
