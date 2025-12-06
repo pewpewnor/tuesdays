@@ -10,6 +10,7 @@ class RenderWindowStep : public virtual engine::RenderStep {
 public:
     ImVec2 windowPos;
     ImVec2 windowSize;
+    ImVec2 windowPadding;
 
     RenderWindowStep() = default;
     RenderWindowStep(const RenderWindowStep&) = default;

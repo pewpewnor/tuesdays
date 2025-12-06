@@ -1,12 +1,8 @@
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Weverything"
-
 #include "fonts_lifetime.hpp"
 
 #include <imgui-SFML.h>
 #include <spdlog/spdlog.h>
 
-#include <array>
 #include <expected>
 #include <memory>
 
@@ -54,77 +50,6 @@ Result<std::shared_ptr<ImFont>> FontsLifetime::loadFontFromMemory(const void* da
 }
 
 void FontsLifetime::logFontLoadError(std::string_view fontName, const std::string& errorMsg) {
-    spdlog::error("Failed to load font {}: {}", fontName, errorMsg);
-    ASSERT(false, "must successfully load sans font regular");
+    ASSERT_UNREACHABLE("must successfully load sans font regular");
+    spdlog::warn("Failed to load font '{}': {}", fontName, errorMsg);
 }
-
-void FontsLifetime::loadSansFonts() {
-    {
-        static constexpr auto DATA = std::to_array<unsigned char>({
-#embed "assets/fonts/Geist-Regular.ttf"
-        });
-        if (auto result =
-                loadFontFromMemory(DATA.data(), static_cast<int>(DATA.size()), REGULAR_FONT_SIZE)) {
-            g::fonts->sansRegular = result.value();
-        } else {
-            logFontLoadError("sans regular", result.error());
-            g::fonts->sansRegular = getDefaultFont();
-        }
-    }
-
-    {
-        static constexpr auto DATA = std::to_array<unsigned char>({
-#embed "assets/fonts/Geist-SemiBold.ttf"
-        });
-        if (auto result =
-                loadFontFromMemory(DATA.data(), static_cast<int>(DATA.size()), REGULAR_FONT_SIZE)) {
-            g::fonts->sansMedium = result.value();
-        } else {
-            logFontLoadError("sans medium", result.error());
-            g::fonts->sansMedium = g::fonts->sansRegular;
-        }
-    }
-
-    {
-        static constexpr auto DATA = std::to_array<unsigned char>({
-#embed "assets/fonts/Geist-Bold.ttf"
-        });
-        if (auto result =
-                loadFontFromMemory(DATA.data(), static_cast<int>(DATA.size()), REGULAR_FONT_SIZE)) {
-            g::fonts->sansBold = result.value();
-        } else {
-            logFontLoadError("sans bold", result.error());
-            g::fonts->sansBold = g::fonts->sansMedium;
-        }
-    }
-}
-
-void FontsLifetime::loadMonoFonts() {
-    {
-        static constexpr auto DATA = std::to_array<unsigned char>({
-#embed "assets/fonts/GeistMono-Regular.ttf"
-        });
-        if (auto result =
-                loadFontFromMemory(DATA.data(), static_cast<int>(DATA.size()), REGULAR_FONT_SIZE)) {
-            g::fonts->monoRegular = result.value();
-        } else {
-            logFontLoadError("mono regular", result.error());
-            g::fonts->monoRegular = getDefaultFont();
-        }
-    }
-
-    {
-        static constexpr auto DATA = std::to_array<unsigned char>({
-#embed "assets/fonts/GeistMono-Bold.ttf"
-        });
-        if (auto result =
-                loadFontFromMemory(DATA.data(), static_cast<int>(DATA.size()), REGULAR_FONT_SIZE)) {
-            g::fonts->monoBold = result.value();
-        } else {
-            logFontLoadError("mono bold", result.error());
-            g::fonts->monoBold = g::fonts->monoRegular;
-        }
-    }
-}
-
-#pragma clang diagnostic pop

@@ -16,7 +16,7 @@ consteval unsigned int hexDigit(char c) {
         return c - 'a' + 10;
     }
     ASSERT(c <= 'A' || c >= 'F', "hex characters must be lowercase, not uppercase");
-    ASSERT(false, "invalid hex character was passed");
+    ASSERT_UNREACHABLE("invalid hex character was passed");
     return 0;
 }
 

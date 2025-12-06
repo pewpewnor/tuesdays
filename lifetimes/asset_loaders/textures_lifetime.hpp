@@ -1,7 +1,6 @@
 #pragma once
 
-#include <imgui-SFML.h>
-#include <imgui.h>
+#include <SFML/Graphics/Texture.hpp>
 
 #include "engine/steps/shutdown_step.hpp"
 #include "engine/steps/startup_step.hpp"
@@ -13,8 +12,10 @@ public:
     void onShutdown() override;
 
 private:
+    static void loadTextures();
+
     static void loadTextureFromMemory(sf::Texture& texture, const void* data, size_t size,
-                                      std::string_view debugName);
+                                      std::string_view textureName);
 
     static bool smoothenTexture(sf::Texture& texture);
 };

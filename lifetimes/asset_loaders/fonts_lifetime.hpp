@@ -23,9 +23,9 @@ private:
     static Result<std::shared_ptr<ImFont>> loadFontFromMemory(const void* data, int dataSize,
                                                               float fontSizePixels);
 
-    static void logFontLoadError(std::string_view fontName, const std::string& errorMsg);
-
     static void loadSansFonts();
 
     static void loadMonoFonts();
+
+    static void logFontLoadError(std::string_view fontName, const std::string& errorMsg);
 };

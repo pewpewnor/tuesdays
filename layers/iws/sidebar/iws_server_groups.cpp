@@ -2,6 +2,7 @@
 
 #include <imgui.h>
 
+#include "iws/sidebar/iws_server_groups_filter.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
@@ -11,7 +12,8 @@ IwsServerGroups::IwsServerGroups(const std::shared_ptr<IwsServerGroupsFilter>& i
 
 bool IwsServerGroups::beginWindow() {
     ImGui::SetNextWindowPos({iwsServersFilter_->windowPos.x,
-                             iwsServersFilter_->windowPos.y + iwsServersFilter_->windowSize.y});
+                             iwsServersFilter_->windowPos.y + iwsServersFilter_->windowSize.y -
+                                 IwsServerGroupsFilter::WINDOW_PADDING.y});
     ImGui::SetNextWindowSize({iwsServersFilter_->windowSize.x, 0});
 
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addAlwaysAutoResize().addStatic().build();

@@ -8,7 +8,7 @@ namespace g {
 
 struct Fonts {
     std::shared_ptr<ImFont> sansRegular;
-    std::shared_ptr<ImFont> sansMedium;
+    std::shared_ptr<ImFont> sansSemiBold;
     std::shared_ptr<ImFont> sansBold;
     std::shared_ptr<ImFont> monoRegular;
     std::shared_ptr<ImFont> monoBold;

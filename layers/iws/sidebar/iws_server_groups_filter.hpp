@@ -9,6 +9,8 @@
 
 class IwsServerGroupsFilter : public engine::RenderWindowStep {
 public:
+    static constexpr ImVec2 WINDOW_PADDING = {16, 16};
+
     IwsServerGroupsFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar);
 
 private:

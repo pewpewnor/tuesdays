@@ -24,7 +24,7 @@ bool IwsServerGroupsFilter::beginWindow() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped windowStyles;
-    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {16, 16});
+    windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, IwsServerGroupsFilter::WINDOW_PADDING);
     windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_2);
 
     return ImGui::Begin("IwsServersFilter", nullptr, windowFlags);

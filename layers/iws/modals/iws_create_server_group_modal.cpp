@@ -53,7 +53,7 @@ void IwsCreateServerGroupModal::displayContent() {
         serverNameInputStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 8);
 
         {
-            FontScoped font(g::fonts->sansMedium.get());
+            FontScoped font(g::fonts->sansSemiBold.get());
             ImGui::TextUnformatted("Server Name");
         }
 
