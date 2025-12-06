@@ -1,4 +1,4 @@
-#include "iws_servers_filter.hpp"
+#include "iws_server_groups_filter.hpp"
 
 #include <imgui-SFML.h>
 
@@ -6,8 +6,6 @@
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "globals/textures.hpp"
-#include "imgui.h"
-#include "iws/modals/iws_create_server_modal.hpp"
 #include "iws/states/iws_state.hpp"
 #include "utils/assertions.hpp"
 #include "utils/imgui/colors.hpp"
@@ -16,13 +14,13 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsServersFilter::IwsServersFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar)
+IwsServerGroupsFilter::IwsServerGroupsFilter(const std::shared_ptr<IwsSidebar>& iwsSidebar)
     : iwsSidebar_(iwsSidebar) {}
 
-bool IwsServersFilter::beginWindow() {
+bool IwsServerGroupsFilter::beginWindow() {
     ImGui::SetNextWindowPos(iwsSidebar_->windowPos);
-
     ImGui::SetNextWindowSize({iwsSidebar_->windowSize.x, 0});
+
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped windowStyles;
@@ -32,7 +30,7 @@ bool IwsServersFilter::beginWindow() {
     return ImGui::Begin("IwsServersFilter", nullptr, windowFlags);
 }
 
-void IwsServersFilter::renderWindowContent() {
+void IwsServerGroupsFilter::renderWindowContent() {
     ImGui::Image(g::textures->listIconMuted, {20, 20});
 
     ImGui::SameLine();
@@ -55,15 +53,15 @@ void IwsServersFilter::renderWindowContent() {
     if (components::plusIconButton("IwsServersFilter_PlusServer", 16)) {
         ASSERT(!iws::state->showCreateSeverModal, "button cannot be pressed again");
         iws::state->showCreateSeverModal = true;
-        createServerModal_ = std::make_unique<IwsCreateServerModal>();
+        iwsCreateServerGroupModal_ = std::make_unique<IwsCreateServerGroupModal>();
         ImGui::OpenPopup("IwsModalCreateServer");
         g::engine->sendRefreshSignal(10);
     };
 
     if (iws::state->showCreateSeverModal) {
-        ASSERT(createServerModal_, "modal show state and existance must be in sync");
-        createServerModal_->display();
+        ASSERT(iwsCreateServerGroupModal_, "modal show state and existance must be in sync");
+        iwsCreateServerGroupModal_->display();
     } else {
-        createServerModal_.reset();
+        iwsCreateServerGroupModal_.reset();
     }
 }

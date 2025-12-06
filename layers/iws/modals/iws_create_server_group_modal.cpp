@@ -1,4 +1,4 @@
-#include "iws_create_server_modal.hpp"
+#include "iws_create_server_group_modal.hpp"
 
 #include <imgui.h>
 
@@ -12,8 +12,8 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-bool IwsCreateServerModal::begin() {
-    ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addAlwaysAutoResize().addStatic().build();
+bool IwsCreateServerGroupModal::begin() {
+    ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped modalStyles;
     modalStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(18, 18));
@@ -28,7 +28,7 @@ bool IwsCreateServerModal::begin() {
     return ImGui::BeginPopupModal("IwsModalCreateServer", nullptr, modalFlags);
 }
 
-void IwsCreateServerModal::displayContent() {
+void IwsCreateServerGroupModal::displayContent() {
     StylesScoped contentStyles;
     contentStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 12));
 
@@ -107,11 +107,11 @@ void IwsCreateServerModal::displayContent() {
     }
 }
 
-void IwsCreateServerModal::endOfDisplay() { ImGui::EndPopup(); }
+void IwsCreateServerGroupModal::endOfDisplay() { ImGui::EndPopup(); }
 
-void IwsCreateServerModal::resetValidations() { violatedServerNameRequired_ = false; }
+void IwsCreateServerGroupModal::resetValidations() { violatedServerNameRequired_ = false; }
 
-void IwsCreateServerModal::closePopup() {
+void IwsCreateServerGroupModal::closePopup() {
     iws::state->showCreateSeverModal = false;
     ImGui::CloseCurrentPopup();
 }

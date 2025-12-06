@@ -11,9 +11,9 @@ class IwsSidebar : public engine::RenderWindowStep {
 public:
     IwsSidebar(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& topbar);
 
-    bool beginWindow() override;
-
 private:
     std::shared_ptr<Navbar> navbar_;
     std::shared_ptr<Topbar> topbar_;
+
+    bool beginWindow() override;
 };
