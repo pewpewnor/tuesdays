@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/menu.hpp"
+#include "layout/menu.hpp"
 
 class IwsMenuFile : public components::Menu {
 public:
