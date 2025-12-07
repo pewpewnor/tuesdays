@@ -4,6 +4,7 @@
 
 #include "components/image_buttons.hpp"
 #include "globals/fonts.hpp"
+#include "iws/events/update_server_groups.hpp"
 #include "iws/states/iws_state.hpp"
 #include "iws/states/server_group.hpp"
 #include "utils/imgui/colors.hpp"
@@ -100,7 +101,7 @@ void IwsCreateServerGroupModal::displayContent() {
             violatedServerNameRequired_ = true;
         } else {
             iws::state->serverGroups.push_back(std::make_shared<iws::ServerGroup>(serverName));
-            iws::state->updateServerGroups = true;
+            iws::events::updateServerGroups();
             closePopup();
             return;
         }
