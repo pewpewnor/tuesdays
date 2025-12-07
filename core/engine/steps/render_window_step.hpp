@@ -19,12 +19,12 @@ public:
     RenderWindowStep& operator=(RenderWindowStep&&) = delete;
     ~RenderWindowStep() override = default;
 
+    void onRender() override;
+
 private:
     virtual bool beginWindow() = 0;
 
     virtual void renderWindowContent();
-
-    void onRender() override;
 };
 
 }

@@ -1,7 +1,5 @@
 #include "render_window_step.hpp"
 
-void engine::RenderWindowStep::renderWindowContent() {}
-
 void engine::RenderWindowStep::onRender() {
     if (beginWindow()) {
         renderWindowContent();
@@ -10,3 +8,5 @@ void engine::RenderWindowStep::onRender() {
     windowSize = ImGui::GetWindowSize();
     ImGui::End();
 }
+
+void engine::RenderWindowStep::renderWindowContent() {}

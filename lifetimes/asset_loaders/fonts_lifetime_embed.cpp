@@ -8,15 +8,14 @@
 #pragma clang diagnostic ignored "-Weverything"
 
 void FontsLifetime::loadSansFonts() {
-    static constexpr auto SANS_REGULAR_TTF = std::to_array<unsigned char>({
+    static constexpr auto SANS_REGULAR = std::to_array<unsigned char>({
 #embed "assets/fonts/Geist-Regular.ttf"
     });
-    if (auto result =
-            loadFontFromMemory(SANS_REGULAR_TTF.data(), static_cast<int>(SANS_REGULAR_TTF.size()),
-                               REGULAR_FONT_SIZE)) {
+    if (auto result = loadFontFromMemory(SANS_REGULAR.data(), static_cast<int>(SANS_REGULAR.size()),
+                                         REGULAR_FONT_SIZE)) {
         g::fonts->sansRegular = result.value();
     } else {
-        logFontLoadError(NAME_OF(SANS_REGULAR_TTF), result.error());
+        logFontLoadError(NAME_OF(SANS_REGULAR), result.error());
         g::fonts->sansRegular = getDefaultFont();
     }
 

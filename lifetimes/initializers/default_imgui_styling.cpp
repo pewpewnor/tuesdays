@@ -20,6 +20,8 @@ void DefaultImguiStyling::onStartup() {
 
     ImGui::GetStyle().FramePadding = {4, 4};
 
+    ImGui::GetStyle().Colors[ImGuiCol_WindowBg] = COLOR_TRANSPARENT;
+    ImGui::GetStyle().Colors[ImGuiCol_ChildBg] = COLOR_TRANSPARENT;
     ImGui::GetStyle().Colors[ImGuiCol_Text] = COLOR_FG_LIGHT;
     ImGui::GetStyle().Colors[ImGuiCol_Button] = COLOR_TRANSPARENT;
     ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered] = COLOR_CHOCOLATE;

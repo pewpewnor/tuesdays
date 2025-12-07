@@ -11,10 +11,12 @@ struct Textures {
     sf::Texture lightningBoltIconWhite;
     sf::Texture signalTowerIconWhite;
     sf::Texture plusIconWhite;
-    sf::Texture plusIconMuted;
+    sf::Texture plusIconGray;
     sf::Texture crossIconWhite;
-    sf::Texture crossIconMuted;
-    sf::Texture listIconMuted;
+    sf::Texture crossIconGray;
+    sf::Texture listIconGray;
+    sf::Texture chevronDownIconGray;
+    sf::Texture chevronRightIconGray;
 };
 
 inline std::unique_ptr<g::Textures> textures;

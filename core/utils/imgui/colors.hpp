@@ -48,7 +48,7 @@ constexpr ImVec4 COLOR_NIGHT_1{colorHex("#010304")};
 constexpr ImVec4 COLOR_NIGHT_2{colorHex("#000303")};
 constexpr ImVec4 COLOR_NIGHT_3{colorHex("#171717")};
 constexpr ImVec4 COLOR_NIGHT_4{colorHex("#020507")};
-constexpr ImVec4 COLOR_DARK_GREY{colorHex("#262626")};
+constexpr ImVec4 COLOR_DARK_GRAY{colorHex("#262626")};
 
 constexpr ImVec4 COLOR_AZURE{colorHex("#239cff")};
 constexpr ImVec4 COLOR_AZURE_SHADOW{colorHex("#1c7ecd")};

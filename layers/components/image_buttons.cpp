@@ -34,15 +34,15 @@ bool components::navbarAppImageButton(const std::string& label, bool isActive,
     ImVec4 hoverActiveColor = isActive ? COLOR_AZURE : COLOR_CHOCOLATE;
     styles.pushStyleColor(ImGuiCol_ButtonHovered, hoverActiveColor);
     styles.pushStyleColor(ImGuiCol_ButtonActive, hoverActiveColor);
-    styles.pushStyleColor(ImGuiCol_Border, isActive ? COLOR_AZURE_SHADOW : COLOR_DARK_GREY);
+    styles.pushStyleColor(ImGuiCol_Border, isActive ? COLOR_AZURE_SHADOW : COLOR_DARK_GRAY);
 
     return ImGui::ImageButton(label.c_str(), icon, {size, size});
 }
 
 bool components::crossIconButton(const std::string& label, float size) {
-    return actionIconButton(label, size, g::textures->crossIconMuted, g::textures->crossIconWhite);
+    return actionIconButton(label, size, g::textures->crossIconGray, g::textures->crossIconWhite);
 }
 
 bool components::plusIconButton(const std::string& label, float size) {
-    return actionIconButton(label, size, g::textures->plusIconMuted, g::textures->plusIconWhite);
+    return actionIconButton(label, size, g::textures->plusIconGray, g::textures->plusIconWhite);
 }

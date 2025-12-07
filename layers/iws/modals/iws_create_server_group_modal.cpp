@@ -3,9 +3,9 @@
 #include <imgui.h>
 
 #include "components/image_buttons.hpp"
-#include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "iws/states/iws_state.hpp"
+#include "iws/states/server_group.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -19,13 +19,13 @@ bool IwsCreateServerGroupModal::begin() {
     modalStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(18, 18));
     modalStyles.pushStyleVar(ImGuiStyleVar_WindowRounding, 4);
     modalStyles.pushStyleColor(ImGuiCol_ModalWindowDimBg, COLOR_BLACK_OVERLAY);
-    modalStyles.pushStyleColor(ImGuiCol_PopupBg, COLOR_DARK_GREY);
+    modalStyles.pushStyleColor(ImGuiCol_PopupBg, COLOR_DARK_GRAY);
 
     ImVec2 center = ImGui::GetMainViewport()->GetCenter();
     ImGui::SetNextWindowPos(ImVec2(center.x, center.y - (center.y / 2)), ImGuiCond_Always,
                             ImVec2(0.5, 0.5));
 
-    return ImGui::BeginPopupModal("IwsModalCreateServer", nullptr, modalFlags);
+    return ImGui::BeginPopupModal("IwsModalCreateServerGroup", nullptr, modalFlags);
 }
 
 void IwsCreateServerGroupModal::displayContent() {
@@ -98,9 +98,9 @@ void IwsCreateServerGroupModal::displayContent() {
         if (serverName.length() < 1) {
             resetValidations();
             violatedServerNameRequired_ = true;
-            g::engine->sendRefreshSignal();
         } else {
-            iws::state->serverGroups.emplace_back(serverName);
+            iws::state->serverGroups.push_back(std::make_shared<iws::ServerGroup>(serverName));
+            iws::state->updateServerGroups = true;
             closePopup();
             return;
         }
@@ -112,6 +112,6 @@ void IwsCreateServerGroupModal::endOfDisplay() { ImGui::EndPopup(); }
 void IwsCreateServerGroupModal::resetValidations() { violatedServerNameRequired_ = false; }
 
 void IwsCreateServerGroupModal::closePopup() {
-    iws::state->showCreateSeverModal = false;
+    iws::state->showCreateServerModal = false;
     ImGui::CloseCurrentPopup();
 }
