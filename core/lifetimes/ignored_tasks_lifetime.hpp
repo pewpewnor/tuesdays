@@ -3,7 +3,7 @@
 #include "engine/steps/shutdown_step.hpp"
 #include "engine/steps/startup_step.hpp"
 
-class GlobalStatesLifetime : public engine::StartupStep, public engine::ShutdownStep {
+class IgnoredTasksLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:
     void onStartup() override;
 
