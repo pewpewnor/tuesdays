@@ -3,11 +3,16 @@
 #include <memory>
 
 #include "iws/body/iws_body.hpp"
+#include "iws/iws_lifetime.hpp"
 #include "iws/sidebar/iws_sidebar.hpp"
 #include "iws/top/iws_menubar.hpp"
 #include "universal/states/universal_state.hpp"
 
 Iws::Iws(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& topbar) {
+    auto iwsLifetime = std::make_shared<IwsLifetime>();
+    startupSteps.push_back(iwsLifetime);
+    shutdownSteps.push_back(iwsLifetime);
+
     auto iwsMenubar = std::make_shared<IwsMenubar>(topbar);
     renderSteps.push_back(iwsMenubar);
 

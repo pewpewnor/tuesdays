@@ -8,7 +8,7 @@
 #include "globals/textures.hpp"
 #include "iws/sidebar/iws_server_group.hpp"
 #include "iws/states/iws_state.hpp"
-#include "iws/states/server_group.hpp"
+#include "iws/states/iws_ui.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -75,22 +75,8 @@ void IwsSidebar::renderWindowContent() {
 
     ImGui::Dummy({0, 8});
 
-    if (iws::state->updateServerGroups) {
-        iws::state->updateServerGroups = false;
-        size_t newSize = iws::state->serverGroups.size();
-        serverGroupChildWindows_.resize(newSize);
-        serverGroupChildWindows_.shrink_to_fit();
-        for (size_t i = 0; i < newSize; i++) {
-            std::shared_ptr<iws::ServerGroup> serverGroup = iws::state->serverGroups[i];
-            if (serverGroupChildWindows_[i]) {
-                serverGroupChildWindows_[i]->serverGroup = serverGroup;
-            } else {
-                serverGroupChildWindows_[i] = std::make_unique<IwsServerGroup>(serverGroup);
-            }
-        }
-    }
-
-    for (const std::unique_ptr<IwsServerGroup>& serverGroupChildWindow : serverGroupChildWindows_) {
+    for (const std::unique_ptr<IwsServerGroup>& serverGroupChildWindow :
+         iws::ui->serverGroupChildWindows) {
         serverGroupChildWindow->display();
     }
 }
