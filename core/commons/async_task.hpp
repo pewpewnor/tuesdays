@@ -75,7 +75,7 @@ protected:
         auto onFailure = [taskId](std::string_view errorMsg) {
             spdlog::error("<{}> Task error: {}", taskId, errorMsg);
         };
-        this->spawnTaskWithCallbacks(task, std::move(onSuccess), std::move(onFailure));
+        spawnTaskWithCallbacks(task, std::move(onSuccess), std::move(onFailure));
     }
 
     void spawnTaskWithCallbacks(TaskFunction<TResult> task, SuccessCallback<TResult> onSuccess,
@@ -93,7 +93,7 @@ protected:
             outcome_->result = prevCore->result;
         }
 
-        future_ = std::async(std::launch::async, [outcome = this->outcome_, task = std::move(task),
+        future_ = std::async(std::launch::async, [outcome = outcome_, task = std::move(task),
                                                   onSuccess = std::move(onSuccess),
                                                   onFailure = std::move(onFailure)]() {
                       try {
@@ -128,11 +128,11 @@ private:
     bool invalidateOldCache_;
 
     void ignore() {
-        if (this->isBusy()) {
+        if (isBusy()) {
             std::lock_guard<std::mutex> lock(g::ignoredFutures->mutex);
-            g::ignoredFutures->futures.push_back(std::move(this->future_));
+            g::ignoredFutures->futures.push_back(std::move(future_));
         }
-        ASSERT(this->isAvailable(), "task must be free after ignore");
+        ASSERT(isAvailable(), "task must be available after being ignored");
     }
 };
 

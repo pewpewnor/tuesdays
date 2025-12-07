@@ -6,7 +6,7 @@ class WindowFlagsBuilder {
 public:
     consteval WindowFlagsBuilder() = default;
 
-    consteval WindowFlagsBuilder add(ImGuiWindowFlags_ flag) {
+    consteval WindowFlagsBuilder add(ImGuiWindowFlags flag) {
         flags_ = static_cast<ImGuiWindowFlags>(static_cast<unsigned int>(flags_) |
                                                static_cast<unsigned int>(flag));
         return *this;

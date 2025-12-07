@@ -9,9 +9,11 @@
 namespace iws {
 
 struct IwsState {
-    bool showCreateSeverModal;
+    bool showCreateServerModal = false;
     std::filesystem::path workspacePath;
-    std::vector<iws::ServerGroup> serverGroups;
+    std::vector<std::shared_ptr<iws::ServerGroup>> serverGroups{
+        {std::make_shared<iws::ServerGroup>("alpha"), std::make_shared<iws::ServerGroup>("bravo")}};
+    bool updateServerGroups = true;
 };
 
 inline std::unique_ptr<iws::IwsState> state;

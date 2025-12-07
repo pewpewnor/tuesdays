@@ -16,6 +16,7 @@ public:
     ~Menu() override = default;
 
 private:
+    bool wasHovered_ = false;
     std::string label_;
 
     bool begin() override;

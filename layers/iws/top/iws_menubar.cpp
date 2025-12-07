@@ -11,8 +11,8 @@
 IwsMenubar::IwsMenubar(const std::shared_ptr<Topbar>& topbar) : topbar_(topbar) {}
 
 bool IwsMenubar::beginWindow() {
-    ImGui::SetNextWindowPos({topbar_->windowPos.x, topbar_->windowPos.y + 4});
-    ImGui::SetNextWindowSize({0, topbar_->windowSize.y - 16});
+    ImGui::SetNextWindowPos({topbar_->windowPos.x, topbar_->windowPos.y + 8});
+    ImGui::SetNextWindowSize({0, topbar_->windowSize.y - 8});
 
     ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addMenuBar().addStatic().build();
 

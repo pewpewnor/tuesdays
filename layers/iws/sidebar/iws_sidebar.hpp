@@ -3,7 +3,10 @@
 #include <imgui.h>
 
 #include <memory>
+#include <vector>
 
+#include "iws/modals/iws_create_server_group_modal.hpp"
+#include "iws/sidebar/iws_server_group.hpp"
 #include "universal/navbar.hpp"
 #include "universal/topbar.hpp"
 
@@ -14,6 +17,10 @@ public:
 private:
     std::shared_ptr<Navbar> navbar_;
     std::shared_ptr<Topbar> topbar_;
+    std::vector<std::unique_ptr<IwsServerGroup>> serverGroupChildWindows_;
+    std::unique_ptr<IwsCreateServerGroupModal> iwsCreateServerGroupModal_;
 
     bool beginWindow() override;
+
+    void renderWindowContent() override;
 };
