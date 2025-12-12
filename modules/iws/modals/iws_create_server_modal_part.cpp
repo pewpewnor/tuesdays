@@ -2,6 +2,7 @@
 
 #include <imgui.h>
 
+#include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "iws/events/update_server_groups.hpp"
 #include "iws/states/iws_state.hpp"
@@ -13,7 +14,7 @@
 #include "utils/imgui/window_flags_builder.hpp"
 
 bool IwsCreateServerModalPart::begin() {
-    ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addStatic().build();
+    ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addAlwaysAutoResize().addStatic().build();
 
     StylesScoped modalStyles;
     modalStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(18, 18));
@@ -98,6 +99,7 @@ void IwsCreateServerModalPart::displayContent() {
         if (serverName.length() < 1) {
             resetValidations();
             violatedServerNameRequired_ = true;
+            g::engine->sendRefreshSignal();  // for auto resize
         } else {
             iws::state->servers.push_back(std::make_shared<iws::Server>(serverName));
             iws::events::updateServerGroups();

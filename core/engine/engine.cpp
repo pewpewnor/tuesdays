@@ -74,8 +74,8 @@ void engine::Engine::waitUntilStopped() {
 }
 
 void engine::Engine::startup() {
-    triggerTrailingRefresh_ = true;
-    refreshSignal_ = 1;
+    trailingRefresh_ = 3;
+    refreshSignal_ = 0;
     spdlog::debug("Engine executing startup steps ...");
     onStartup();
 }
@@ -109,9 +109,9 @@ bool engine::Engine::processEvents() {
     bool refresh = renderOnIdle;
     bool refreshNeedsTrailing = false;
 
-    if (triggerTrailingRefresh_) {
+    if (trailingRefresh_ > 0) {
         refresh = true;
-        triggerTrailingRefresh_ = false;
+        trailingRefresh_--;
     }
 
     if (pollEvents(refresh)) {
@@ -130,7 +130,9 @@ bool engine::Engine::processEvents() {
         }
     }
 
-    triggerTrailingRefresh_ = refreshNeedsTrailing;
+    if (refreshNeedsTrailing) {
+        trailingRefresh_ += 1;
+    }
     return refresh;
 }
 
