@@ -43,7 +43,7 @@ private:
     std::atomic<unsigned int> refreshSignal_ = 0;
     std::atomic<bool> restartAfterShutdown_ = false;
     sf::Clock deltaClock_;
-    bool triggerTrailingRefresh_ = true;
+    int trailingRefresh_ = 0;
 
     void startup();
 
