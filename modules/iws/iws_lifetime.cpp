@@ -10,8 +10,8 @@ void IwsLifetime::onStartup() {
     iws::state = std::make_unique<iws::IwsState>();
     iws::ui = std::make_unique<iws::IwsUi>();
 
-    iws::state->serverGroups.push_back(std::make_shared<iws::ServerGroup>("alpha"));
-    iws::state->serverGroups.push_back(std::make_shared<iws::ServerGroup>("bravo"));
+    iws::state->servers.push_back(std::make_shared<iws::Server>("alpha"));
+    iws::state->servers.push_back(std::make_shared<iws::Server>("bravo"));
     iws::events::updateServerGroups();
 }
 

@@ -1,9 +1,9 @@
 #ifdef DEBUG
 #pragma once
 
-#include "engine/steps/render_window_step.hpp"
+#include "commons/window_render_step.hpp"
 
-class DebugInfoOverlay : public engine::RenderWindowStep {
+class DebugInfoOverlayWindow : public WindowRenderStep {
 public:
     bool beginWindow() override;
 

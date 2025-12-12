@@ -1,10 +1,10 @@
-#include "iws_menus.hpp"
+#include "iws_menu_parts.hpp"
 
 #include <imgui.h>
 
-IwsMenuFile::IwsMenuFile() : components::Menu("File##IwsMenubar_File") {}
+IwsMenuPartFile::IwsMenuPartFile() : components::MenuPart("File##IwsMenuPartbar_File") {}
 
-void IwsMenuFile::displayContent() {
+void IwsMenuPartFile::displayContent() {
     if (ImGui::MenuItem("New Collections")) {
     }
     if (ImGui::MenuItem("New Request")) {
@@ -16,9 +16,9 @@ void IwsMenuFile::displayContent() {
     }
 }
 
-IwsMenuEdit::IwsMenuEdit() : components::Menu("Edit##IwsMenubar_Edit") {}
+IwsMenuPartEdit::IwsMenuPartEdit() : components::MenuPart("Edit##IwsMenuPartbar_Edit") {}
 
-void IwsMenuView::displayContent() {
+void IwsMenuPartView::displayContent() {
     if (ImGui::MenuItem("Undo")) {
     }
     if (ImGui::MenuItem("Redo")) {
@@ -32,9 +32,9 @@ void IwsMenuView::displayContent() {
     }
 }
 
-IwsMenuView::IwsMenuView() : components::Menu("View##IwsMenubar_View") {}
+IwsMenuPartView::IwsMenuPartView() : components::MenuPart("View##IwsMenuPartbar_View") {}
 
-void IwsMenuEdit::displayContent() {
+void IwsMenuPartEdit::displayContent() {
     if (ImGui::MenuItem("Toggle Sidebar")) {
     }
     if (ImGui::MenuItem("Toggle Console")) {

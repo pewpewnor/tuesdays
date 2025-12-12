@@ -12,3 +12,9 @@ cross-icon-*.png:
 	
 list-icon-muted.png:
 	https://www.svgrepo.com/svg/532192/list?edit=true (thickness +100%)
+	
+chevron-right.png:
+	https://www.svgrepo.com/svg/522041/chevron-right
+
+chevron-down.png:
+	https://www.svgrepo.com/svg/522029/chevron-down

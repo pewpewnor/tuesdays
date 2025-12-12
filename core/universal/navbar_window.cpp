@@ -1,4 +1,4 @@
-#include "navbar.hpp"
+#include "navbar_window.hpp"
 
 #include <imgui-SFML.h>
 
@@ -10,7 +10,7 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-bool Navbar::beginWindow() {
+bool NavbarWindow::beginWindow() {
     ImGui::SetNextWindowPos({0, 0});
     ImGui::SetNextWindowSize({0, ImGui::GetMainViewport()->WorkSize.y}, ImGuiCond_Always);
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
@@ -19,20 +19,20 @@ bool Navbar::beginWindow() {
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {12, 12});
     windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_1);
 
-    return ImGui::Begin("Navbar", nullptr, windowFlags);
+    return ImGui::Begin("NavbarWindow", nullptr, windowFlags);
 }
 
-void Navbar::renderWindowContent() {
+void NavbarWindow::renderWindowContent() {
     {
         StylesScoped appIconsStyles;
         appIconsStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
 
-        if (components::navbarAppImageButton("Navbar_AcmAppIcon",
+        if (components::navbarAppImageButton("NavbarWindow_AcmAppIcon",
                                              univ::state->currentApp == univ::CurrentApp::Acm,
                                              g::textures->lightningBoltIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Acm;
         }
-        if (components::navbarAppImageButton("Navbar_IsAppIcon",
+        if (components::navbarAppImageButton("NavbarWindow_IsAppIcon",
                                              univ::state->currentApp == univ::CurrentApp::Iws,
                                              g::textures->signalTowerIconWhite)) {
             univ::state->currentApp = univ::CurrentApp::Iws;

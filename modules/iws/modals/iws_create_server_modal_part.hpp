@@ -4,7 +4,7 @@
 
 #include "commons/display_part.hpp"
 
-class IwsCreateServerGroupModal : public commons::DisplayPart {
+class IwsCreateServerModalPart : public commons::DisplayPart {
 private:
     std::array<char, 257> serverNameBuffer_ = {'\0'};
     bool violatedServerNameRequired_ = false;

@@ -1,4 +1,4 @@
-#include "menu.hpp"
+#include "menu_part.hpp"
 
 #include <imgui.h>
 
@@ -6,9 +6,9 @@
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 
-components::Menu::Menu(const std::string& label) : label_(label) {}
+components::MenuPart::MenuPart(const std::string& label) : label_(label) {}
 
-bool components::Menu::begin() {
+bool components::MenuPart::begin() {
     const char* label = label_.c_str();
 
     bool isOpen = ImGui::IsPopupOpen(label);
@@ -29,4 +29,4 @@ bool components::Menu::begin() {
     return result;
 }
 
-void components::Menu::endOfDisplay() { ImGui::EndMenu(); }
+void components::MenuPart::endOfDisplay() { ImGui::EndMenu(); }
