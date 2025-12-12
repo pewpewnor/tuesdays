@@ -1,11 +1,10 @@
-#include "iws_sidebar.hpp"
+#include "iws_sidebar_window.hpp"
 
 #include <imgui-SFML.h>
 
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "globals/textures.hpp"
-#include "iws/sidebar/iws_server_group.hpp"
 #include "iws/states/iws_state.hpp"
 #include "iws/states/iws_ui.hpp"
 #include "universal/components/image_buttons.hpp"
@@ -15,13 +14,15 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsSidebar::IwsSidebar(const std::shared_ptr<Navbar>& navbar, const std::shared_ptr<Topbar>& topbar)
-    : navbar_(navbar), topbar_(topbar) {}
+IwsSidebarWindow::IwsSidebarWindow(const std::shared_ptr<NavbarWindow>& navbarWindow,
+                                   const std::shared_ptr<TopbarWindow>& topbarWindow)
+    : navbarWindow_(navbarWindow), topbarWindow_(topbarWindow) {}
 
-bool IwsSidebar::beginWindow() {
-    ImGui::SetNextWindowPos({navbar_->windowPos.x + navbar_->windowSize.x,
-                             topbar_->windowPos.y + topbar_->windowSize.y});
-    ImGui::SetNextWindowSize({300, ImGui::GetMainViewport()->WorkSize.y - topbar_->windowSize.y});
+bool IwsSidebarWindow::beginWindow() {
+    ImGui::SetNextWindowPos({navbarWindow_->windowPos.x + navbarWindow_->windowSize.x,
+                             topbarWindow_->windowPos.y + topbarWindow_->windowSize.y});
+    ImGui::SetNextWindowSize(
+        {300, ImGui::GetMainViewport()->WorkSize.y - topbarWindow_->windowSize.y});
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder()
                                        .addNoBringToFrontOnFocus()
                                        .addNoMove()
@@ -33,10 +34,10 @@ bool IwsSidebar::beginWindow() {
     windowStyles.pushStyleVarX(ImGuiStyleVar_WindowPadding, 16);
     windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_2);
 
-    return ImGui::Begin("IwsSidebar", nullptr, windowFlags);
+    return ImGui::Begin("IwsSidebarWindow", nullptr, windowFlags);
 }
 
-void IwsSidebar::renderWindowContent() {
+void IwsSidebarWindow::renderWindowContent() {
     ImGui::Dummy({0, 16});
 
     ImGui::Image(g::textures->listIconGray, {20, 20});
@@ -58,25 +59,25 @@ void IwsSidebar::renderWindowContent() {
 
     constexpr float plusButtonSize = 16;
     putNexItemAtTheEndOfWindow(plusButtonSize);
-    if (components::plusIconButton("IwsSidebar_PlusServer", 16)) {
+    if (components::plusIconButton("IwsSidebarWindow_PlusServer", 16)) {
         ASSERT(!iws::state->showCreateServerModal, "button cannot be pressed again");
         iws::state->showCreateServerModal = true;
-        iwsCreateServerGroupModal_ = std::make_unique<IwsCreateServerGroupModal>();
-        ImGui::OpenPopup("IwsModalCreateServerGroup");
+        iwsCreateServerModal_ = std::make_unique<IwsCreateServerModalPart>();
+        ImGui::OpenPopup("IwsCreateServerModal");
         g::engine->sendRefreshSignal(10);
     };
 
     if (iws::state->showCreateServerModal) {
-        ASSERT(iwsCreateServerGroupModal_, "modal show state and existance must be in sync");
-        iwsCreateServerGroupModal_->display();
+        ASSERT(iwsCreateServerModal_, "modal show state and existance must be in sync");
+        iwsCreateServerModal_->display();
     } else {
-        iwsCreateServerGroupModal_.reset();
+        iwsCreateServerModal_.reset();
     }
 
     ImGui::Dummy({0, 8});
 
-    for (const std::unique_ptr<IwsServerGroup>& serverGroupChildWindow :
-         iws::ui->serverGroupChildWindows) {
+    for (const std::unique_ptr<IwsServerChildWindow>& serverGroupChildWindow :
+         iws::ui->serverChildWindows) {
         serverGroupChildWindow->display();
     }
 }

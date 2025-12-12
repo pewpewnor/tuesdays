@@ -1,4 +1,4 @@
-#include "iws_menubar.hpp"
+#include "iws_menubar_window.hpp"
 
 #include <imgui.h>
 
@@ -8,11 +8,12 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsMenubar::IwsMenubar(const std::shared_ptr<Topbar>& topbar) : topbar_(topbar) {}
+IwsMenubarWindow::IwsMenubarWindow(const std::shared_ptr<TopbarWindow>& topbarWindow)
+    : topbarWindow_(topbarWindow) {}
 
-bool IwsMenubar::beginWindow() {
-    ImGui::SetNextWindowPos({topbar_->windowPos.x, topbar_->windowPos.y + 8});
-    ImGui::SetNextWindowSize({0, topbar_->windowSize.y - 8});
+bool IwsMenubarWindow::beginWindow() {
+    ImGui::SetNextWindowPos({topbarWindow_->windowPos.x, topbarWindow_->windowPos.y + 8});
+    ImGui::SetNextWindowSize({0, topbarWindow_->windowSize.y - 8});
 
     ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addMenuBar().addStatic().build();
 
@@ -21,10 +22,10 @@ bool IwsMenubar::beginWindow() {
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {16, 4});
     windowStyles.pushStyleColor(ImGuiCol_MenuBarBg, COLOR_NIGHT_1);
 
-    return ImGui::Begin("IwsMenubar", nullptr, windowFlag);
+    return ImGui::Begin("IwsMenubarWindow", nullptr, windowFlag);
 }
 
-void IwsMenubar::renderWindowContent() {
+void IwsMenubarWindow::renderWindowContent() {
     StylesScoped menuBarStyles;
     menuBarStyles.pushStyleVar(ImGuiStyleVar_PopupRounding, 4);
     menuBarStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, {10, 4});  // menu padding
@@ -48,9 +49,9 @@ void IwsMenubar::renderWindowContent() {
         menuItemsStyles.pushStyleColor(ImGuiCol_HeaderActive, COLOR_CHOCOLATE);
         menuItemsStyles.pushStyleColor(ImGuiCol_Header, COLOR_TRANSPARENT);
 
-        fileMenu_.display();
-        editMenu_.display();
-        viewMenu_.display();
+        fileMenuPart_.display();
+        editMenuPart_.display();
+        viewMenuPart_.display();
 
         ImGui::EndMenuBar();
     }

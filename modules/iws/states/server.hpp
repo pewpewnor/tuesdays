@@ -7,12 +7,12 @@
 
 namespace iws {
 
-class ServerGroup {
+class Server {
 public:
     std::string name;
     std::vector<iws::Endpoint> endpoints;
 
-    ServerGroup(std::string_view name);
+    Server(std::string_view name);
 };
 
 }

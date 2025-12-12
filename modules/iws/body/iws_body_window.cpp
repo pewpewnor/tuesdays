@@ -1,4 +1,4 @@
-#include "iws_body.hpp"
+#include "iws_body_window.hpp"
 
 #include <imgui.h>
 
@@ -6,11 +6,11 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsBody::IwsBody(const std::shared_ptr<Topbar>& topbar,
-                 const std::shared_ptr<IwsSidebar>& acmSidebar)
+IwsBodyWindow::IwsBodyWindow(const std::shared_ptr<TopbarWindow>& topbar,
+                             const std::shared_ptr<IwsSidebarWindow>& acmSidebar)
     : topbar_(topbar), acmSidebar_(acmSidebar) {}
 
-bool IwsBody::beginWindow() {
+bool IwsBodyWindow::beginWindow() {
     ImVec2 windowPos{acmSidebar_->windowPos.x + acmSidebar_->windowSize.x,
                      topbar_->windowPos.y + topbar_->windowSize.y};
     ImGui::SetNextWindowPos(windowPos);
@@ -23,7 +23,7 @@ bool IwsBody::beginWindow() {
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {8, 8});
     windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_3);
 
-    return ImGui::Begin("IwsBody", nullptr, windowFlags);
+    return ImGui::Begin("IwsBodyWindow", nullptr, windowFlags);
 }
 
-void IwsBody::renderWindowContent() { ImGui::TextUnformatted("hey"); }
+void IwsBodyWindow::renderWindowContent() { ImGui::TextUnformatted("hey"); }

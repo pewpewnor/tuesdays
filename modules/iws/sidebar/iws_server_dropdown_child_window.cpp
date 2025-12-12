@@ -1,4 +1,4 @@
-#include "iws_server_group_dropdown.hpp"
+#include "iws_server_dropdown_child_window.hpp"
 
 #include <imgui-SFML.h>
 
@@ -9,10 +9,10 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsServerGroupDropdown::IwsServerGroupDropdown(const std::string& serverGroupName)
-    : serverGroupName_(serverGroupName) {}
+IwsServerDropdownChildWindow::IwsServerDropdownChildWindow(const std::string& serverName)
+    : serverName_(serverName) {}
 
-bool IwsServerGroupDropdown::beginChildWindow() {
+bool IwsServerDropdownChildWindow::beginChildWindow() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped windowStyles;
@@ -21,14 +21,14 @@ bool IwsServerGroupDropdown::beginChildWindow() {
     ImGuiChildFlags childFlags =
         ChildWindowFlagsBuilder().addAutoResizeY().addAlwaysUseWindowPadding().build();
 
-    return ImGui::BeginChild(("IwsServerGroupDropdown_" + serverGroupName_).c_str(), {0, 0},
+    return ImGui::BeginChild(("IwsServerDropdownChildWindow_" + serverName_).c_str(), {0, 0},
                              childFlags, windowFlags);
 }
 
-void IwsServerGroupDropdown::displayChildWindowContent() {
+void IwsServerDropdownChildWindow::displayChildWindowContent() {
     ImGui::Dummy({0, 16});
 
-    ImGui::TextUnformatted(serverGroupName_.c_str());
+    ImGui::TextUnformatted(serverName_.c_str());
 
     bool isHovered = ImGui::IsWindowHovered();
     if (isHovered && !wasHovered_) {

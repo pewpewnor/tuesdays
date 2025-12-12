@@ -4,12 +4,12 @@
 
 #include "commons/child_window_part.hpp"
 
-class IwsServerGroupDropdown : public commons::ChildWindowPart {
+class IwsServerDropdownChildWindow : public commons::ChildWindowPart {
 public:
-    IwsServerGroupDropdown(const std::string& serverGroupName);
+    IwsServerDropdownChildWindow(const std::string& serverName);
 
 private:
-    std::string serverGroupName_;
+    std::string serverName_;
     bool wasHovered_ = false;
 
     bool beginChildWindow() override;

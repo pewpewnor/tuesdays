@@ -1,6 +1,6 @@
-#include "render_window_step.hpp"
+#include "window_render_step.hpp"
 
-void engine::RenderWindowStep::onRender() {
+void WindowRenderStep::onRender() {
     if (beginWindow()) {
         renderWindowContent();
     }
@@ -9,4 +9,4 @@ void engine::RenderWindowStep::onRender() {
     ImGui::End();
 }
 
-void engine::RenderWindowStep::renderWindowContent() {}
+void WindowRenderStep::renderWindowContent() {}

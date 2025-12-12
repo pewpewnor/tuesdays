@@ -1,4 +1,4 @@
-#include "iws_create_server_group_modal.hpp"
+#include "iws_create_server_modal_part.hpp"
 
 #include <imgui.h>
 
@@ -12,7 +12,7 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-bool IwsCreateServerGroupModal::begin() {
+bool IwsCreateServerModalPart::begin() {
     ImGuiWindowFlags modalFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped modalStyles;
@@ -25,10 +25,10 @@ bool IwsCreateServerGroupModal::begin() {
     ImGui::SetNextWindowPos(ImVec2(center.x, center.y - (center.y / 2)), ImGuiCond_Always,
                             ImVec2(0.5, 0.5));
 
-    return ImGui::BeginPopupModal("IwsModalCreateServerGroup", nullptr, modalFlags);
+    return ImGui::BeginPopupModal("IwsCreateServerModal", nullptr, modalFlags);
 }
 
-void IwsCreateServerGroupModal::displayContent() {
+void IwsCreateServerModalPart::displayContent() {
     StylesScoped contentStyles;
     contentStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 12));
 
@@ -41,7 +41,7 @@ void IwsCreateServerGroupModal::displayContent() {
 
     constexpr float crossButtonSize = 14;
     putNexItemAtTheEndOfWindow(crossButtonSize);
-    if (components::crossIconButton("IwsModalCreateServer_Cross", crossButtonSize)) {
+    if (components::crossIconButton("IwsCreateServerModal_Cross", crossButtonSize)) {
         closePopup();
         return;
     };
@@ -58,7 +58,7 @@ void IwsCreateServerGroupModal::displayContent() {
         }
 
         setNextItemWidthAsLongAsPossible();
-        ImGui::InputText("##IwsModalCreateServer_ServerName", serverNameBuffer_.data(),
+        ImGui::InputText("##IwsCreateServerModal_ServerName", serverNameBuffer_.data(),
                          serverNameBuffer_.size());
 
         if (violatedServerNameRequired_) {
@@ -99,7 +99,7 @@ void IwsCreateServerGroupModal::displayContent() {
             resetValidations();
             violatedServerNameRequired_ = true;
         } else {
-            iws::state->serverGroups.push_back(std::make_shared<iws::ServerGroup>(serverName));
+            iws::state->servers.push_back(std::make_shared<iws::Server>(serverName));
             iws::events::updateServerGroups();
             closePopup();
             return;
@@ -107,11 +107,11 @@ void IwsCreateServerGroupModal::displayContent() {
     }
 }
 
-void IwsCreateServerGroupModal::endOfDisplay() { ImGui::EndPopup(); }
+void IwsCreateServerModalPart::endOfDisplay() { ImGui::EndPopup(); }
 
-void IwsCreateServerGroupModal::resetValidations() { violatedServerNameRequired_ = false; }
+void IwsCreateServerModalPart::resetValidations() { violatedServerNameRequired_ = false; }
 
-void IwsCreateServerGroupModal::closePopup() {
+void IwsCreateServerModalPart::closePopup() {
     iws::state->showCreateServerModal = false;
     ImGui::CloseCurrentPopup();
 }
