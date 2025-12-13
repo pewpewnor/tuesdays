@@ -9,7 +9,6 @@ void TexturesLifetime::onStartup() {
     g::textures = std::make_unique<g::Textures>();
     spdlog::debug("Loading all textures ...");
     loadTextures();
-    spdlog::debug("Loaded all textures");
 }
 
 void TexturesLifetime::onShutdown() { g::textures.reset(); }

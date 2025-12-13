@@ -4,8 +4,11 @@
 #include <spdlog/spdlog.h>
 
 #include <SFML/System/Sleep.hpp>
+#include <mutex>
+#include <optional>
 #include <stdexcept>
 
+#include "SFML/Window/Event.hpp"
 #include "engine/steps/group_step.hpp"
 #include "utils/assertions.hpp"
 #include "utils/scopes/scope_exit.hpp"
@@ -17,8 +20,7 @@ constexpr sf::Time fpsToTimePerFrame(int fps) { return sf::milliseconds(1000 / f
 }
 
 void engine::Engine::runContinously() {
-    bool expected = false;
-    if (!isRunning_.compare_exchange_strong(expected, true)) {
+    if (std::lock_guard<std::mutex> lock(runningState_.mutex); runningState_.isRunning) {
         throw std::runtime_error("engine is already running");
     }
     do {
@@ -30,47 +32,67 @@ void engine::Engine::runContinously() {
 }
 
 void engine::Engine::pushStartupStep(const std::shared_ptr<engine::StartupStep>& startupStep) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
+#ifdef DEBUG
+    {
+        std::lock_guard<std::mutex> lock(runningState_.mutex);
+        ASSERT(!runningState_.isRunning, "only add step while engine is not running");
+    }
+#endif
     startupSteps.push_back(startupStep);
 }
 
 void engine::Engine::pushRenderStep(const std::shared_ptr<engine::RenderStep>& renderStep) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
+#ifdef DEBUG
+    {
+        std::lock_guard<std::mutex> lock(runningState_.mutex);
+        ASSERT(!runningState_.isRunning, "only add step while engine is not running");
+    }
+#endif
     renderSteps.push_back(renderStep);
 }
 
 void engine::Engine::pushShutdownStep(const std::shared_ptr<engine::ShutdownStep>& shutdownStep) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
+#ifdef DEBUG
+    {
+        std::lock_guard<std::mutex> lock(runningState_.mutex);
+        ASSERT(!runningState_.isRunning, "only add step while engine is not running");
+    }
+#endif
     shutdownSteps.push_back(shutdownStep);
 }
 
 void engine::Engine::pushGroupStep(const std::shared_ptr<engine::GroupStep>& groupStep) {
-    ASSERT(!isRunning_, "only add step while engine is not running");
+#ifdef DEBUG
+    {
+        std::lock_guard<std::mutex> lock(runningState_.mutex);
+        ASSERT(!runningState_.isRunning, "only add step while engine is not running");
+    }
+#endif
     startupSteps.push_back(groupStep);
     renderSteps.push_back(groupStep);
     shutdownSteps.push_back(groupStep);
 }
 
-void engine::Engine::sendStopSignal() {
-    spdlog::debug("Sent stop signal to engine ...");
-    stopSignal_ = true;
-}
-
 void engine::Engine::sendRefreshSignal(int n) {
     ASSERT(n > 0, "number of refresh signal to be sent must be positive");
-    spdlog::debug("Sent {} refresh signal to engine ...", n);
+    spdlog::debug("Sending {} refresh signal to engine ...", n);
     refreshSignal_ += n;
 }
 
 void engine::Engine::sendRestartSignal() {
-    spdlog::debug("Sent restart signal to engine ...");
+    spdlog::debug("Sending restart signal to engine ...");
     restartAfterShutdown_ = true;
-    sendStopSignal();
+    stopSignal_ = true;
+}
+
+void engine::Engine::sendStopSignal() {
+    spdlog::debug("Sending stop signal to engine ...");
+    stopSignal_ = true;
 }
 
 void engine::Engine::waitUntilStopped() {
-    std::unique_lock<std::mutex> lock(runningMutex_);
-    runningCv_.wait(lock, [this] { return !isRunning_; });
+    std::unique_lock<std::mutex> lock(runningState_.mutex);
+    runningState_.cv.wait(lock, [this] { return !runningState_.isRunning; });
 }
 
 void engine::Engine::startup() {
@@ -82,23 +104,21 @@ void engine::Engine::startup() {
 
 void engine::Engine::renderFramesContinously() {
     sf::Clock clock;
+    sf::Time nextFrameTime = clock.getElapsedTime();
+
     while (!stopSignal_ && window->isOpen()) {
-        clock.restart();
-
         bool refresh = processEvents();
-
-        sf::Time elapsed;
-        sf::Time desiredDuration;
         if (refresh) {
             renderFrame();
-            elapsed = clock.getElapsedTime();
-            desiredDuration = fpsToTimePerFrame(60);
+            nextFrameTime += fpsToTimePerFrame(60);
         } else {
-            elapsed = clock.getElapsedTime();
-            desiredDuration = fpsToTimePerFrame(20);
+            nextFrameTime += fpsToTimePerFrame(20);
         }
-        if (sf::Time sleepTime = desiredDuration - elapsed; sleepTime > sf::Time::Zero) {
-            sf::sleep(sleepTime);
+
+        if (sf::Time currentTime = clock.getElapsedTime(); currentTime < nextFrameTime) {
+            sf::sleep(nextFrameTime - currentTime);
+        } else {
+            nextFrameTime = currentTime;
         }
     }
     spdlog::debug("Engine has stopped rendering frames");
@@ -106,7 +126,7 @@ void engine::Engine::renderFramesContinously() {
 
 bool engine::Engine::processEvents() {
     bool hasFocus = window->hasFocus();
-    bool refresh = renderOnIdle;
+    bool refresh = false;
     bool refreshNeedsTrailing = false;
 
     if (trailingRefresh_ > 0) {
@@ -131,15 +151,21 @@ bool engine::Engine::processEvents() {
     }
 
     if (refreshNeedsTrailing) {
-        trailingRefresh_ += 1;
+        trailingRefresh_++;
     }
     return refresh;
 }
 
 bool engine::Engine::pollEvents(bool alreadyRendering) {
     bool refresh = false;
-    while (const auto event = window->pollEvent()) {
-        if (event->is<sf::Event::Closed>()) {
+    while (const std::optional<sf::Event> optionalEvent = window->pollEvent()) {
+        if (!optionalEvent.has_value()) {
+            spdlog::debug("Dectected an empty event, skipping...");
+            continue;
+        }
+        sf::Event event = optionalEvent.value();
+
+        if (event.is<sf::Event::Closed>()) {
             sendStopSignal();
             break;
         }
@@ -147,22 +173,22 @@ bool engine::Engine::pollEvents(bool alreadyRendering) {
          * do not process FocusLost event so ImGui doesn't know about it, thus we can react to
          * things like hover over items even when focus is lost
          */
-        if (event->is<sf::Event::FocusLost>()) {
+        if (event.is<sf::Event::FocusLost>()) {
             refresh = true;
             continue;
         }
-        ImGui::SFML::ProcessEvent(*window, *event);
+        ImGui::SFML::ProcessEvent(*window, event);
         if (!alreadyRendering && !refresh &&
-            (event->is<sf::Event::FocusGained>() || event->is<sf::Event::Resized>() ||
-             event->is<sf::Event::MouseButtonPressed>() ||
-             event->is<sf::Event::MouseButtonReleased>() || event->is<sf::Event::MouseEntered>() ||
-             event->is<sf::Event::MouseLeft>() || event->is<sf::Event::MouseMoved>() ||
-             event->is<sf::Event::MouseWheelScrolled>() || event->is<sf::Event::KeyPressed>() ||
-             event->is<sf::Event::KeyReleased>() || event->is<sf::Event::TextEntered>() ||
-             event->is<sf::Event::JoystickButtonPressed>() ||
-             event->is<sf::Event::JoystickButtonReleased>() ||
-             event->is<sf::Event::JoystickMoved>() || event->is<sf::Event::JoystickConnected>() ||
-             event->is<sf::Event::JoystickDisconnected>())) {
+            (event.is<sf::Event::FocusGained>() || event.is<sf::Event::Resized>() ||
+             event.is<sf::Event::MouseButtonPressed>() ||
+             event.is<sf::Event::MouseButtonReleased>() || event.is<sf::Event::MouseEntered>() ||
+             event.is<sf::Event::MouseLeft>() || event.is<sf::Event::MouseMoved>() ||
+             event.is<sf::Event::MouseWheelScrolled>() || event.is<sf::Event::KeyPressed>() ||
+             event.is<sf::Event::KeyReleased>() || event.is<sf::Event::TextEntered>() ||
+             event.is<sf::Event::JoystickButtonPressed>() ||
+             event.is<sf::Event::JoystickButtonReleased>() ||
+             event.is<sf::Event::JoystickMoved>() || event.is<sf::Event::JoystickConnected>() ||
+             event.is<sf::Event::JoystickDisconnected>())) {
             refresh = true;
         }
     }
@@ -187,7 +213,7 @@ void engine::Engine::shutdown() {
 
 void engine::Engine::stopRunningState() {
     stopSignal_ = false;
-    std::lock_guard<std::mutex> lock(runningMutex_);
-    isRunning_ = false;
-    runningCv_.notify_all();
+    std::lock_guard<std::mutex> lock(runningState_.mutex);
+    runningState_.isRunning = false;
+    runningState_.cv.notify_all();
 }

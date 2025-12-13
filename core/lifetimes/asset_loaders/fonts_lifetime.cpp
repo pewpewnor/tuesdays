@@ -17,14 +17,14 @@ void FontsLifetime::onStartup() {
     loadSansFonts();
     loadMonoFonts();
 
-    if (ImGui::SFML::UpdateFontTexture()) {
-        spdlog::debug("Sucessfully loaded all fonts");
-    } else {
+    if (!ImGui::SFML::UpdateFontTexture()) {
         std::shared_ptr<ImFont> defaultFont = getDefaultFont();
         g::fonts->sansRegular = defaultFont;
+        g::fonts->sansSemiBold = defaultFont;
+        g::fonts->sansBold = defaultFont;
         g::fonts->monoRegular = defaultFont;
         g::fonts->monoBold = defaultFont;
-        spdlog::error("Failed to load all fonts when updating font texture");
+        spdlog::warn("Failed to load all fonts when updating font texture");
     }
 }
 

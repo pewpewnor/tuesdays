@@ -7,7 +7,7 @@
 
 void SurfaceLifetime::onStartup() {
     spdlog::debug("Creating window & initializing ImGui ...");
-    g::engine->window = std::make_shared<sf::RenderWindow>(
+    g::engine->window = std::make_unique<sf::RenderWindow>(
         sf::VideoMode({static_cast<unsigned int>(WIDTH), static_cast<unsigned int>(HEIGHT)}),
         "Tuesdays");
     windowInitialized_ = true;
@@ -18,7 +18,6 @@ void SurfaceLifetime::onStartup() {
         throw std::runtime_error("failed to initialize imgui-sfml");
     }
     imguiInitialized_ = true;
-    spdlog::debug("Window & ImGui initialized");
 }
 
 void SurfaceLifetime::onShutdown() {

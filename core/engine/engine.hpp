@@ -14,8 +14,7 @@ namespace engine {
 
 class Engine : private GroupStep {
 public:
-    std::shared_ptr<sf::RenderWindow> window;
-    std::atomic<bool> renderOnIdle = false;
+    std::unique_ptr<sf::RenderWindow> window;
 
     void runContinously();
 
@@ -27,23 +26,27 @@ public:
 
     void pushGroupStep(const std::shared_ptr<engine::GroupStep>& groupStep);
 
-    void sendStopSignal();
-
     void sendRefreshSignal(int n = 1);
 
     void sendRestartSignal();
 
+    void sendStopSignal();
+
     void waitUntilStopped();
 
 private:
-    std::atomic<bool> isRunning_ = false;
-    std::mutex runningMutex_;
-    std::condition_variable runningCv_;
+    struct EngineRunningState {
+        bool isRunning = false;
+        std::mutex mutex;
+        std::condition_variable cv;
+    };
+
+    EngineRunningState runningState_;
     std::atomic<bool> stopSignal_ = false;
     std::atomic<unsigned int> refreshSignal_ = 0;
     std::atomic<bool> restartAfterShutdown_ = false;
     sf::Clock deltaClock_;
-    int trailingRefresh_ = 0;
+    unsigned int trailingRefresh_ = 0;
 
     void startup();
 
