@@ -2,6 +2,7 @@
 
 #include <spdlog/spdlog.h>
 
+#include <expected>
 #include <functional>
 #include <future>
 #include <memory>
@@ -12,7 +13,6 @@
 #include "globals/engine_state.hpp"
 #include "globals/ignored_futures.hpp"
 #include "utils/assertions.hpp"
-#include "utils/results.hpp"
 #include "utils/scopes/scope_fail.hpp"
 
 namespace commons {
@@ -38,8 +38,9 @@ public:
     [[nodiscard]] bool isAvailable() { return !isBusy(); }
 
     [[nodiscard]] bool isBusy() {
-        return future_.valid() &&
-               future_.wait_for(std::chrono::seconds(0)) != std::future_status::ready;
+        using namespace std::chrono_literals;
+
+        return future_.valid() && future_.wait_for(0s) != std::future_status::ready;
     }
 
     [[nodiscard]] bool hasResult() {
@@ -47,7 +48,7 @@ public:
         return outcome_->result.has_value();
     }
 
-    Result<TResult> getResult() {
+    std::expected<TResult, std::string> getResult() {
         std::lock_guard<std::mutex> lock(outcome_->mutex);
         if (outcome_->error.has_value()) {
             std::string errorMessage = outcome_->error.value();
@@ -119,7 +120,7 @@ protected:
 private:
     struct TaskOutcome {
         std::mutex mutex;
-        Fallible error;
+        std::optional<std::string> error;
         std::optional<TResult> result;
     };
 

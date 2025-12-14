@@ -8,11 +8,13 @@ void IgnoredTasksLifetime::onStartup() {
 }
 
 void IgnoredTasksLifetime::onShutdown() {
+    using namespace std::chrono_literals;
+
     std::lock_guard<std::mutex> lock(g::ignoredFutures->mutex);
     spdlog::debug("Waiting for {} ignored futures to finish ...",
                   g::ignoredFutures->futures.size());
     for (const std::shared_future<void>& future : g::ignoredFutures->futures) {
-        future.wait_for(std::chrono::minutes(1));
+        future.wait_for(1min);
     }
     g::ignoredFutures.reset();
     spdlog::debug("Ignored futures has finished");

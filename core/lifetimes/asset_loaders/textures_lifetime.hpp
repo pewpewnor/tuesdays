@@ -14,7 +14,7 @@ public:
 private:
     static void loadTextures();
 
-    static void loadTextureFromMemory(sf::Texture& texture, const void* data, size_t size,
+    static void loadTextureFromMemory(sf::Texture& texture, const void* data, size_t dataSize,
                                       std::string_view textureName);
 
     static bool smoothenTexture(sf::Texture& texture);

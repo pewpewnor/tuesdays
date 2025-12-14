@@ -8,7 +8,7 @@
 namespace iws {
 
 struct IwsUi {
-    std::vector<std::unique_ptr<IwsServerChildWindow>> serverChildWindows;
+    std::vector<IwsServerChildWindow> serverChildWindows;
 };
 
 inline std::unique_ptr<iws::IwsUi> ui;
