@@ -76,8 +76,7 @@ void IwsSidebarWindow::renderWindowContent() {
 
     ImGui::Dummy({0, 8});
 
-    for (const std::unique_ptr<IwsServerChildWindow>& serverGroupChildWindow :
-         iws::ui->serverChildWindows) {
-        serverGroupChildWindow->display();
+    for (IwsServerChildWindow& serverGroupChildWindow : iws::ui->serverChildWindows) {
+        serverGroupChildWindow.display();
     }
 }

@@ -3,11 +3,11 @@
 #include <imgui.h>
 
 #include <memory>
+#include <optional>
 #include <string_view>
 
 #include "engine/steps/shutdown_step.hpp"
 #include "engine/steps/startup_step.hpp"
-#include "utils/results.hpp"
 
 class FontsLifetime : public engine::StartupStep, public engine::ShutdownStep {
 public:
@@ -20,12 +20,12 @@ private:
 
     static std::shared_ptr<ImFont> getDefaultFont();
 
-    static Result<std::shared_ptr<ImFont>> loadFontFromMemory(const void* data, int dataSize,
-                                                              float fontSizePixels);
+    static std::optional<std::shared_ptr<ImFont>> loadFontFromMemory(const void* data,
+                                                                     size_t dataSize,
+                                                                     float fontSizePixels,
+                                                                     std::string_view fontName);
 
     static void loadSansFonts();
 
     static void loadMonoFonts();
-
-    static void logFontLoadError(std::string_view fontName, const std::string& errorMsg);
 };
