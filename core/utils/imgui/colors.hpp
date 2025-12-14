@@ -2,9 +2,8 @@
 
 #include <imgui.h>
 
+#include <stdexcept>
 #include <string_view>
-
-#include "utils/assertions.hpp"
 
 namespace {
 
@@ -15,9 +14,10 @@ consteval unsigned int hexDigit(char c) {
     if (c >= 'a' && c <= 'f') {
         return c - 'a' + 10;
     }
-    ASSERT(c <= 'A' || c >= 'F', "hex characters must be lowercase, not uppercase");
-    ASSERT_UNREACHABLE("invalid hex character was passed");
-    return 0;
+    if (c <= 'A' || c >= 'F') {
+        throw std::invalid_argument("hex characters must be lowercase, not uppercase");
+    }
+    throw std::invalid_argument("invalid hex character was passed");
 }
 
 consteval unsigned int hexPair(char a, char b) {
@@ -29,8 +29,12 @@ consteval unsigned int hexPair(char a, char b) {
 }
 
 consteval ImVec4 colorHex(std::string_view hex, float opacity) {
-    ASSERT(hex.length() == 7, "hex format must be 7 chars");
-    ASSERT(hex[0] == '#', "hex format must start with '#'");
+    if (hex.length() != 7) {
+        throw std::invalid_argument("hex format must be 7 characters");
+    }
+    if (hex[0] != '#') {
+        throw std::invalid_argument("hex format must start with '#'");
+    }
     auto r = static_cast<float>(hexPair(hex[1], hex[2]));
     auto g = static_cast<float>(hexPair(hex[3], hex[4]));
     auto b = static_cast<float>(hexPair(hex[5], hex[6]));

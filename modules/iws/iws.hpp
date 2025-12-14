@@ -6,7 +6,14 @@
 
 class Iws : public engine::GroupStep {
 public:
-    Iws(const std::shared_ptr<NavbarWindow>& navbar, const std::shared_ptr<TopbarWindow>& topbar);
+    Iws(const std::shared_ptr<NavbarWindow>& navbarWindow,
+        const std::shared_ptr<TopbarWindow>& topbarWindow);
 
     bool shouldRender() override;
+
+private:
+    std::shared_ptr<NavbarWindow> navbarWindow_;
+    std::shared_ptr<TopbarWindow> topbarWindow_;
+
+    void addRenderSteps();
 };

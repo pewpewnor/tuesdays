@@ -6,7 +6,6 @@
 #include <SFML/System/Sleep.hpp>
 #include <mutex>
 #include <optional>
-#include <stdexcept>
 
 #include "SFML/Window/Event.hpp"
 #include "engine/steps/group_step.hpp"
@@ -20,9 +19,12 @@ constexpr sf::Time fpsToTimePerFrame(int fps) { return sf::milliseconds(1000 / f
 }
 
 void engine::Engine::runContinously() {
-    if (std::lock_guard<std::mutex> lock(runningState_.mutex); runningState_.isRunning) {
-        throw std::runtime_error("engine is already running");
+#ifdef DEBUG
+    {
+        std::lock_guard<std::mutex> lock(runningState_.mutex);
+        ASSERT(!runningState_.isRunning, "only run engine when it is available");
     }
+#endif
     do {
         restartAfterShutdown_ = false;
         ScopeExit scopeExit([this]() { shutdown(); });

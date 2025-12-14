@@ -1,3 +1,4 @@
+#ifdef DEBUG
 #pragma once
 
 #include "engine/steps/shutdown_step.hpp"
@@ -9,3 +10,4 @@ public:
 
     void onShutdown() override;
 };
+#endif

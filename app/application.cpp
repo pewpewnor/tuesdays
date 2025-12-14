@@ -26,9 +26,9 @@
 Application::Application() {
     g::engine = std::make_unique<engine::Engine>();
 
-    pushLifetimeSteps();
-    pushKeyHandlerSteps();
-    pushUiSteps();
+    addLifetimeSteps();
+    addKeyHandlerSteps();
+    addUiSteps();
 }
 
 Application::~Application() { g::engine.reset(); }
@@ -46,7 +46,7 @@ void Application::requestStop() {
     }
 }
 
-void Application::pushLifetimeSteps() {
+void Application::addLifetimeSteps() {
     auto texturesLifetime = std::make_shared<TexturesLifetime>();
     g::engine->pushStartupStep(texturesLifetime);
     g::engine->pushShutdownStep(texturesLifetime);
@@ -76,13 +76,13 @@ void Application::pushLifetimeSteps() {
 #endif
 }
 
-void Application::pushKeyHandlerSteps() {
+void Application::addKeyHandlerSteps() {
 #ifdef DEBUG
     g::engine->pushRenderStep(std::make_shared<DebugKeyHandler>());
 #endif
 }
 
-void Application::pushUiSteps() {
+void Application::addUiSteps() {
     auto navbarWindow = std::make_shared<NavbarWindow>();
     g::engine->pushRenderStep(navbarWindow);
     auto topbarWindow = std::make_shared<TopbarWindow>(navbarWindow);
