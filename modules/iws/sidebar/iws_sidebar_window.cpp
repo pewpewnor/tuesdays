@@ -67,16 +67,16 @@ void IwsSidebarWindow::renderWindowContent() {
         g::engine->sendRefreshSignal(10);
     };
 
+    ImGui::Dummy({0, 8});
+
+    for (IwsServerChildWindow& serverGroupChildWindow : iws::ui->serverChildWindows) {
+        serverGroupChildWindow.display();
+    }
+
     if (iws::state->showCreateServerModal) {
         ASSERT(iwsCreateServerModal_, "modal show state and existance must be in sync");
         iwsCreateServerModal_->display();
     } else {
         iwsCreateServerModal_.reset();
-    }
-
-    ImGui::Dummy({0, 8});
-
-    for (IwsServerChildWindow& serverGroupChildWindow : iws::ui->serverChildWindows) {
-        serverGroupChildWindow.display();
     }
 }

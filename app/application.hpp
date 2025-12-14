@@ -16,9 +16,9 @@ public:
     static void requestStop();
 
 private:
-    static void pushLifetimeSteps();
+    static void addLifetimeSteps();
 
-    static void pushKeyHandlerSteps();
+    static void addKeyHandlerSteps();
 
-    static void pushUiSteps();
+    static void addUiSteps();
 };

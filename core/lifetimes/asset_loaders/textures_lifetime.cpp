@@ -16,13 +16,13 @@ void TexturesLifetime::onShutdown() { g::textures.reset(); }
 void TexturesLifetime::loadTextureFromMemory(sf::Texture& texture, const void* data,
                                              size_t dataSize, std::string_view textureName) {
     if (!texture.loadFromMemory(data, dataSize)) {
-        ASSERT_UNREACHABLE("must successfully load texture");
         spdlog::warn("Failed to load texture '{}': error when loading from memory", textureName);
+        ASSERT_UNREACHABLE("must successfully load texture");
         return;
     }
     if (!smoothenTexture(texture)) {
-        ASSERT_UNREACHABLE("must successfully smoothen texture");
         spdlog::warn("Failed to smoothen texture when loading texture '{}'", textureName);
+        ASSERT_UNREACHABLE("must successfully smoothen texture");
     }
 }
 

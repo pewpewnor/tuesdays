@@ -43,8 +43,8 @@ std::optional<std::shared_ptr<ImFont>> FontsLifetime::loadFontFromMemory(
         const_cast<void*>(data), static_cast<int>(dataSize), fontSizePixels, &config);
 
     if (font == nullptr) {
-        ASSERT_UNREACHABLE("must successfully load sans font regular");
         spdlog::warn("Failed to load font '{}'", fontName);
+        ASSERT_UNREACHABLE("must successfully load sans font regular");
         return {};
     }
     return std::shared_ptr<ImFont>(font, NoOpDeleter());
