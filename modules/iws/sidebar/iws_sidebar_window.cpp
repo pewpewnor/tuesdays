@@ -5,6 +5,7 @@
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "globals/textures.hpp"
+#include "imgui.h"
 #include "iws/states/iws_state.hpp"
 #include "universal/components/image_buttons.hpp"
 #include "utils/assertions.hpp"
@@ -18,7 +19,7 @@ IwsSidebarWindow::IwsSidebarWindow(const std::shared_ptr<NavbarWindow>& navbarWi
                                    const std::shared_ptr<TopbarWindow>& topbarWindow)
     : navbarWindow_(navbarWindow), topbarWindow_(topbarWindow) {}
 
-bool IwsSidebarWindow::beginWindow() {
+bool IwsSidebarWindow::begin() {
     ImGui::SetNextWindowPos({navbarWindow_->windowPos.x + navbarWindow_->windowSize.x,
                              topbarWindow_->windowPos.y + topbarWindow_->windowSize.y});
     ImGui::SetNextWindowSize(
@@ -36,7 +37,7 @@ bool IwsSidebarWindow::beginWindow() {
     return ImGui::Begin("IwsSidebarWindow", nullptr, windowFlags);
 }
 
-void IwsSidebarWindow::renderWindowContent() {
+void IwsSidebarWindow::renderContent() {
     ImGui::Dummy({0, 20});
 
     ImGui::Dummy({16, 0});
@@ -84,4 +85,7 @@ void IwsSidebarWindow::renderWindowContent() {
     } else {
         iwsCreateServerModal_.reset();
     }
+
+    windowPos = ImGui::GetWindowPos();
+    windowSize = ImGui::GetWindowSize();
 }

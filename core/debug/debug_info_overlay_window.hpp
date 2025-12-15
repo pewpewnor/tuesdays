@@ -5,8 +5,8 @@
 
 class DebugInfoOverlayWindow : public commons::WindowRenderStep {
 public:
-    bool beginWindow() override;
+    bool begin() override;
 
-    void renderWindowContent() override;
+    void renderContent() override;
 };
 #endif

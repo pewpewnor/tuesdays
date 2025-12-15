@@ -2,16 +2,13 @@
 
 #include <imgui.h>
 
+#include "commons/part.hpp"
 #include "engine/steps/render_step.hpp"
 
 namespace commons {
 
-class WindowRenderStep : public virtual engine::RenderStep {
+class WindowRenderStep : public virtual engine::RenderStep, public virtual commons::Part {
 public:
-    ImVec2 windowPos;
-    ImVec2 windowSize;
-    ImVec2 windowPadding;
-
     WindowRenderStep() = default;
     WindowRenderStep(const WindowRenderStep&) = default;
     WindowRenderStep(WindowRenderStep&&) = delete;
@@ -19,12 +16,10 @@ public:
     WindowRenderStep& operator=(WindowRenderStep&&) = delete;
     ~WindowRenderStep() override = default;
 
+private:
     void onRender() override;
 
-private:
-    virtual bool beginWindow() = 0;
-
-    virtual void renderWindowContent();
+    void end() override;
 };
 
 }

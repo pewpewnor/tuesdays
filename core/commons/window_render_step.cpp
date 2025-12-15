@@ -1,12 +1,5 @@
 #include "window_render_step.hpp"
 
-void commons::WindowRenderStep::onRender() {
-    if (beginWindow()) {
-        renderWindowContent();
-    }
-    windowPos = ImGui::GetWindowPos();
-    windowSize = ImGui::GetWindowSize();
-    ImGui::End();
-}
+void commons::WindowRenderStep::onRender() { display(); }
 
-void commons::WindowRenderStep::renderWindowContent() {}
+void commons::WindowRenderStep::end() { ImGui::End(); }

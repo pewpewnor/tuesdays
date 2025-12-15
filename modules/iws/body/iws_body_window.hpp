@@ -6,13 +6,13 @@
 class IwsBodyWindow : public commons::WindowRenderStep {
 public:
     IwsBodyWindow(const std::shared_ptr<TopbarWindow>& topbar,
-                  const std::shared_ptr<IwsSidebarWindow>& acmSidebar);
+                  const std::shared_ptr<IwsSidebarWindow>& iwsSidebarWindow);
 
 private:
     std::shared_ptr<TopbarWindow> topbar_;
-    std::shared_ptr<IwsSidebarWindow> acmSidebar_;
+    std::shared_ptr<IwsSidebarWindow> iwsSidebarWindow_;
 
-    bool beginWindow() override;
+    bool begin() override;
 
-    void renderWindowContent() override;
+    void renderContent() override;
 };

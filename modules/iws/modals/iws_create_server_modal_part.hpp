@@ -2,18 +2,16 @@
 
 #include <array>
 
-#include "commons/display_part.hpp"
+#include "commons/popup_window_part.hpp"
 
-class IwsCreateServerModalPart : public commons::DisplayPart {
+class IwsCreateServerModalPart : public commons::PopupWindowPart {
 private:
     std::array<char, 257> serverNameBuffer_ = {'\0'};
     bool violatedServerNameRequired_ = false;
 
     bool begin() override;
 
-    void displayContent() override;
-
-    void endOfDisplay() override;
+    void renderContent() override;
 
     void resetValidations();
 

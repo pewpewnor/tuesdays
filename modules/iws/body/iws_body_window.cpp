@@ -7,11 +7,11 @@
 #include "utils/imgui/window_flags_builder.hpp"
 
 IwsBodyWindow::IwsBodyWindow(const std::shared_ptr<TopbarWindow>& topbar,
-                             const std::shared_ptr<IwsSidebarWindow>& acmSidebar)
-    : topbar_(topbar), acmSidebar_(acmSidebar) {}
+                             const std::shared_ptr<IwsSidebarWindow>& iwsSidebarWindow)
+    : topbar_(topbar), iwsSidebarWindow_(iwsSidebarWindow) {}
 
-bool IwsBodyWindow::beginWindow() {
-    ImVec2 windowPos{acmSidebar_->windowPos.x + acmSidebar_->windowSize.x,
+bool IwsBodyWindow::begin() {
+    ImVec2 windowPos{iwsSidebarWindow_->windowPos.x + iwsSidebarWindow_->windowSize.x,
                      topbar_->windowPos.y + topbar_->windowSize.y};
     ImGui::SetNextWindowPos(windowPos);
     ImGui::SetNextWindowSize({ImGui::GetMainViewport()->WorkSize.x - windowPos.x,
@@ -26,4 +26,4 @@ bool IwsBodyWindow::beginWindow() {
     return ImGui::Begin("IwsBodyWindow", nullptr, windowFlags);
 }
 
-void IwsBodyWindow::renderWindowContent() { ImGui::TextUnformatted("hey"); }
+void IwsBodyWindow::renderContent() { ImGui::TextUnformatted("hey"); }

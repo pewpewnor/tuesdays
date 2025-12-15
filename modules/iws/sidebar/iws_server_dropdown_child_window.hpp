@@ -14,7 +14,7 @@ private:
     bool isOpen_ = false;
     bool wasHovered_ = false;
 
-    bool beginChildWindow() override;
+    bool begin() override;
 
-    void displayChildWindowContent() override;
+    void renderContent() override;
 };

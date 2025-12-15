@@ -1,22 +1,20 @@
 #pragma once
 
+#include "commons/part.hpp"
+
 namespace commons {
 
-class ChildWindowPart {
+class ChildWindowPart : public Part {
 public:
     ChildWindowPart() = default;
     ChildWindowPart(const ChildWindowPart&) = default;
     ChildWindowPart(ChildWindowPart&&) = delete;
     ChildWindowPart& operator=(const ChildWindowPart&) = default;
     ChildWindowPart& operator=(ChildWindowPart&&) = delete;
-    virtual ~ChildWindowPart() = default;
-
-    void display();
+    ~ChildWindowPart() override = default;
 
 private:
-    virtual bool beginChildWindow() = 0;
-
-    virtual void displayChildWindowContent() = 0;
+    void endContent() override;
 };
 
 }

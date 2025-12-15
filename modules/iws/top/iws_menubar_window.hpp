@@ -15,7 +15,7 @@ private:
     IwsMenuPartView viewMenuPart_;
     std::shared_ptr<TopbarWindow> topbarWindow_;
 
-    bool beginWindow() override;
+    bool begin() override;
 
-    void renderWindowContent() override;
+    void renderContent() override;
 };

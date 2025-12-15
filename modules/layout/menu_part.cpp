@@ -29,4 +29,4 @@ bool components::MenuPart::begin() {
     return result;
 }
 
-void components::MenuPart::endOfDisplay() { ImGui::EndMenu(); }
+void components::MenuPart::endContent() { ImGui::EndMenu(); }

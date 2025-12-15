@@ -15,7 +15,7 @@ public:
 private:
     IwsServerDropdownChildWindow serverDropdownChildWindow_;
 
-    bool beginChildWindow() override;
+    bool begin() override;
 
-    void displayChildWindowContent() override;
+    void renderContent() override;
 };

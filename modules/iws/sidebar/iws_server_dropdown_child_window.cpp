@@ -15,7 +15,7 @@ IwsServerDropdownChildWindow::IwsServerDropdownChildWindow(
     const std::shared_ptr<iws::Server>& server)
     : server_(server) {}
 
-bool IwsServerDropdownChildWindow::beginChildWindow() {
+bool IwsServerDropdownChildWindow::begin() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped windowStyles;
@@ -29,7 +29,7 @@ bool IwsServerDropdownChildWindow::beginChildWindow() {
                              childFlags, windowFlags);
 }
 
-void IwsServerDropdownChildWindow::displayChildWindowContent() {
+void IwsServerDropdownChildWindow::renderContent() {
     ImGui::Dummy({16, 0});
 
     ImGui::SameLine();

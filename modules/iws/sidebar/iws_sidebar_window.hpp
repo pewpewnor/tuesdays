@@ -10,6 +10,9 @@
 
 class IwsSidebarWindow : public commons::WindowRenderStep {
 public:
+    ImVec2 windowPos;
+    ImVec2 windowSize;
+
     IwsSidebarWindow(const std::shared_ptr<NavbarWindow>& navbarWindow,
                      const std::shared_ptr<TopbarWindow>& topbarWindow);
 
@@ -18,7 +21,7 @@ private:
     std::shared_ptr<TopbarWindow> topbarWindow_;
     std::unique_ptr<IwsCreateServerModalPart> iwsCreateServerModal_;
 
-    bool beginWindow() override;
+    bool begin() override;
 
-    void renderWindowContent() override;
+    void renderContent() override;
 };

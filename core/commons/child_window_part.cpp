@@ -2,9 +2,4 @@
 
 #include <imgui.h>
 
-void commons::ChildWindowPart::display() {
-    if (beginChildWindow()) {
-        displayChildWindowContent();
-    }
-    ImGui::EndChild();
-}
+void commons::ChildWindowPart::endContent() { ImGui::EndChild(); }

@@ -11,6 +11,9 @@ public:
     RenderStep& operator=(RenderStep&&) = delete;
     virtual ~RenderStep() = default;
 
+    void render();
+
+private:
     virtual bool shouldRender();
 
     virtual void onRender() = 0;
