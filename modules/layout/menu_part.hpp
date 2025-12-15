@@ -2,11 +2,11 @@
 
 #include <string>
 
-#include "commons/display_part.hpp"
+#include "commons/part.hpp"
 
 namespace components {
 
-class MenuPart : public virtual commons::DisplayPart {
+class MenuPart : public virtual commons::Part {
 public:
     MenuPart(const std::string& label);
     MenuPart(const MenuPart&) = default;
@@ -21,7 +21,9 @@ private:
 
     bool begin() override;
 
-    void endOfDisplay() override;
+    void renderContent() override = 0;
+
+    void endContent() override;
 };
 
 }

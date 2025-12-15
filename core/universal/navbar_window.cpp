@@ -10,7 +10,7 @@
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-bool NavbarWindow::beginWindow() {
+bool NavbarWindow::begin() {
     ImGui::SetNextWindowPos({0, 0});
     ImGui::SetNextWindowSize({0, ImGui::GetMainViewport()->WorkSize.y}, ImGuiCond_Always);
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
@@ -22,7 +22,7 @@ bool NavbarWindow::beginWindow() {
     return ImGui::Begin("NavbarWindow", nullptr, windowFlags);
 }
 
-void NavbarWindow::renderWindowContent() {
+void NavbarWindow::renderContent() {
     {
         StylesScoped appIconsStyles;
         appIconsStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 18);
@@ -38,4 +38,7 @@ void NavbarWindow::renderWindowContent() {
             univ::state->currentApp = univ::CurrentApp::Iws;
         }
     }
+
+    windowPos = ImGui::GetWindowPos();
+    windowSize = ImGui::GetWindowSize();
 }

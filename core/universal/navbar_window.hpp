@@ -6,7 +6,10 @@
 
 class NavbarWindow : public commons::WindowRenderStep {
 public:
-    bool beginWindow() override;
+    ImVec2 windowPos;
+    ImVec2 windowSize;
 
-    void renderWindowContent() override;
+    bool begin() override;
+
+    void renderContent() override;
 };

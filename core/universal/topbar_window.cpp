@@ -8,7 +8,7 @@
 
 TopbarWindow::TopbarWindow(const std::shared_ptr<NavbarWindow>& navbar) : navbar_(navbar) {}
 
-bool TopbarWindow::beginWindow() {
+bool TopbarWindow::begin() {
     ImGui::SetNextWindowPos({navbar_->windowPos.x + navbar_->windowSize.x, 0});
     ImGui::SetNextWindowSize({ImGui::GetMainViewport()->WorkSize.x - navbar_->windowSize.x, 40});
 
@@ -20,4 +20,7 @@ bool TopbarWindow::beginWindow() {
     return ImGui::Begin("TopbarWindow", nullptr, windowFlag);
 }
 
-void TopbarWindow::renderWindowContent() {}
+void TopbarWindow::renderContent() {
+    windowPos = ImGui::GetWindowPos();
+    windowSize = ImGui::GetWindowSize();
+}

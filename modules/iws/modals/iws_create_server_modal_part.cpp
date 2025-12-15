@@ -28,7 +28,7 @@ bool IwsCreateServerModalPart::begin() {
     return ImGui::BeginPopupModal("IwsCreateServerModal", nullptr, modalFlags);
 }
 
-void IwsCreateServerModalPart::displayContent() {
+void IwsCreateServerModalPart::renderContent() {
     StylesScoped contentStyles;
     contentStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 12));
 
@@ -106,8 +106,6 @@ void IwsCreateServerModalPart::displayContent() {
         }
     }
 }
-
-void IwsCreateServerModalPart::endOfDisplay() { ImGui::EndPopup(); }
 
 void IwsCreateServerModalPart::resetValidations() { violatedServerNameRequired_ = false; }
 

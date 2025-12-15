@@ -11,7 +11,7 @@
 IwsMenubarWindow::IwsMenubarWindow(const std::shared_ptr<TopbarWindow>& topbarWindow)
     : topbarWindow_(topbarWindow) {}
 
-bool IwsMenubarWindow::beginWindow() {
+bool IwsMenubarWindow::begin() {
     ImGui::SetNextWindowPos({topbarWindow_->windowPos.x, topbarWindow_->windowPos.y + 8});
     ImGui::SetNextWindowSize({0, topbarWindow_->windowSize.y - 8});
 
@@ -25,7 +25,7 @@ bool IwsMenubarWindow::beginWindow() {
     return ImGui::Begin("IwsMenubarWindow", nullptr, windowFlag);
 }
 
-void IwsMenubarWindow::renderWindowContent() {
+void IwsMenubarWindow::renderContent() {
     StylesScoped menuBarStyles;
     menuBarStyles.pushStyleVar(ImGuiStyleVar_PopupRounding, 4);
     menuBarStyles.pushStyleVar(ImGuiStyleVar_ItemSpacing, {10, 4});  // menu padding

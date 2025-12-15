@@ -9,7 +9,7 @@
 IwsServerChildWindow::IwsServerChildWindow(const std::shared_ptr<iws::Server>& server)
     : server(server), serverDropdownChildWindow_(server) {}
 
-bool IwsServerChildWindow::beginChildWindow() {
+bool IwsServerChildWindow::begin() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     ImGuiChildFlags childFlags =
@@ -19,4 +19,4 @@ bool IwsServerChildWindow::beginChildWindow() {
                              windowFlags);
 }
 
-void IwsServerChildWindow::displayChildWindowContent() { serverDropdownChildWindow_.display(); }
+void IwsServerChildWindow::renderContent() { serverDropdownChildWindow_.display(); }

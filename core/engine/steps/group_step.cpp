@@ -10,9 +10,7 @@ void engine::GroupStep::onStartup() {
 
 void engine::GroupStep::onRender() {
     for (const std::shared_ptr<engine::RenderStep>& renderStep : renderSteps) {
-        if (renderStep->shouldRender()) {
-            renderStep->onRender();
-        }
+        renderStep->render();
     }
 }
 
