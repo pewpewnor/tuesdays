@@ -7,7 +7,7 @@
 #include "debug/debug_info_overlay_window.hpp"
 #include "engine/engine.hpp"
 #include "globals/engine_state.hpp"
-#include "iws/iws.hpp"
+#include "iws/iws_group.hpp"
 #include "lifetimes/asset_loaders/fonts_lifetime.hpp"
 #include "lifetimes/asset_loaders/textures_lifetime.hpp"
 #include "lifetimes/ignored_tasks_lifetime.hpp"
@@ -88,7 +88,7 @@ void Application::addUiSteps() {
     auto topbarWindow = std::make_shared<TopbarWindow>(navbarWindow);
     g::engine->pushRenderStep(topbarWindow);
 
-    auto iwsGroup = std::make_shared<Iws>(navbarWindow, topbarWindow);
+    auto iwsGroup = std::make_shared<IwsGroup>(navbarWindow, topbarWindow);
     g::engine->pushGroupStep(iwsGroup);
 
 #ifdef DEBUG

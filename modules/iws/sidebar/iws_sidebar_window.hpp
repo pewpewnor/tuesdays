@@ -8,7 +8,7 @@
 #include "universal/navbar_window.hpp"
 #include "universal/topbar_window.hpp"
 
-class IwsSidebarWindow : public WindowRenderStep {
+class IwsSidebarWindow : public commons::WindowRenderStep {
 public:
     IwsSidebarWindow(const std::shared_ptr<NavbarWindow>& navbarWindow,
                      const std::shared_ptr<TopbarWindow>& topbarWindow);

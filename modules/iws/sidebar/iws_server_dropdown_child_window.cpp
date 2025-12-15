@@ -3,6 +3,7 @@
 #include <imgui-SFML.h>
 
 #include "globals/engine_state.hpp"
+#include "globals/textures.hpp"
 #include "imgui.h"
 #include "utils/imgui/child_window_flags_builder.hpp"
 #include "utils/imgui/colors.hpp"
@@ -16,6 +17,7 @@ bool IwsServerDropdownChildWindow::beginChildWindow() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     StylesScoped windowStyles;
+    windowStyles.pushStyleVarY(ImGuiStyleVar_WindowPadding, 12);
     windowStyles.pushStyleColor(ImGuiCol_ChildBg, wasHovered_ ? COLOR_CHOCOLATE : COLOR_NIGHT_2);
 
     ImGuiChildFlags childFlags =
@@ -26,8 +28,20 @@ bool IwsServerDropdownChildWindow::beginChildWindow() {
 }
 
 void IwsServerDropdownChildWindow::displayChildWindowContent() {
-    ImGui::Dummy({0, 16});
+    ImGui::Dummy({16, 0});
 
+    ImGui::SameLine();
+
+    ImGui::Image(isOpen_ ? g::textures->chevronDownIconGray : g::textures->chevronRightIconGray,
+                 {16, 16});
+
+    ImGui::SameLine();
+
+    ImGui::Dummy({8, 0});
+
+    ImGui::SameLine();
+
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 3);
     ImGui::TextUnformatted(serverName_.c_str());
 
     bool isHovered = ImGui::IsWindowHovered();

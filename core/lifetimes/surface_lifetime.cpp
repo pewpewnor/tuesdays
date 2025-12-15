@@ -11,8 +11,8 @@ void SurfaceLifetime::onStartup() {
         sf::VideoMode({static_cast<unsigned int>(WIDTH), static_cast<unsigned int>(HEIGHT)}),
         "Tuesdays");
     windowInitialized_ = true;
-    g::engine->window->clear(sf::Color::Black);  // TODO: remove and add loading screen onStartup
     g::engine->window->setVerticalSyncEnabled(true);
+    g::engine->window->clear(sf::Color::Black);  // TODO: remove and add loading screen onStartup
 
     if (!ImGui::SFML::Init(*g::engine->window)) {
         throw std::runtime_error("failed to initialize imgui-sfml");

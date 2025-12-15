@@ -13,6 +13,7 @@ namespace {
 bool actionIconButton(const std::string& label, float size, const sf::Texture& notHovered,
                       const sf::Texture& hovered) {
     bool isHovered = nextItemIsHovered(size + 8, size + 8);
+
     StylesScoped plusButtonStyles;
     plusButtonStyles.pushStyleVar(ImGuiStyleVar_FrameRounding, 16);
 
@@ -28,7 +29,7 @@ bool components::navbarAppImageButton(const std::string& label, bool isActive,
 
     StylesScoped styles;
     styles.pushStyleVar(ImGuiStyleVar_FramePadding, {padding, padding});
-    styles.pushStyleVar(ImGuiStyleVar_FrameBorderSize, 4);
+    styles.pushStyleVar(ImGuiStyleVar_FrameBorderSize, 3);
     styles.pushStyleVar(ImGuiStyleVar_FrameRounding, 8);
     styles.pushStyleColor(ImGuiCol_Button, isActive ? COLOR_AZURE : COLOR_TRANSPARENT);
     ImVec4 hoverActiveColor = isActive ? COLOR_AZURE : COLOR_CHOCOLATE;

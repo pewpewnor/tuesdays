@@ -4,10 +4,10 @@
 #include "universal/navbar_window.hpp"
 #include "universal/topbar_window.hpp"
 
-class Iws : public engine::GroupStep {
+class IwsGroup : public engine::GroupStep {
 public:
-    Iws(const std::shared_ptr<NavbarWindow>& navbarWindow,
-        const std::shared_ptr<TopbarWindow>& topbarWindow);
+    IwsGroup(const std::shared_ptr<NavbarWindow>& navbarWindow,
+             const std::shared_ptr<TopbarWindow>& topbarWindow);
 
     bool shouldRender() override;
 

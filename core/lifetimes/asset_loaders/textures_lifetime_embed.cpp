@@ -59,7 +59,7 @@ void TexturesLifetime::loadTextures() {
     static constexpr auto CHEVRON_RIGHT_ICON_GRAY = std::to_array<uint8_t>({
 #embed "assets/images/chevron-right-icon-gray.png"
     });
-    loadTextureFromMemory(g::textures->chevronDownIconGray, CHEVRON_RIGHT_ICON_GRAY.data(),
+    loadTextureFromMemory(g::textures->chevronRightIconGray, CHEVRON_RIGHT_ICON_GRAY.data(),
                           CHEVRON_RIGHT_ICON_GRAY.size(), NAME_OF(CHEVRON_RIGHT_ICON_GRAY));
 }
 

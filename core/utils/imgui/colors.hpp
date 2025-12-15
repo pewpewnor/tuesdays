@@ -14,7 +14,7 @@ consteval unsigned int hexDigit(char c) {
     if (c >= 'a' && c <= 'f') {
         return c - 'a' + 10;
     }
-    if (c <= 'A' || c >= 'F') {
+    if (c >= 'A' && c <= 'F') {
         throw std::invalid_argument("hex characters must be lowercase, not uppercase");
     }
     throw std::invalid_argument("invalid hex character was passed");

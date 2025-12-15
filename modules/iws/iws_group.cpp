@@ -1,4 +1,4 @@
-#include "iws.hpp"
+#include "iws_group.hpp"
 
 #include <memory>
 
@@ -8,15 +8,15 @@
 #include "iws/top/iws_menubar_window.hpp"
 #include "universal/states/universal_state.hpp"
 
-Iws::Iws(const std::shared_ptr<NavbarWindow>& navbarWindow,
-         const std::shared_ptr<TopbarWindow>& topbarWindow)
+IwsGroup::IwsGroup(const std::shared_ptr<NavbarWindow>& navbarWindow,
+                   const std::shared_ptr<TopbarWindow>& topbarWindow)
     : navbarWindow_(navbarWindow), topbarWindow_(topbarWindow) {
     auto iwsLifetime = std::make_shared<IwsLifetime>();
     startupSteps.push_back(iwsLifetime);
     shutdownSteps.push_back(iwsLifetime);
 }
 
-bool Iws::shouldRender() {
+bool IwsGroup::shouldRender() {
     bool shouldRender = univ::state->currentApp == univ::CurrentApp::Iws;
     if (shouldRender && renderSteps.empty()) {
         addRenderSteps();
@@ -24,9 +24,8 @@ bool Iws::shouldRender() {
     return shouldRender;
 }
 
-void Iws::addRenderSteps() {
-    auto iwsMenubarWindow = std::make_shared<IwsMenubarWindow>(topbarWindow_);
-    renderSteps.push_back(iwsMenubarWindow);
+void IwsGroup::addRenderSteps() {
+    renderSteps.push_back(std::make_shared<IwsMenubarWindow>(topbarWindow_));
 
     auto iwsSidebarWindow = std::make_shared<IwsSidebarWindow>(navbarWindow_, topbarWindow_);
     renderSteps.push_back(iwsSidebarWindow);

@@ -14,7 +14,7 @@ void IgnoredTasksLifetime::onShutdown() {
     spdlog::debug("Waiting for {} ignored futures to finish ...",
                   g::ignoredFutures->futures.size());
     for (const std::shared_future<void>& future : g::ignoredFutures->futures) {
-        future.wait_for(1min);
+        future.wait_for(10min);
     }
     g::ignoredFutures.reset();
     spdlog::debug("Ignored futures has finished");

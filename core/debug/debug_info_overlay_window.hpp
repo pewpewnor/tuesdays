@@ -3,7 +3,7 @@
 
 #include "commons/window_render_step.hpp"
 
-class DebugInfoOverlayWindow : public WindowRenderStep {
+class DebugInfoOverlayWindow : public commons::WindowRenderStep {
 public:
     bool beginWindow() override;
 

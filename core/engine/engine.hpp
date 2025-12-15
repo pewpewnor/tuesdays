@@ -28,9 +28,9 @@ public:
 
     void sendRefreshSignal(int n = 1);
 
-    void sendRestartSignal();
-
     void sendStopSignal();
+
+    void sendRestartSignal();
 
     void waitUntilStopped();
 
@@ -42,9 +42,9 @@ private:
     };
 
     EngineRunningState runningState_;
-    std::atomic<bool> stopSignal_ = false;
+    bool stopSignal_ = false;
     std::atomic<unsigned int> refreshSignal_ = 0;
-    std::atomic<bool> restartAfterShutdown_ = false;
+    bool restartAfterShutdown_ = false;
     sf::Clock deltaClock_;
     unsigned int trailingRefresh_ = 0;
 
