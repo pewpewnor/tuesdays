@@ -4,10 +4,10 @@
 
 class BringWindowToFrontOnce {
 public:
-    void checkForCurrentWindow() {
+    void bringToFrontIfFirstTime() {
         if (firstTime_) {
-            firstTime_ = false;
             ImGui::BringWindowToDisplayFront(ImGui::GetCurrentWindow());
+            firstTime_ = false;
         }
     }
 

@@ -6,7 +6,6 @@
 #include "globals/fonts.hpp"
 #include "globals/textures.hpp"
 #include "iws/states/iws_state.hpp"
-#include "iws/states/iws_ui.hpp"
 #include "universal/components/image_buttons.hpp"
 #include "utils/assertions.hpp"
 #include "utils/imgui/colors.hpp"
@@ -62,7 +61,9 @@ void IwsSidebarWindow::renderWindowContent() {
     ImGui::SameLine();
 
     constexpr float plusButtonSize = 16;
-    putNexItemAtTheEndOfWindow(plusButtonSize, 16);
+    constexpr float windowRightPadding = 16;
+    putNexItemAtTheEndOfWindow(plusButtonSize,
+                               windowRightPadding + 2);  // add for small align adjustments
     if (components::plusIconButton("IwsSidebarWindow_PlusServer", 16)) {
         ASSERT(!iws::state->showCreateServerModal, "button cannot be pressed again");
         iws::state->showCreateServerModal = true;
@@ -73,7 +74,7 @@ void IwsSidebarWindow::renderWindowContent() {
 
     ImGui::Dummy({0, 12});
 
-    for (IwsServerChildWindow& serverGroupChildWindow : iws::ui->serverChildWindows) {
+    for (IwsServerChildWindow& serverGroupChildWindow : iws::state->serverChildWindows) {
         serverGroupChildWindow.display();
     }
 

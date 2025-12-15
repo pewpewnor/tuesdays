@@ -7,11 +7,13 @@
 #include "imgui.h"
 #include "utils/imgui/child_window_flags_builder.hpp"
 #include "utils/imgui/colors.hpp"
+#include "utils/imgui/helpers.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsServerDropdownChildWindow::IwsServerDropdownChildWindow(const std::string& serverName)
-    : serverName_(serverName) {}
+IwsServerDropdownChildWindow::IwsServerDropdownChildWindow(
+    const std::shared_ptr<iws::Server>& server)
+    : server_(server) {}
 
 bool IwsServerDropdownChildWindow::beginChildWindow() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
@@ -23,7 +25,7 @@ bool IwsServerDropdownChildWindow::beginChildWindow() {
     ImGuiChildFlags childFlags =
         ChildWindowFlagsBuilder().addAutoResizeY().addAlwaysUseWindowPadding().build();
 
-    return ImGui::BeginChild(("IwsServerDropdownChildWindow_" + serverName_).c_str(), {0, 0},
+    return ImGui::BeginChild(("IwsServerDropdownChildWindow_" + server_->name).c_str(), {0, 0},
                              childFlags, windowFlags);
 }
 
@@ -41,8 +43,16 @@ void IwsServerDropdownChildWindow::displayChildWindowContent() {
 
     ImGui::SameLine();
 
-    ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 3);
-    ImGui::TextUnformatted(serverName_.c_str());
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 3);  // subtract for small align adjustments
+    ImGui::TextUnformatted(server_->name.c_str());
+
+    ImGui::SameLine();
+
+    auto endpointsCountStr = std::to_string(server_->endpoints.size());
+    const char* endpointsCountCStr = endpointsCountStr.c_str();
+    constexpr float windowRightPadding = 16;
+    putNexItemAtTheEndOfWindow(ImGui::CalcTextSize(endpointsCountCStr).x, windowRightPadding);
+    ImGui::TextUnformatted(endpointsCountCStr);
 
     bool isHovered = ImGui::IsWindowHovered();
     if (isHovered && !wasHovered_) {

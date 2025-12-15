@@ -1,15 +1,16 @@
 #pragma once
 
-#include <string>
+#include <memory>
 
 #include "commons/child_window_part.hpp"
+#include "iws/states/server.hpp"
 
 class IwsServerDropdownChildWindow : public commons::ChildWindowPart {
 public:
-    IwsServerDropdownChildWindow(const std::string& serverName);
+    IwsServerDropdownChildWindow(const std::shared_ptr<iws::Server>& server);
 
 private:
-    std::string serverName_;
+    std::shared_ptr<iws::Server> server_;
     bool isOpen_ = false;
     bool wasHovered_ = false;
 
