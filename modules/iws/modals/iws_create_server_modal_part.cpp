@@ -5,7 +5,6 @@
 #include "globals/engine_state.hpp"
 #include "globals/fonts.hpp"
 #include "iws/states/iws_state.hpp"
-#include "iws/states/iws_ui.hpp"
 #include "universal/components/image_buttons.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
@@ -101,7 +100,7 @@ void IwsCreateServerModalPart::displayContent() {
             violatedServerNameRequired_ = true;
             g::engine->sendRefreshSignal();  // for auto resize
         } else {
-            iws::ui->serverChildWindows.emplace_back(std::make_shared<iws::Server>(serverName));
+            iws::state->serverChildWindows.emplace_back(std::make_shared<iws::Server>(serverName));
             closePopup();
             return;
         }

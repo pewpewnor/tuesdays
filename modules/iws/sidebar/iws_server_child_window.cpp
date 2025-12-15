@@ -7,7 +7,7 @@
 #include "utils/imgui/window_flags_builder.hpp"
 
 IwsServerChildWindow::IwsServerChildWindow(const std::shared_ptr<iws::Server>& server)
-    : server(server), serverDropdownChildWindow_(server->name) {}
+    : server(server), serverDropdownChildWindow_(server) {}
 
 bool IwsServerChildWindow::beginChildWindow() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();

@@ -23,3 +23,7 @@ void putNexItemAtTheEndOfWindow(float itemWidth, float gap) {
         ImGui::SetCursorPosX(targetPosX);
     }
 }
+
+bool isWindowLeftClicked() {
+    return ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left);
+}
