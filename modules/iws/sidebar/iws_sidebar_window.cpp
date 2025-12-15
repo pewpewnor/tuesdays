@@ -8,6 +8,7 @@
 #include "iws/states/iws_state.hpp"
 #include "iws/states/iws_ui.hpp"
 #include "universal/components/image_buttons.hpp"
+#include "utils/assertions.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/font_scoped.hpp"
 #include "utils/imgui/helpers.hpp"
@@ -31,14 +32,17 @@ bool IwsSidebarWindow::beginWindow() {
                                        .build();
 
     StylesScoped windowStyles;
-    windowStyles.pushStyleVarX(ImGuiStyleVar_WindowPadding, 16);
     windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_2);
 
     return ImGui::Begin("IwsSidebarWindow", nullptr, windowFlags);
 }
 
 void IwsSidebarWindow::renderWindowContent() {
-    ImGui::Dummy({0, 16});
+    ImGui::Dummy({0, 20});
+
+    ImGui::Dummy({16, 0});
+
+    ImGui::SameLine();
 
     ImGui::Image(g::textures->listIconGray, {20, 20});
 
@@ -58,7 +62,7 @@ void IwsSidebarWindow::renderWindowContent() {
     ImGui::SameLine();
 
     constexpr float plusButtonSize = 16;
-    putNexItemAtTheEndOfWindow(plusButtonSize);
+    putNexItemAtTheEndOfWindow(plusButtonSize, 16);
     if (components::plusIconButton("IwsSidebarWindow_PlusServer", 16)) {
         ASSERT(!iws::state->showCreateServerModal, "button cannot be pressed again");
         iws::state->showCreateServerModal = true;
@@ -67,7 +71,7 @@ void IwsSidebarWindow::renderWindowContent() {
         g::engine->sendRefreshSignal(10);
     };
 
-    ImGui::Dummy({0, 8});
+    ImGui::Dummy({0, 12});
 
     for (IwsServerChildWindow& serverGroupChildWindow : iws::ui->serverChildWindows) {
         serverGroupChildWindow.display();

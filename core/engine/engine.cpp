@@ -81,14 +81,14 @@ void engine::Engine::sendRefreshSignal(int n) {
     refreshSignal_ += n;
 }
 
-void engine::Engine::sendRestartSignal() {
-    spdlog::debug("Sending restart signal to engine ...");
-    restartAfterShutdown_ = true;
+void engine::Engine::sendStopSignal() {
+    spdlog::debug("Sending stop signal to engine ...");
     stopSignal_ = true;
 }
 
-void engine::Engine::sendStopSignal() {
-    spdlog::debug("Sending stop signal to engine ...");
+void engine::Engine::sendRestartSignal() {
+    spdlog::debug("Sending restart signal to engine ...");
+    restartAfterShutdown_ = true;
     stopSignal_ = true;
 }
 
@@ -143,12 +143,10 @@ bool engine::Engine::processEvents() {
     if (!refresh) {
         if (hasFocus && ImGui::GetIO().WantTextInput) {
             refresh = true;
-        } else {
-            unsigned int expected = refreshSignal_;
-            if (expected > 0 && refreshSignal_.compare_exchange_strong(expected, expected - 1)) {
-                refresh = true;
-                refreshNeedsTrailing = true;
-            }
+        } else if (unsigned int expected = refreshSignal_;
+                   expected > 0 && refreshSignal_.compare_exchange_strong(expected, expected - 1)) {
+            refresh = true;
+            refreshNeedsTrailing = true;
         }
     }
 

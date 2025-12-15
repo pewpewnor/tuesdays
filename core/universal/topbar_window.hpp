@@ -4,7 +4,7 @@
 
 #include "navbar_window.hpp"
 
-class TopbarWindow : public WindowRenderStep {
+class TopbarWindow : public commons::WindowRenderStep {
 public:
     TopbarWindow(const std::shared_ptr<NavbarWindow>& navbar);
 

@@ -10,6 +10,7 @@ public:
 
 private:
     std::string serverName_;
+    bool isOpen_ = false;
     bool wasHovered_ = false;
 
     bool beginChildWindow() override;

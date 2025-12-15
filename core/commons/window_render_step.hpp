@@ -4,6 +4,8 @@
 
 #include "engine/steps/render_step.hpp"
 
+namespace commons {
+
 class WindowRenderStep : public virtual engine::RenderStep {
 public:
     ImVec2 windowPos;
@@ -24,3 +26,5 @@ private:
 
     virtual void renderWindowContent();
 };
+
+}
