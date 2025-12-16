@@ -12,15 +12,15 @@ IwsMenubarWindow::IwsMenubarWindow(const std::shared_ptr<TopbarWindow>& topbarWi
     : topbarWindow_(topbarWindow) {}
 
 bool IwsMenubarWindow::begin() {
-    ImGui::SetNextWindowPos({topbarWindow_->windowPos.x, topbarWindow_->windowPos.y + 8});
-    ImGui::SetNextWindowSize({0, topbarWindow_->windowSize.y - 8});
-
-    ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addMenuBar().addStatic().build();
-
     StylesScoped windowStyles;
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowMinSize, {0, 0});  // remove bottom margin
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {16, 4});
     windowStyles.pushStyleColor(ImGuiCol_MenuBarBg, COLOR_NIGHT_1);
+
+    ImGui::SetNextWindowPos({topbarWindow_->windowPos.x, topbarWindow_->windowPos.y + 8});
+    ImGui::SetNextWindowSize({0, topbarWindow_->windowSize.y - 8});
+
+    ImGuiWindowFlags windowFlag = WindowFlagsBuilder().addMenuBar().addStatic().build();
 
     return ImGui::Begin("IwsMenubarWindow", nullptr, windowFlag);
 }

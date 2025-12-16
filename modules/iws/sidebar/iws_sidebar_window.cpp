@@ -20,6 +20,9 @@ IwsSidebarWindow::IwsSidebarWindow(const std::shared_ptr<NavbarWindow>& navbarWi
     : navbarWindow_(navbarWindow), topbarWindow_(topbarWindow) {}
 
 bool IwsSidebarWindow::begin() {
+    StylesScoped windowStyles;
+    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_2);
+
     ImGui::SetNextWindowPos({navbarWindow_->windowPos.x + navbarWindow_->windowSize.x,
                              topbarWindow_->windowPos.y + topbarWindow_->windowSize.y});
     ImGui::SetNextWindowSize(
@@ -30,9 +33,6 @@ bool IwsSidebarWindow::begin() {
                                        .addNoCollapse()
                                        .addNoDecoration()
                                        .build();
-
-    StylesScoped windowStyles;
-    windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_2);
 
     return ImGui::Begin("IwsSidebarWindow", nullptr, windowFlags);
 }
@@ -62,10 +62,9 @@ void IwsSidebarWindow::renderContent() {
     ImGui::SameLine();
 
     constexpr float plusButtonSize = 16;
-    constexpr float windowRightPadding = 16;
-    putNexItemAtTheEndOfWindow(plusButtonSize,
-                               windowRightPadding + 2);  // add for small align adjustments
-    if (components::plusIconButton("IwsSidebarWindow_PlusServer", 16)) {
+    constexpr float windowRightPadding = 14;
+    putNexItemAtTheEndOfWindow(plusButtonSize, windowRightPadding);
+    if (components::plusIconButton("IwsSidebarWindow_Plus", 16)) {
         ASSERT(!iws::state->showCreateServerModal, "button cannot be pressed again");
         iws::state->showCreateServerModal = true;
         iwsCreateServerModal_ = std::make_unique<IwsCreateServerModalPart>();
@@ -75,7 +74,8 @@ void IwsSidebarWindow::renderContent() {
 
     ImGui::Dummy({0, 12});
 
-    for (IwsServerChildWindow& serverGroupChildWindow : iws::state->serverChildWindows) {
+    for (IwsServerChildWindow& serverGroupChildWindow :
+         iws::state->collections.serverChildWindows) {
         serverGroupChildWindow.display();
     }
 

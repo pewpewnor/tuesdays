@@ -2,16 +2,15 @@
 
 #include <filesystem>
 #include <memory>
-#include <vector>
 
-#include "iws/sidebar/iws_server_child_window.hpp"
+#include "iws/states/iws_collections_manager.hpp"
 
 namespace iws {
 
 struct IwsState {
     bool showCreateServerModal = false;
     std::filesystem::path workspacePath;
-    std::vector<IwsServerChildWindow> serverChildWindows;
+    IwsCollectionsManager collections;
 };
 
 inline std::unique_ptr<iws::IwsState> state;

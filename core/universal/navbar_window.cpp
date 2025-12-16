@@ -11,13 +11,13 @@
 #include "utils/imgui/window_flags_builder.hpp"
 
 bool NavbarWindow::begin() {
-    ImGui::SetNextWindowPos({0, 0});
-    ImGui::SetNextWindowSize({0, ImGui::GetMainViewport()->WorkSize.y}, ImGuiCond_Always);
-    ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
-
     StylesScoped windowStyles;
     windowStyles.pushStyleVar(ImGuiStyleVar_WindowPadding, {12, 12});
     windowStyles.pushStyleColor(ImGuiCol_WindowBg, COLOR_NIGHT_1);
+
+    ImGui::SetNextWindowPos({0, 0});
+    ImGui::SetNextWindowSize({0, ImGui::GetMainViewport()->WorkSize.y}, ImGuiCond_Always);
+    ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
 
     return ImGui::Begin("NavbarWindow", nullptr, windowFlags);
 }

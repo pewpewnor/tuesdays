@@ -16,12 +16,13 @@ IwsServerDropdownChildWindow::IwsServerDropdownChildWindow(
     : server_(server) {}
 
 bool IwsServerDropdownChildWindow::begin() {
-    ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
-
     StylesScoped windowStyles;
     windowStyles.pushStyleVarY(ImGuiStyleVar_WindowPadding, 12);
     windowStyles.pushStyleColor(ImGuiCol_ChildBg, wasHovered_ ? COLOR_CHOCOLATE : COLOR_NIGHT_2);
 
+    ImGui::SetNextWindowSize({windowSizeX, 0});
+
+    ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
     ImGuiChildFlags childFlags =
         ChildWindowFlagsBuilder().addAutoResizeY().addAlwaysUseWindowPadding().build();
 
@@ -34,7 +35,7 @@ void IwsServerDropdownChildWindow::renderContent() {
 
     ImGui::SameLine();
 
-    ImGui::Image(isOpen_ ? g::textures->chevronDownIconGray : g::textures->chevronRightIconGray,
+    ImGui::Image(isOpen ? g::textures->chevronDownIconGray : g::textures->chevronRightIconGray,
                  {16, 16});
 
     ImGui::SameLine();
@@ -43,16 +44,26 @@ void IwsServerDropdownChildWindow::renderContent() {
 
     ImGui::SameLine();
 
-    ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 3);  // subtract for small align adjustments
+    constexpr int serverNameStartYAlignAdjustment = 2;
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() - serverNameStartYAlignAdjustment);
     ImGui::TextUnformatted(server_->name.c_str());
 
     ImGui::SameLine();
 
-    auto endpointsCountStr = std::to_string(server_->endpoints.size());
-    const char* endpointsCountCStr = endpointsCountStr.c_str();
-    constexpr float windowRightPadding = 16;
-    putNexItemAtTheEndOfWindow(ImGui::CalcTextSize(endpointsCountCStr).x, windowRightPadding);
-    ImGui::TextUnformatted(endpointsCountCStr);
+    {
+        StylesScoped endpointsCountStyles;
+        endpointsCountStyles.pushStyleColor(ImGuiCol_Text, COLOR_FG_MUTED);
+
+        auto endpointsCountStr = std::to_string(server_->endpoints.size());
+        const char* endpointsCountCStr = endpointsCountStr.c_str();
+        constexpr float windowRightPadding = 4;
+        putNexItemAtTheEndOfWindow(ImGui::CalcTextSize(endpointsCountCStr).x, windowRightPadding);
+        ImGui::TextUnformatted(endpointsCountCStr);
+    }
+
+    if (isWindowLeftClicked()) {
+        isOpen = !isOpen;
+    }
 
     bool isHovered = ImGui::IsWindowHovered();
     if (isHovered && !wasHovered_) {

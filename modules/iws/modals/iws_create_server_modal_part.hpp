@@ -8,6 +8,7 @@ class IwsCreateServerModalPart : public commons::PopupWindowPart {
 private:
     std::array<char, 257> serverNameBuffer_ = {'\0'};
     bool violatedServerNameRequired_ = false;
+    bool violatedServerNameMustBeUnique_ = false;
 
     bool begin() override;
 

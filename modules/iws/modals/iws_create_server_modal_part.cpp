@@ -48,6 +48,8 @@ void IwsCreateServerModalPart::renderContent() {
 
     ImGui::Separator();
 
+    bool attemptCreate = false;
+
     {
         StylesScoped serverNameInputStyles;
         serverNameInputStyles.pushStyleVarY(ImGuiStyleVar_ItemSpacing, 8);
@@ -58,11 +60,15 @@ void IwsCreateServerModalPart::renderContent() {
         }
 
         setNextItemWidthAsLongAsPossible();
-        ImGui::InputText("##IwsCreateServerModal_ServerName", serverNameBuffer_.data(),
-                         serverNameBuffer_.size());
+        if (ImGui::InputText("##IwsCreateServerModal_ServerName", serverNameBuffer_.data(),
+                             serverNameBuffer_.size(), ImGuiInputTextFlags_EnterReturnsTrue)) {
+            attemptCreate = true;
+        }
 
         if (violatedServerNameRequired_) {
             ImGui::TextColored(COLOR_ORANGE, "name is required");
+        } else if (violatedServerNameMustBeUnique_) {
+            ImGui::TextColored(COLOR_ORANGE, "name already exists");
         }
     }
 
@@ -92,22 +98,34 @@ void IwsCreateServerModalPart::renderContent() {
     okButtonStyles.pushStyleColor(ImGuiCol_ButtonHovered, COLOR_AZURE);
     okButtonStyles.pushStyleColor(ImGuiCol_ButtonActive, COLOR_AZURE);
 
-    if (ImGui::Button("OK", ImVec2(96, 36))) {
+    ImGui::SetNextItemShortcut(ImGuiKey_Enter);
+    if (ImGui::Button("OK", ImVec2(96, 36)) || attemptCreate) {
         std::string serverName(serverNameBuffer_.data());
+        resetValidations();
+
+        bool passAllValidations = true;
 
         if (serverName.length() < 1) {
-            resetValidations();
             violatedServerNameRequired_ = true;
-            g::engine->sendRefreshSignal();  // for auto resize
-        } else {
-            iws::state->serverChildWindows.emplace_back(std::make_shared<iws::Server>(serverName));
+            passAllValidations = false;
+        } else if (iws::state->collections.findServer(serverName).has_value()) {
+            violatedServerNameMustBeUnique_ = true;
+            passAllValidations = false;
+        }
+
+        if (passAllValidations) {
+            iws::state->collections.addServer(std::make_shared<iws::Server>(serverName));
             closePopup();
             return;
         }
+        g::engine->sendRefreshSignal();  // for auto resize
     }
 }
 
-void IwsCreateServerModalPart::resetValidations() { violatedServerNameRequired_ = false; }
+void IwsCreateServerModalPart::resetValidations() {
+    violatedServerNameRequired_ = false;
+    violatedServerNameMustBeUnique_ = false;
+}
 
 void IwsCreateServerModalPart::closePopup() {
     iws::state->showCreateServerModal = false;
