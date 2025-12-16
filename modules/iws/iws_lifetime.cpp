@@ -11,8 +11,9 @@ void IwsLifetime::onStartup() {
     for (int i = 0; i < 10; i++) {
         alpha->endpoints.emplace_back("");
     }
-    iws::state->serverChildWindows.emplace_back(alpha);
-    iws::state->serverChildWindows.emplace_back(std::make_shared<iws::Server>("bravo"));
+    iws::state->collections.addServer(alpha);
+
+    iws::state->collections.addServer(std::make_shared<iws::Server>("bravo"));
 }
 
 void IwsLifetime::onShutdown() {

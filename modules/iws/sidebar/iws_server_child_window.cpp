@@ -3,7 +3,9 @@
 #include <imgui-SFML.h>
 
 #include "iws/states/server.hpp"
+#include "universal/components/image_buttons.hpp"
 #include "utils/imgui/child_window_flags_builder.hpp"
+#include "utils/imgui/helpers.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
 IwsServerChildWindow::IwsServerChildWindow(const std::shared_ptr<iws::Server>& server)
@@ -11,12 +13,27 @@ IwsServerChildWindow::IwsServerChildWindow(const std::shared_ptr<iws::Server>& s
 
 bool IwsServerChildWindow::begin() {
     ImGuiWindowFlags windowFlags = WindowFlagsBuilder().addStatic().build();
-
-    ImGuiChildFlags childFlags =
-        ChildWindowFlagsBuilder().addAutoResizeY().addAlwaysUseWindowPadding().build();
+    ImGuiChildFlags childFlags = ChildWindowFlagsBuilder().addAutoResizeY().build();
 
     return ImGui::BeginChild(("IwsServerChildWindow_" + server->name).c_str(), {0, 0}, childFlags,
                              windowFlags);
 }
 
-void IwsServerChildWindow::renderContent() { serverDropdownChildWindow_.display(); }
+void IwsServerChildWindow::renderContent() {
+    constexpr float windowRightPadding = 14;
+    constexpr int additionalWindowRightPaddingAlignAdjustment = 2;
+    constexpr float plusButtonSize = 16;
+    constexpr float rightSideSize =
+        ((windowRightPadding + additionalWindowRightPaddingAlignAdjustment) * 2) + plusButtonSize;
+
+    serverDropdownChildWindow_.windowSizeX = ImGui::GetWindowSize().x - rightSideSize;
+    serverDropdownChildWindow_.display();
+
+    ImGui::SameLine();
+
+    ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 10);
+
+    putNexItemAtTheEndOfWindow(plusButtonSize, windowRightPadding);
+    if (components::plusIconButton("IwsServerChildWindow_Plus", 16)) {
+    };
+}

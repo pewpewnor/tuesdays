@@ -15,6 +15,7 @@ bool actionIconButton(const std::string& label, float size, const sf::Texture& n
     bool isHovered = nextItemIsHovered(size + 8, size + 8);
 
     StylesScoped plusButtonStyles;
+    plusButtonStyles.pushStyleVar(ImGuiStyleVar_FramePadding, {4, 4});
     plusButtonStyles.pushStyleVar(ImGuiStyleVar_FrameRounding, 16);
 
     return ImGui::ImageButton(label.c_str(), isHovered ? hovered : notHovered, {size, size});
