@@ -14,7 +14,7 @@ public:
     ~ChildWindowPart() override = default;
 
 private:
-    void endContent() override;
+    void end() override;
 };
 
 }

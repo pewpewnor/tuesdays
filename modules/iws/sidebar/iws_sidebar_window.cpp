@@ -66,10 +66,11 @@ void IwsSidebarWindow::renderContent() {
     putNexItemAtTheEndOfWindow(plusButtonSize, windowRightPadding);
     if (components::plusIconButton("IwsSidebarWindow_Plus", 16)) {
         ASSERT(!iws::state->showCreateServerModal, "button cannot be pressed again");
+
         iws::state->showCreateServerModal = true;
-        iwsCreateServerModal_ = std::make_unique<IwsCreateServerModalPart>();
+        iwsCreateServerModalPart_ = std::make_unique<IwsCreateServerModalPart>();
         ImGui::OpenPopup("IwsCreateServerModal");
-        g::engine->sendRefreshSignal(10);
+        g::engine->sendRefreshSignal(10);  // for overlay animation
     };
 
     ImGui::Dummy({0, 12});
@@ -80,10 +81,11 @@ void IwsSidebarWindow::renderContent() {
     }
 
     if (iws::state->showCreateServerModal) {
-        ASSERT(iwsCreateServerModal_, "modal show state and existance must be in sync");
-        iwsCreateServerModal_->display();
+        ASSERT(iwsCreateServerModalPart_, "modal show state and existance must be in sync");
+
+        iwsCreateServerModalPart_->display();
     } else {
-        iwsCreateServerModal_.reset();
+        iwsCreateServerModalPart_.reset();
     }
 
     windowPos = ImGui::GetWindowPos();

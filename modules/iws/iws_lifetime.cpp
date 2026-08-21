@@ -8,9 +8,8 @@ void IwsLifetime::onStartup() {
     iws::state = std::make_unique<iws::IwsState>();
 
     auto alpha = std::make_shared<iws::Server>("alpha");
-    for (int i = 0; i < 10; i++) {
-        alpha->endpoints.emplace_back("");
-    }
+    alpha->endpoints.push_back(std::make_shared<iws::Endpoint>("Get Users"));
+    alpha->endpoints.push_back(std::make_shared<iws::Endpoint>("Create User"));
     iws::state->collections.addServer(alpha);
 
     iws::state->collections.addServer(std::make_shared<iws::Server>("bravo"));

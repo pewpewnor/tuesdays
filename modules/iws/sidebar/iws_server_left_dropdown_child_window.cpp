@@ -1,21 +1,20 @@
-#include "iws_server_dropdown_child_window.hpp"
+#include "iws_server_left_dropdown_child_window.hpp"
 
 #include <imgui-SFML.h>
 
 #include "globals/engine_state.hpp"
 #include "globals/textures.hpp"
-#include "imgui.h"
 #include "utils/imgui/child_window_flags_builder.hpp"
 #include "utils/imgui/colors.hpp"
 #include "utils/imgui/helpers.hpp"
 #include "utils/imgui/styles_scoped.hpp"
 #include "utils/imgui/window_flags_builder.hpp"
 
-IwsServerDropdownChildWindow::IwsServerDropdownChildWindow(
+IwsServerLeftDropdownChildWindow::IwsServerLeftDropdownChildWindow(
     const std::shared_ptr<iws::Server>& server)
     : server_(server) {}
 
-bool IwsServerDropdownChildWindow::begin() {
+bool IwsServerLeftDropdownChildWindow::begin() {
     StylesScoped windowStyles;
     windowStyles.pushStyleVarY(ImGuiStyleVar_WindowPadding, 12);
     windowStyles.pushStyleColor(ImGuiCol_ChildBg, wasHovered_ ? COLOR_CHOCOLATE : COLOR_NIGHT_2);
@@ -30,7 +29,7 @@ bool IwsServerDropdownChildWindow::begin() {
                              childFlags, windowFlags);
 }
 
-void IwsServerDropdownChildWindow::renderContent() {
+void IwsServerLeftDropdownChildWindow::renderContent() {
     ImGui::Dummy({16, 0});
 
     ImGui::SameLine();
@@ -63,11 +62,8 @@ void IwsServerDropdownChildWindow::renderContent() {
 
     if (isWindowLeftClicked()) {
         isOpen = !isOpen;
+        g::engine->sendRefreshSignal();  // for auto resize
     }
 
-    bool isHovered = ImGui::IsWindowHovered();
-    if (isHovered && !wasHovered_) {
-        g::engine->sendRefreshSignal();
-    }
-    wasHovered_ = isHovered;
+    wasHovered_ = ImGui::IsWindowHovered();
 }

@@ -19,7 +19,7 @@ public:
 private:
     std::shared_ptr<NavbarWindow> navbarWindow_;
     std::shared_ptr<TopbarWindow> topbarWindow_;
-    std::unique_ptr<IwsCreateServerModalPart> iwsCreateServerModal_;
+    std::unique_ptr<IwsCreateServerModalPart> iwsCreateServerModalPart_;
 
     bool begin() override;
 
