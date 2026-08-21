@@ -2,4 +2,4 @@
 
 #include <imgui.h>
 
-void commons::ChildWindowPart::endContent() { ImGui::EndChild(); }
+void commons::ChildWindowPart::end() { ImGui::EndChild(); }

@@ -98,7 +98,7 @@ void engine::Engine::waitUntilStopped() {
 }
 
 void engine::Engine::startup() {
-    trailingRefresh_ = 3;
+    trailingRefresh_ = 5;
     refreshSignal_ = 0;
     spdlog::debug("Engine executing startup steps ...");
     onStartup();

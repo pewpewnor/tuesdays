@@ -7,11 +7,11 @@
 
 class IwsEndpointChildWindow : public commons::ChildWindowPart {
 public:
-    std::shared_ptr<iws::Endpoint> endpoint;
-
     IwsEndpointChildWindow(const std::shared_ptr<iws::Endpoint>& endpoint);
 
 private:
+    std::shared_ptr<iws::Endpoint> endpoint_;
+
     bool begin() override;
 
     void renderContent() override;

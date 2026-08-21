@@ -5,6 +5,7 @@
 
 void IwsCollectionsManager::addServer(const std::shared_ptr<iws::Server>& server) {
     servers_.push_back(server);
+
     serverChildWindows.emplace_back(server);
 }
 

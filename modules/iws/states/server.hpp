@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -10,7 +11,7 @@ namespace iws {
 struct Server {
 public:
     std::string name;
-    std::vector<iws::Endpoint> endpoints;
+    std::vector<std::shared_ptr<iws::Endpoint>> endpoints;
 
     Server(std::string_view name) : name(name) {}
 };
